@@ -101,6 +101,7 @@ MAT 的核心判断是：**大部分需要 AI 完成的工作，并不需要最�
 ## 6. 技术说明
 
 - 单个 HTML 文件，CSS 和 JS 都内联；唯一的外部依赖是 jsDelivr 上的 [Lenis](https://github.com/darkroomengineering/lenis)（平滑滚动，加载失败时页面照常工作）。
+- 各家标志：`<body>` 开头内联一份 SVG sprite（21 个 `<symbol id="lg-…">`），同一套 24 网格、同一视觉体积，颜色跟随文字（`fill: currentColor`）。02 的六个模型框、07 的各家订阅列和悬停卡片、08 排行的每一行都用它：订阅和产品用产品标志（Claude、ChatGPT → OpenAI、Gemini…），排行用厂商标志。来源 LobeHub Icons（MIT）、Simple Icons（CC0）、svglogos.dev（CC0）、Lucide（ISC），归一化方法见 MAT 项目文档 `MAT-logos.md`。标志的商标权归各家：Microsoft（Copilot）要书面许可，Google、Meta、MiniMax 要先批准——正式公开前取得许可，或删掉对应的 `<symbol>` 和 `MODELS` / `MKLG` 里的 id，那一处只显示文字。
 - 没有构建步骤、没有统计、没有 cookie；`localStorage` 只记两件事：你选的动效强度、是否已提交等候名单。
 - 本地预览：直接用浏览器打开 `index.html`。
 - 发布：`sh publish.sh`。第一次会建仓库、打开 GitHub Pages；以后再跑就是提交并推送，`.github/workflows/pages.yml` 只把 `index.html` 发布出去。
