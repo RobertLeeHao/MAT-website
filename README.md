@@ -94,7 +94,8 @@ MAT 的核心判断是：**大部分需要 AI 完成的工作，并不需要最�
 | 11 | Questions | 问答 |
 | 12 | Waitlist | 等候名单 |
 
-- 右上角可切换动效强度：**Quiet**（静态）/ **Bold** / **Loud**；系统开了"减弱动态效果"时默认 Quiet。按 **G** 显示 12 栏网格。
+- 动效只有一套：默认会动（几段由滚动驱动），系统开了"减弱动态效果"时整页静止。原先导航右侧的 Quiet / Bold / Loud 切换已经去掉——让访客挑动效强度不是正式网站该有的东西；评审时可在网址后加 `?motion=quiet`、`?motion=bold` 或 `?motion=loud` 强制某一档。按 **G**（或网址加 `?grid`）显示 12 栏网格。
+- 手机上（宽度 ≤ 699 px）是一栏安静的版本：什么都不钉住，不用滚好几屏去推动画；首屏的对话自己把三个例子播一遍（点对话上方的 01 / 02 / 03 可以重播那一段）；每段只留编号、标题、一句话和一块内容，04 的赛跑图、06 的应用窗口、10 的示意图、字母编号、交叉引用和数据表只在宽屏上出现；列表统一成一种样式；问答折叠；导航只有标志和一个"Join the waitlist"按钮（滑过首屏的输入框后出现），底部不再有常驻条。
 - 等候名单目前只是预览，不会发送任何邮箱地址。
 - 页面里的数字（时间、花销）是按各家公开价格算的示意，不是实测。
 
@@ -102,7 +103,7 @@ MAT 的核心判断是：**大部分需要 AI 完成的工作，并不需要最�
 
 - 单个 HTML 文件，CSS 和 JS 都内联；唯一的外部依赖是 jsDelivr 上的 [Lenis](https://github.com/darkroomengineering/lenis)（平滑滚动，加载失败时页面照常工作）。
 - 各家标志：`<body>` 开头内联一份 SVG sprite（21 个 `<symbol id="lg-…">`），同一套 24 网格、同一视觉体积，颜色跟随文字（`fill: currentColor`）。02 的六个模型框、07 的各家订阅列和悬停卡片、08 排行的每一行都用它：订阅和产品用产品标志（Claude、ChatGPT → OpenAI、Gemini…），排行用厂商标志。来源 LobeHub Icons（MIT）、Simple Icons（CC0）、svglogos.dev（CC0）、Lucide（ISC），归一化方法见 MAT 项目文档 `MAT-logos.md`。标志的商标权归各家：Microsoft（Copilot）要书面许可，Google、Meta、MiniMax 要先批准——正式公开前取得许可，或删掉对应的 `<symbol>` 和 `MODELS` / `MKLG` 里的 id，那一处只显示文字。
-- 没有构建步骤、没有统计、没有 cookie；`localStorage` 只记两件事：你选的动效强度、是否已提交等候名单。
+- 没有构建步骤、没有统计、没有 cookie；`localStorage` 只记一件事：是否已提交等候名单（以前存过的动效强度，打开页面时会被清掉）。
 - 本地预览：直接用浏览器打开 `index.html`。
 - 发布：`sh publish.sh`。第一次会建仓库、打开 GitHub Pages；以后再跑就是提交并推送，`.github/workflows/pages.yml` 只把 `index.html` 发布出去。
 

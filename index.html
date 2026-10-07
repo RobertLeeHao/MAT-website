@@ -62,7 +62,7 @@ h3{font-family:var(--display);font-size:var(--h3);font-weight:600;letter-spacing
 .small{font-size:var(--small);line-height:1.5;color:var(--dim)}
 .mono{font-family:var(--mono)}
 /* visual spacing: every text box is trimmed to cap height and baseline */
-h1,h2,h3,p,.lab>*,.acts .small,.num,.k,.fh,.files span,.data>*,.fmap a,.fbase>*,.btn .bl,.mcol .name,.steps .n,.acc-h .ix,.acc-h .kv,.legend span,.mpill>*,.motion-tip,.motion-tip b,.isl-cap,.sticky-cta .t>*{text-box:trim-both cap alphabetic}
+h1,h2,h3,p,.lab>*,.acts .small,.num,.k,.fh,.files span,.data>*,.fmap a,.fbase>*,.btn .bl,.mcol .name,.steps .n,.acc-h .ix,.acc-h .kv,.legend span,.mpill>*,.isl-cap{text-box:trim-both cap alphabetic}
 
 /* ── the grid ── */
 .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gt);padding-left:var(--m);padding-right:var(--m)}
@@ -95,18 +95,11 @@ html[data-motion="quiet"] .body,html[data-motion="quiet"] .why-g{padding-bottom:
 .links{grid-column:4/9;display:flex;gap:var(--s5);font-size:calc(13*var(--px));line-height:calc(16*var(--px));font-weight:500;color:var(--mute)}
 .links a{text-box:trim-both cap alphabetic}
 .links a:hover,.links a.cur{color:var(--paper)}
-.motion-wrap{grid-column:9/11;position:relative;display:flex;align-items:center;gap:var(--s3)}
-.motion-wrap .lbl{font-size:var(--small);color:var(--dim);text-box:trim-both cap alphabetic}
-.motion{position:relative;display:flex;box-shadow:inset 0 0 0 .5px var(--hc2)}
-.motion .thumb{position:absolute;top:0;bottom:0;left:0;background:rgba(244,239,230,.12);transition:transform .45s var(--out3),width .3s}
-.seg-btn{position:relative;z-index:1;border:0;background:none;height:calc(32*var(--px));padding:0 var(--s3);font-size:calc(12*var(--px));font-weight:600;color:var(--dim);cursor:pointer}
-.seg-btn+.seg-btn{border-left:var(--hair)}
-.seg-btn[aria-checked="true"]{color:var(--paper)}
-.motion-tip{position:absolute;top:calc(100% + var(--s4));left:0;width:calc(300*var(--px));font-size:calc(12*var(--px));line-height:1.5;color:var(--mute);background:var(--pop);box-shadow:inset 0 0 0 .5px var(--hc2);padding:var(--s3);opacity:0;pointer-events:none;transition:opacity .15s}
-.motion-tip b{display:block;color:var(--paper);margin-bottom:var(--s2)}
-.motion-tip.on{opacity:1}
+/* v3.2 · the mark, the sections and one button. The Quiet / Bold / Loud switch is gone: how much a page moves is not a question an
+   official site asks its visitors. It moves (Bold) unless the system asks for reduced motion (Quiet); ?motion=quiet|bold|loud still
+   forces a level for review. */
 .nav .cta{grid-column:11/13;display:flex;justify-content:flex-end}
-@media (max-width:1080px){ .links{display:none} .motion-wrap{grid-column:6/10} }
+@media (max-width:1080px){ .links{display:none} }
 
 /* ── buttons: flat, square, label flush left ── */
 .btn{display:inline-flex;align-items:center;justify-content:space-between;gap:var(--s4);height:calc(48*var(--px));padding:0 var(--s4);border:0;cursor:pointer;font-weight:600;font-size:calc(14*var(--px));transition:background .15s,color .15s}
@@ -115,7 +108,7 @@ html[data-motion="quiet"] .body,html[data-motion="quiet"] .why-g{padding-bottom:
 .btn.line{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 .5px var(--hc2)}
 .btn.line:hover{background:var(--faint)}
 .btn.md{height:calc(36*var(--px));font-size:calc(13*var(--px));padding:0 var(--s3)}
-.btn:focus-visible,.seg-btn:focus-visible{outline:1px solid var(--amber);outline-offset:2px}
+.btn:focus-visible{outline:1px solid var(--amber);outline-offset:2px}
 .acts{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s3)}
 .arw{position:relative;display:inline-block;overflow:hidden;width:1em;height:1em;line-height:1}
 .arw i{position:absolute;left:0;top:0;line-height:1;font-style:normal;transition:transform .5s var(--out)}
@@ -153,7 +146,6 @@ section[data-ground="amber"] .btn.primary{background:var(--amber);color:var(--am
 section[data-ground="amber"] .lab b{color:var(--amber)}
 section[data-ground="paper"] .btn.primary:hover,html[data-ground="paper"] .nav .btn.primary:hover{background:#2a2a2c}
 html[data-ground="paper"] .nav .logo canvas{filter:invert(1) hue-rotate(180deg)}
-html[data-ground="paper"] .motion .thumb{background:rgba(17,17,18,.1)}
 
 /* ═══ hero ═══ */
 #hero{overflow:hidden}
@@ -365,17 +357,13 @@ footer{background:#111112;color:#F4EFE6;padding-top:var(--s9)}
 .fmap>*{border-top:var(--hair);padding-top:var(--s4);display:flex;flex-direction:column;gap:var(--s3);padding-bottom:var(--s9)}
 .fmap>*:nth-child(1){grid-column:1/7} .fmap>*:nth-child(2){grid-column:7/9} .fmap>*:nth-child(3){grid-column:9/11} .fmap>*:nth-child(4){grid-column:11/13}
 .fmap .fh{font-family:var(--mono);font-weight:600;font-size:var(--small);color:var(--paper);margin-bottom:var(--s3)}
+.fmap .fh b{font-weight:inherit}
 .fmap .fh span{font-family:var(--text);font-weight:500;color:var(--mute);margin-left:var(--s4)}
 .fmap a{font-size:calc(13*var(--px));color:var(--mute)} .fmap a:hover{color:var(--paper)}
 .fmap .small{max-width:32ch}
 .fbase{font-size:var(--small);color:var(--dim)}
 .fbase>*{border-top:var(--hair);padding:var(--s4) 0}
 .fbase>*:nth-child(1){grid-column:1/7} .fbase>*:nth-child(2){grid-column:7/11} .fbase>*:nth-child(3){grid-column:11/13}
-.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:45;display:none;align-items:stretch;height:calc(60*var(--px));background:var(--ground);border-top:var(--hair);transform:translateY(100%);transition:transform .35s var(--out3)}
-.sticky-cta.on{transform:none}
-.sticky-cta .t{flex:1;display:flex;flex-direction:column;justify-content:center;gap:var(--s2);padding:0 var(--m);font-size:calc(13*var(--px))}
-.sticky-cta .t span{color:var(--dim);font-size:calc(12*var(--px))}
-.sticky-cta .btn{height:auto}
 
 /* ═══ reveals: only hidden once the script runs ═══ */
 .js .rv{transition:opacity .8s ease,transform 1s cubic-bezier(.2,.8,.2,1)}
@@ -391,8 +379,7 @@ footer{background:#111112;color:#F4EFE6;padding-top:var(--s9)}
 /* ═══ one column: phones, and every portrait screen up to 1199 px (iPad portrait) ═══ */
 @media (max-width:860px), (max-width:1199px) and (orientation:portrait){
   :root{--m:calc(24*var(--px));--gt:calc(12*var(--px));--sec:var(--s10);--ph:var(--s7);--hc-gap:var(--s5);--d1:clamp(calc(52*var(--px)),15vw,calc(96*var(--px)));--d2:clamp(calc(38*var(--px)),10.4vw,calc(64*var(--px)));--h3:calc(18*var(--px));--lede:calc(17*var(--px))}
-  .nav .cta{display:none} .motion-wrap{grid-column:5/-1;justify-content:flex-end} .motion-wrap .lbl{display:none} .logo{grid-column:1/5}
-  .motion-tip{left:auto;right:0}
+  .logo{grid-column:1/7} .nav .cta{grid-column:7/-1}
   .hd h2,.hd .lede,.hd .cap,#hero .lede{grid-column:1/-1}
   #hero .acts .btn{flex:1 1 100%}
   .hero-in{padding-top:calc(var(--navh) + var(--s9))}
@@ -425,8 +412,9 @@ footer{background:#111112;color:#F4EFE6;padding-top:var(--s9)}
   html[data-motion="quiet"] .isl-cell{height:calc(380*var(--px))}
   .fmap>*:nth-child(1){grid-column:1/-1} .fmap>*:nth-child(2){grid-column:1/5} .fmap>*:nth-child(3){grid-column:5/9} .fmap>*:nth-child(4){grid-column:9/13}
   .fbase>*:nth-child(n){grid-column:1/-1}
-  .sticky-cta{display:flex}
-  footer{padding-bottom:calc(60*var(--px))}
+  /* "How we counted" hangs to the left of its link in one column: hung to the right it ran past the edge between 700 and 767 px
+     whenever the race isn't pinned (Quiet, which is also what reduced motion gets), and the page zoomed out to fit it */
+  .how .pop.tip{left:auto;right:0}
 }
 @media (max-width:699px){
   .mcol .meta{padding:var(--s3) 0 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:var(--s1)} .mcol .meta .blogo{width:calc(14*var(--px));height:calc(14*var(--px))} .mcol .name{writing-mode:vertical-rl;transform:rotate(180deg);text-box:none;line-height:1} .mcol .skipnote{display:none}
@@ -538,12 +526,6 @@ footer{background:#111112;color:#F4EFE6;padding-top:var(--s9)}
   #hero .hero-wl,#hero .hero-meta,.cta-wl,#cta .cta-g>.small{grid-column:1/9}
   .wl .btn{flex:none}
   .rk-row{grid-template-columns:var(--s7) 1fr repeat(3,calc(104*var(--px)))} .rk-row .cv,.rk-row .cs{display:block} .rk-row .cq{grid-column:3} .rk-row .cv{grid-column:4} .rk-row .cs{grid-column:5}
-}
-/* small phones: the race isn't pinned (it would not fit); it plays as the chart scrolls through the screen */
-@media (max-width:699px) and (max-height:760px){
-  html[data-motion] #raceScene{height:auto} html[data-motion] #racePin{position:relative;height:auto;display:block;overflow:visible;padding-top:0}
-  html[data-motion] #racePin>.hd{padding-top:var(--sec)} html[data-motion] #racePin .chart{flex:none;height:calc(440*var(--px))}
-  html[data-motion] #racePin>.body{padding-bottom:var(--s10)}
 }
 /* ═══ v2.2 · no two sections share a structure ═══
    01 title held on the left, four pictograms on the right · 02 one diagram that rewires, the answers beside it
@@ -913,11 +895,6 @@ html[data-motion="quiet"] .wf.on{animation:none}
   .hero-l{grid-column:1/9}
   .cta-mat{grid-column:9/13;grid-row:3/5;margin-top:0;align-self:center;justify-content:flex-end}
 }
-/* small phones: the window isn't pinned (it would be too small to read); it plays as it scrolls through the screen, like the race */
-@media (max-width:699px) and (max-height:760px){
-  html[data-motion] #workScene{height:auto} html[data-motion] #workScene .pin{position:relative;height:auto;display:block;overflow:visible;padding-top:0}
-  html[data-motion] #workScene .pin>.hd{padding-top:var(--sec)} html[data-motion] #workScene .pin>.body{padding-bottom:var(--s10)}
-}
 
 /* ── 08 · memory: MAT's methods as Settings › Memory lists them — the title in the text face, then the kind of work and how often it was used ── */
 .files.mth span{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s4)}
@@ -925,21 +902,142 @@ html[data-motion="quiet"] .wf.on{animation:none}
 .files.mth span em{float:none;flex:none;margin-top:0}
 .files.mth span em i{font-style:normal;color:var(--green)}
 @media (max-width:860px), (max-width:1199px) and (orientation:portrait){ .files.mth span{flex-direction:column;align-items:flex-start;gap:var(--s2)} }
+
+/* ═══ v3.2 · phones (≤ 699 px): one calm column (2026-10-07) ═══
+   Robert: "官网移动端非常混乱，跟其他官网相比内容太满，太碎。" Measured at 390 × 844 against Linear, Raycast, Granola, Arc, Cursor,
+   Apple and Notion: their phone pages run 4–24 screens at 65–105 words a screen, body text 14–17 and almost nothing under 12; the nav
+   is the mark and one or two buttons; FAQs fold. This page had 31 screens in Bold (2,089 words), 10 % of its text under 12 px,
+   five scenes pinned for 14 screens between them, three email fields and a bar at the bottom. On phones now:
+   · nothing is pinned or held; every scene is as tall as its content. The hero's chat plays its three calls by itself.
+   · a section is its label, its title, one sentence and one body. Second pictures (the race chart, the app window, the pictograms,
+     the habit strips), letters, cross-references, captions and data tables stay on wider screens.
+   · one list style: a hairline, a 48 marker column (an icon or a number), the title (17), one paragraph (15, 12 under the title),
+     a closing hairline
+   · type: body 15, small 13
+   · one call to action that follows you: the nav's button once the hero's field has gone; the footer's field goes. */
+@media (max-width:699px){
+  :root{--sec:calc(80*var(--px));--hc-gap:var(--s7);--body:calc(15*var(--px));--small:calc(13*var(--px))}
+  /* nothing pinned, nothing held */
+  html[data-motion] #hero{position:relative}
+  .hero-run,.hc-hint,.lab em{display:none}
+  html[data-motion] .scene{height:auto}
+  html[data-motion] .pin{position:relative;height:auto;padding-top:0;display:block;overflow:visible}
+  html[data-motion] .pin>.hd{padding-top:var(--sec)}
+  html[data-motion] .pin>.body{padding-bottom:var(--s9)}
+  html[data-motion] .rw-pinbox{height:auto}
+  html[data-motion] .rw-fig{position:relative;top:auto}
+  #why .why-g{padding-bottom:var(--s9)!important}
+  #problem,#answer,#decide,#models,#soon,#faq{padding-bottom:var(--s9)}
+  /* the head: label, title, sentence */
+  .lab+h2,.prob,.why-head,#cta h2{margin-top:var(--s5)}
+  #cta h2{font-size:var(--d2)}  /* the closing title is a section title here, not a second hero (Figma: 40, one line) */
+  .hd .lede,.hd.side .lede,.prob-t .lede,.why-head .lede{margin-top:var(--s5)}
+  .pains,.why-acc,.road,.answers{margin-top:var(--s7)}
+  .rw-list{margin-top:var(--s5)}
+  /* the list: hairline · marker · title · paragraph */
+  .pain h3,.dz-c h3,.ans h3,.acc-h h3,.steps li h3,.rd h3,.mem-txt h3{font-size:calc(17*var(--px))}
+  .pain p:not(.k),.dz-c p,.ans p,.acc p,.rd p:not(.rd-k),.mem-txt p:not(.k){margin-top:var(--s3);max-width:none}
+  /* hero: the chat plays by itself (no hint to scroll); a step above it replays that call */
+  .hero-in{padding-bottom:var(--s9)}
+  #hero{--hh1:clamp(calc(44*var(--px)),14.4vw,calc(56*var(--px)))}  /* 56 at 390, as in Figma: two lines, "MAT decides." on one; 46 at 320 */
+  .hero-chat{height:calc(500*var(--px))}
+  .hc-sp{cursor:pointer;-webkit-tap-highlight-color:transparent}
+  /* 01 · four plain rows, the icon as the marker */
+  .pains{display:block}
+  .pain{display:grid;grid-template-columns:calc(32*var(--px)) minmax(0,1fr);column-gap:var(--s4);align-items:start;padding:var(--s5) 0;background:none;box-shadow:none;border-top:var(--hair)}
+  .pain:last-child{border-bottom:var(--hair)}
+  .pain-hd{display:contents} .pain-hd .k{display:none}
+  .pain .ic,.dz-c .ic{grid-column:1;grid-row:1/3;width:calc(32*var(--px));height:calc(32*var(--px))}
+  .pain h3,.pain p:not(.k){grid-column:2}
+  .pain h3{margin-top:0}
+  /* 02 · the diagram draws itself once as it comes in, then the four answers — no letters, no links, no caption */
+  .rw-cap,.answers li.before,.ans .k,.ans .go,.answers li .ans:before{display:none}
+  .answers li+li{margin-top:0}
+  html[data-motion] .answers li{border-top:var(--hair);padding:var(--s5) 0}
+  html[data-motion] .answers li:last-child{min-height:0;padding-bottom:var(--s5);border-bottom:var(--hair)}
+  .ans{padding-left:0;pointer-events:none}
+  /* 03 · the three calls: icon, the call, what you get (the hero's chat already showed the three questions) */
+  .dz-r{grid-template-columns:calc(32*var(--px)) minmax(0,1fr);column-gap:var(--s4);row-gap:0;padding:var(--s5) 0}
+  .dz-q{display:none}
+  .dz-c{display:contents}
+  .dz-c>div,.dz-o{grid-column:2}
+  .dz-o{margin-top:var(--s3);font:400 var(--body)/1.5 var(--text);color:var(--mute);text-box:trim-both cap alphabetic}
+  .dz-o:before{content:none}
+  .dz-o b,.dz-o span{display:inline;margin:0;font:inherit;letter-spacing:0;max-width:none;text-box:none}
+  .dz-o b{font-weight:600;color:var(--paper)}
+  .dz-o span:before{content:" · "}
+  .dz-note{display:none}  /* 06's third step says it: MAT asks only when it must */
+  .dz-r:last-of-type{border-bottom:var(--hair)}
+  /* 04 · the three numbers, large; they count up as they come in (the chart stays on wider screens). "How we counted" opens
+     under the whole caption: hung from the link it ran 100 px past the screen's edge, and the phone zoomed the page out to fit it */
+  .hd .cap{position:relative} .cap .how{position:static} .cap .pop.tip{left:0;right:0;width:auto}
+  .race-body{grid-template-rows:auto}
+  .chart-cell{display:none}
+  .kpis{order:0;flex-direction:column;margin-top:0}
+  .kpi+.kpi{margin-top:var(--s6)}
+  .kpi .num{font-size:calc(56*var(--px))}
+  /* 05 · three habits as rows: the number, the habit, one sentence, then what it did on this job (as 03's calls end on what you get) */
+  .hab,.acc .data{display:none}
+  .acc-row{display:grid;grid-template-columns:var(--s8) minmax(0,1fr);padding:var(--s5) 0}
+  .acc-h,.acc-h .tt,.acc-b,.acc-in{display:contents}
+  .acc-h .ix{grid-column:1;grid-row:1/4}
+  .acc-h h3{grid-column:2;grid-row:1}
+  .acc-in p{grid-column:2;grid-row:2;margin:var(--s3) 0 0}
+  .acc-h .kv{grid-column:2;grid-row:3;margin-top:var(--s3);font:600 var(--body)/1.5 var(--text);color:var(--paper)}
+  .why-head .honest{padding-top:var(--s6)}
+  /* 06 · four steps, all open (the app window stays on wider screens) */
+  .work-right{display:none}
+  html[data-motion] .steps li,html[data-motion] .steps li:not(.on){display:grid;grid-template-columns:var(--s8) minmax(0,1fr);padding:var(--s5) 0;opacity:1}
+  .steps .n,.steps li.on .n{grid-column:1;grid-row:1/3;color:var(--paper)}
+  .steps li h3,.steps li p{grid-column:2}
+  .steps li h3{margin-top:0}
+  html[data-motion] .steps li p{max-height:none;opacity:1;margin-top:calc(var(--s3) - .3em)}
+  /* 07 · the allowance bars and the memory's sentence (the list of methods stays on wider screens).
+     The names run up the columns, so the bars stop short of them: the tallest name block is 86 px of 260. */
+  .cols{height:calc(260*var(--px))}
+  .mcol .bar{height:calc(var(--v) * 0.68)}
+  .mcol .name{font-size:calc(12*var(--px))}
+  .mem{margin-top:var(--s8)}
+  .mem-txt{padding-top:var(--s5)}
+  .mem-txt .k,.mem .files{display:none}
+  .mem-txt h3{margin-top:0}
+  /* 08 · the card (the three figures repeat the sentence above it) */
+  .rk-figs{display:none}
+  /* 09 · the screen, still, with the list open */
+  .isl-cap{display:none}
+  .dock-txt .lede{max-width:none}
+  html[data-motion] .isl-cell{height:calc(360*var(--px));margin-top:var(--s7)}
+  /* 10 · three plain rows */
+  .road{row-gap:0}
+  .rd .picto,.rd-k{display:none}
+  .rd,.rd.now,.rd:nth-of-type(n){padding:var(--s5) 0}
+  .rd:last-child{border-bottom:var(--hair)}
+  .rd h3,.rd.now h3{margin-top:0}
+  /* 11 · the questions fold: the question is a button, the answer (its verdict first) opens under it */
+  .faq-cols{padding-top:0}
+  .qa{padding:0;border-bottom:var(--hair)}
+  .qa .k{display:none}
+  .qa h3{margin:0;text-box:none}
+  .qa-q{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);width:100%;min-height:calc(64*var(--px));padding:var(--s4) 0;border:0;background:none;color:var(--paper);font:600 calc(17*var(--px))/1.3 var(--display);letter-spacing:-.01em;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .qa-q:after{content:"";flex:none;width:calc(12*var(--px));height:calc(12*var(--px));background:linear-gradient(currentColor,currentColor) center/100% 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 100% no-repeat;opacity:.66;transition:transform .3s var(--out3)}
+  .qa.open .qa-q:after{transform:rotate(45deg)}
+  .qa-q:focus-visible{outline:1px solid var(--amber);outline-offset:2px}
+  .js .qa:not(.open) .qa-a{display:none}
+  .qa-a{padding-bottom:var(--s5)}
+  .qa .vd{margin-top:var(--s2);font-size:calc(24*var(--px))}
+  .qa p:not(.k):not(.vd){margin-top:var(--s3)}
+  /* 12 and the footer: one field at the end, then the links */
+  footer{padding-top:var(--s8)}
+  .foot-wl,.fmap .fh b,.fbase>*:not(:first-child){display:none}
+  .fmap>*{padding-bottom:var(--s7)}
+  .fmap .fh span{margin-left:0;color:var(--paper);font-weight:600}
+  .fmap .fh{font-family:var(--text)}
+}
 </style>
 
 <header class="nav g" id="nav">
   <a class="logo" href="#hero" aria-label="MAT home"><canvas id="logoRig" aria-hidden="true"></canvas>MAT</a>
   <nav class="links" aria-label="Sections"><a href="#problem">Why MAT</a><a href="#race">What it saves</a><a href="#work">How it works</a><a href="#ranks">Models</a><a href="#faq">Questions</a></nav>
-  <div class="motion-wrap">
-    <span class="lbl">Motion</span>
-    <div class="motion" role="radiogroup" aria-label="Motion level">
-      <span class="thumb" id="thumb"></span>
-      <button class="seg-btn" role="radio" data-m="quiet">Quiet</button>
-      <button class="seg-btn" role="radio" data-m="bold">Bold</button>
-      <button class="seg-btn" role="radio" data-m="loud">Loud</button>
-    </div>
-    <div class="motion-tip" id="motionTip"></div>
-  </div>
   <div class="cta"><a class="btn primary md" href="#join" id="navJoin"><span class="bl">Join the waitlist</span></a></div>
 </header>
 <div class="gridov g" id="gridov" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -1189,12 +1287,12 @@ html[data-motion="quiet"] .wf.on{animation:none}
   </div>
   <div class="g faq-g">
     <div class="faq-cols">
-      <div class="qa"><p class="k">Q 01</p><h3>Is MAT another AI model?</h3><p class="vd">No.</p><p>MAT runs on the models you already have — Claude, ChatGPT, Gemini and others, plus models running on your own computer. It decides which one does each step, and checks the work.</p></div>
-      <div class="qa"><p class="k">Q 02</p><h3>Which subscriptions can I connect?</h3><p class="vd">The ones you have.</p><p>Your Claude and ChatGPT plans, API keys from the major providers, any OpenAI-compatible server, and local models on your computer. The same provider can be added twice, for a work and a personal account.</p></div>
-      <div class="qa"><p class="k">Q 03</p><h3>Where does my data live?</h3><p class="vd">Locally.</p><p>Your chats, projects and what MAT has learned are saved on your own computer, and finished work lands in Documents › MAT. Each model sees only the work for its step.</p></div>
-      <div class="qa"><p class="k">Q 04</p><h3>Is it always cheaper than one model?</h3><p class="vd">No.</p><p>On a small job, one model is cheaper and faster, and MAT says so and runs it that way. The bigger the job, the more a crew of cheaper models saves.</p></div>
-      <div class="qa"><p class="k">Q 05</p><h3>Do I have to manage the crew?</h3><p class="vd">No.</p><p>You only talk to MAT, in one chat. It staffs the crew, checks the work and asks you only when a decision is yours; minimised, it’s one line under the notch.</p></div>
-      <div class="qa"><p class="k">Q 06</p><h3>When can I use it?</h3><p class="vd">As seats open.</p><p>MAT is in a closed beta, free while it lasts. Join the waitlist and we'll send you an invite.</p></div>
+      <div class="qa"><p class="k">Q 01</p><h3>Is MAT another AI model?</h3><div class="qa-a" id="qa-01"><p class="vd">No.</p><p>MAT runs on the models you already have — Claude, ChatGPT, Gemini and others, plus models running on your own computer. It decides which one does each step, and checks the work.</p></div></div>
+      <div class="qa"><p class="k">Q 02</p><h3>Which subscriptions can I connect?</h3><div class="qa-a" id="qa-02"><p class="vd">The ones you have.</p><p>Your Claude and ChatGPT plans, API keys from the major providers, any OpenAI-compatible server, and local models on your computer. The same provider can be added twice, for a work and a personal account.</p></div></div>
+      <div class="qa"><p class="k">Q 03</p><h3>Where does my data live?</h3><div class="qa-a" id="qa-03"><p class="vd">Locally.</p><p>Your chats, projects and what MAT has learned are saved on your own computer, and finished work lands in Documents › MAT. Each model sees only the work for its step.</p></div></div>
+      <div class="qa"><p class="k">Q 04</p><h3>Is it always cheaper than one model?</h3><div class="qa-a" id="qa-04"><p class="vd">No.</p><p>On a small job, one model is cheaper and faster, and MAT says so and runs it that way. The bigger the job, the more a crew of cheaper models saves.</p></div></div>
+      <div class="qa"><p class="k">Q 05</p><h3>Do I have to manage the crew?</h3><div class="qa-a" id="qa-05"><p class="vd">No.</p><p>You only talk to MAT, in one chat. It staffs the crew, checks the work and asks you only when a decision is yours; minimised, it’s one line under the notch.</p></div></div>
+      <div class="qa"><p class="k">Q 06</p><h3>When can I use it?</h3><div class="qa-a" id="qa-06"><p class="vd">As seats open.</p><p>MAT is in a closed beta, free while it lasts. Join the waitlist and we'll send you an invite.</p></div></div>
     </div>
   </div>
 </section>
@@ -1213,13 +1311,12 @@ html[data-motion="quiet"] .wf.on{animation:none}
 <footer data-ground="ink">
   <div class="g fmap">
     <div><div class="fh">MAT</div><p class="small">One chat, and a crew on the models you already pay for — running locally.</p><div class="foot-wl"><form class="wl" data-wl="foot" novalidate><label class="wl-f"><span class="vh">Email</span><input type="email" name="email" placeholder="you@company.com" autocomplete="email" required></label><button class="btn primary" type="submit"><span class="bl">Join the waitlist</span><span class="arw"><i>→</i><i>→</i></span></button><p class="wl-done" role="status"><b>You're on the list.</b> We'll email you when your seat is ready.<span>Preview · this page doesn't send sign-ups yet.</span></p></form></div></div>
-    <div><div class="fh">01<span>Product</span></div><a href="#problem">Why MAT</a><a href="#race">What it saves</a><a href="#work">How it works</a><a href="#ranks">The ranking</a><a href="#soon">Coming soon</a></div>
-    <div><div class="fh">02<span>Beta</span></div><a href="#join">Join the waitlist</a><a href="#faq">Questions</a><a href="#hero">Changelog</a></div>
-    <div><div class="fh">03<span>Company</span></div><a href="#hero">About</a><a href="#hero">Privacy</a><a href="#hero">Terms</a><a href="#hero">Contact</a></div>
+    <div><div class="fh"><b>01</b><span>Product</span></div><a href="#problem">Why MAT</a><a href="#race">What it saves</a><a href="#work">How it works</a><a href="#ranks">The ranking</a><a href="#soon">Coming soon</a></div>
+    <div><div class="fh"><b>02</b><span>Beta</span></div><a href="#join">Join the waitlist</a><a href="#faq">Questions</a><a href="#hero">Changelog</a></div>
+    <div><div class="fh"><b>03</b><span>Company</span></div><a href="#hero">About</a><a href="#hero">Privacy</a><a href="#hero">Terms</a><a href="#hero">Contact</a></div>
   </div>
   <div class="g fbase"><span>© 2026 MAT</span><span>Desktop app · runs locally</span><span>Your memory stays on your computer</span></div>
 </footer>
-<div class="sticky-cta" id="stickyCta"><div class="t">MAT<span>Free while in beta</span></div><a class="btn primary" href="#join"><span class="bl">Join the waitlist</span></a></div>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
 <script>
@@ -1460,9 +1557,14 @@ const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const FINE=matchMedia('(pointer: fine)').matches;
 // one column below 861 px, and on any portrait screen up to 1199 px (iPad portrait, every size)
 const MOBQ=matchMedia('(max-width:860px), (max-width:1199px) and (orientation:portrait)'), MOB=()=>MOBQ.matches;
-let LEVEL=null; try{ LEVEL=localStorage.getItem('mat-motion'); }catch(e){}
-if(!['quiet','bold','loud'].includes(LEVEL)) LEVEL=RM?'quiet':'bold';
+// v3.2 · one motion design for everyone: the page moves unless the system asks for reduced motion. The switch is gone from the
+// nav; ?motion=quiet|bold|loud still forces a level for review, and a level a visitor once picked is forgotten.
+let LEVEL=RM?'quiet':'bold';
+{ const q=/[?&]motion=(quiet|bold|loud)\b/.exec(location.search); if(q) LEVEL=q[1]; }
+try{ localStorage.removeItem('mat-motion'); }catch(e){}
 ROOT.dataset.motion=LEVEL;
+// phones (≤ 699 px): one calm column — nothing pinned, the hero's chat plays by itself, the questions fold
+const PHQ=matchMedia('(max-width:699px)'), PH=()=>PHQ.matches;
 const POP=[28,28,30], DEEP=[46,29,21], RAILG=[24,24,26];
 
 // ── rigs: one loop, only the visible ones move ──
@@ -1473,20 +1575,6 @@ function sizeRig(a,size0){ const size=Math.round(size0*PXU()); a.size0=size0; co
 function makeRig(id,size,o={}){ const c=document.getElementById(id); const a=new Avatar(c,1); a.showArea=false; a.ground=o.ground||INK; a.vis=true; if(o.still){ a.still=true; a._still=true; }
   sizeRig(a,size); c._rig=a; RIGS.push(a); if(!o.always) rigIO.observe(c); const set=a.set.bind(a); a.set=s=>{ set(s); a.settled=false; }; return a; }
 const frozen=()=>RM&&LEVEL==='quiet';
-
-// ── motion level ──
-const TIPS={quiet:['Quiet','A still ledger. Things fade in; nothing is pinned, nothing plays by itself.'],
-  bold:['Bold','The ledger draws itself. The hero’s chat plays its first call by itself and the next two under your scroll; the race, the three habits and the window play under your scroll; each section slides over the last.'],
-  loud:['Loud','Bold, plus the numbers show what they mean: every cent spent flies into its total, the gap after MAT finishes is measured, every gate stamps as it passes. Text and grid stay still.']};
-function setLevel(m,tip){ const prev=LEVEL; LEVEL=m; ROOT.dataset.motion=m; try{ localStorage.setItem('mat-motion',m); }catch(e){}
-  $$('.seg-btn').forEach(b=>b.setAttribute('aria-checked',b.dataset.m===m));
-  moveThumb();
-  if(tip){ const t=$('#motionTip'); t.innerHTML=`<b>${TIPS[m][0]}</b>${TIPS[m][1]}`; t.classList.add('on'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('on'),3200); }
-  CH.built=false;
-  if(typeof lenisSet==='function') lenisSet(); if(typeof hcLevel==='function'&&prev!==m) hcLevel(); RIGS.forEach(a=>{ if(a.sz) a.still=m==='quiet'; }); layout(); onScroll(true);
-}
-function moveThumb(){ const b=$(`.seg-btn[data-m="${LEVEL}"]`), th=$('#thumb'); if(b){ th.style.width=b.offsetWidth+'px'; th.style.transform=`translateX(${b.offsetLeft}px)`; } }
-$$('.seg-btn').forEach(b=>b.addEventListener('click',()=>setLevel(b.dataset.m,true)));
 
 // ── split headings into words and letters ──
 $$('.split').forEach(h=>{ let i=0,j=0; const walk=n=>{ [...n.childNodes].forEach(c=>{ if(c.nodeType===3){ const frag=document.createDocumentFragment(); c.textContent.split(/(\s+)/).forEach(w=>{ if(!w) return; if(/^\s+$/.test(w)){ frag.appendChild(document.createTextNode(' ')); return; }
@@ -1614,7 +1702,7 @@ function chartBuild(){ const W=CH.box.clientWidth, H=CH.box.clientHeight; if(W<1
   raceT=-1; }
 let raceT=-1;
 function pathTo(f,T,n){ const pts=[]; for(let i=0;i<=n;i++){ const t=T*i/n; pts.push(`${CH.X(t).toFixed(1)},${CH.Y(f(t)).toFixed(1)}`); } return pts; }
-function renderRace(p){ if(!CH.built) chartBuild(); if(!CH.built) return; const T=TOTAL*clamp((p-0.04)/0.80); if(Math.abs(T-raceT)<1e-4) return; raceT=T;
+function renderRace(p){ const T=TOTAL*clamp((p-0.04)/0.80); kpiRender(T); if(!CH.built) chartBuild(); if(!CH.built) return; if(Math.abs(T-raceT)<1e-4) return; raceT=T;
   CH.bf.forEach(r=>{ const a=+r.dataset.a,b=+r.dataset.b; r.setAttribute('width',(+r.dataset.w*clamp((T-a)/(b-a))).toFixed(1)); });
   CH.res.forEach(r=>r.style.opacity=T>=+r.dataset.at-1e-6?1:0);
   const lx=CH.X(Math.max(TEAM_DONE,T)); CH.ldl.setAttribute('x2',lx.toFixed(1)); CH.lde.setAttribute('x1',lx.toFixed(1)); CH.lde.setAttribute('x2',lx.toFixed(1)); CH.lead.style.opacity=T>TEAM_DONE+0.05?1:0; CH.ldx.style.opacity=T>=TOTAL-1e-6?1:0; CH.wdx.style.opacity=T>=TOTAL-1e-6?1:0;
@@ -1630,8 +1718,11 @@ function renderRace(p){ if(!CH.built) chartBuild(); if(!CH.built) return; const 
   if(LEVEL==='loud'){ let c=''; for(let v=0.05;v<=sc+1e-6;v+=0.05) c+=`<rect class="ct" x="${CH.X(v/SOLO_COST*TOTAL)-1.5*CH.U}" y="${CH.Y(v)-1.5*CH.U}" width="${3*CH.U}" height="${3*CH.U}"/>`; CH.cents.innerHTML=c;
   }
   else CH.cents.innerHTML='';
-  const k=kpiAt(T); for(const key in KPI){ const K=KPI[key], v=k[key], u=clamp(v/K.max); flipSet(K.el,K.fmt(v)); const cell=K.el.parentElement; cell.style.setProperty('--kv',u.toFixed(3)); cell.classList.toggle('kon',u>0.02); }
 }
+// the three numbers run on the race's clock; on phones (no chart) they count up as they come into view
+let kpiT=-1;
+function kpiRender(T){ if(Math.abs(T-kpiT)<1e-4) return; kpiT=T;
+  const k=kpiAt(T); for(const key in KPI){ const K=KPI[key], v=k[key], u=clamp(v/K.max); flipSet(K.el,K.fmt(v)); const cell=K.el.parentElement; cell.style.setProperty('--kv',u.toFixed(3)); cell.classList.toggle('kon',u>0.02); } }
 // ═══ v3.0 · 06 · the app's window: the chat, and the drawer the crew works in. One pinned screen, driven by the scroll, and it rewinds.
 // The same window in three widths, like the app: wide (960 × 600) — chat 500 and drawer 460 side by side; medium (760 × 640) — 380 and
 // 380; narrow (380 × 640) — the chat alone with its Now row, and the drawer slides over it while the crew is hired.
@@ -1697,7 +1788,7 @@ function winBuild(){ const e=WIN.el;
   WIN.E.wires.innerHTML=w; WIN.E.wl=[...WIN.E.wires.querySelectorAll('.wwr')]; WIN.p=-1; }
 // stacked (phones, tablets upright), only the step that is on shows its paragraph, and the paragraphs differ in length:
 // hold the list at its tallest so the window under it keeps one size the whole way through
-function stepsFit(){ const ol=$('#steps'); ol.style.minHeight=''; if(LEVEL==='quiet'||!MOB()) return;
+function stepsFit(){ const ol=$('#steps'); ol.style.minHeight=''; if(LEVEL==='quiet'||!MOB()||PH()) return;
   const lis=$$('#steps li'), was=lis.map(l=>l.classList.contains('on')); let m=0; ol.classList.add('measure');
   lis.forEach((_,i)=>{ lis.forEach((x,j)=>x.classList.toggle('on',i===j)); m=Math.max(m,ol.offsetHeight); });
   lis.forEach((l,i)=>l.classList.toggle('on',was[i])); ol.classList.remove('measure'); ol.style.minHeight=Math.ceil(m)+'px'; }
@@ -1772,7 +1863,7 @@ function renderWin(p){ const E=WIN.E; if(!E||Math.abs(p-WIN.p)<1e-4) return; WIN
   E.bar.classList.toggle('need',asking); E.bar.classList.toggle('done',done);
   if(showNow){ E.nowL.style.width=(100*f).toFixed(1)+'%'; E.nowC.textContent=bc; }
   // the steps on the left follow the window
-  const sk=p<0.20?0:p<0.50?1:p<0.80?2:3; $$('#steps li').forEach((s,i)=>s.classList.toggle('on',LEVEL==='quiet'?true:i===sk)); }
+  const sk=p<0.20?0:p<0.50?1:p<0.80?2:3; $$('#steps li').forEach((s,i)=>s.classList.toggle('on',LEVEL==='quiet'||PH()?true:i===sk)); }
 winBuild();
 
 // ═══ 5 · Models (brand colours from the app's model table) ═══
@@ -1821,7 +1912,7 @@ function wlDone(){ $$('.wl').forEach(f=>f.classList.add('done')); }
 try{ if(localStorage.getItem('mat-wl')) wlDone(); }catch(e){}
 $$('.wl').forEach(f=>f.addEventListener('submit',e=>{ e.preventDefault(); const i=f.querySelector('input'), ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(i.value.trim());
   f.classList.toggle('err',!ok); if(!ok){ i.focus(); return; } try{ localStorage.setItem('mat-wl','1'); }catch(_){} wlDone(); if(typeof ctaJoy==='function') ctaJoy(); }));
-// the nav and the phone bar point at the waitlist at the end of the page, and put the cursor in it
+// the nav's button points at the waitlist at the end of the page, and puts the cursor in it
 $$('a[href="#join"]').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>{ const i=$('#join .wl input'); if(i&&!$('#join .wl').classList.contains('done')) i.focus({preventScroll:true}); },900)));
 
 
@@ -1830,21 +1921,18 @@ function heroStick(){ const h=$('#hero'); h.style.top=getComputedStyle(h).positi
 function layout(){
   heroStick();
   const W=innerWidth;
-  winFit(); islFit(); moveThumb(); RIGS.forEach(a=>sizeRig(a,a.sz?a.sz[MOB()?1:0]:(a.size0||a.size)));
+  winFit(); islFit(); RIGS.forEach(a=>sizeRig(a,a.sz?a.sz[MOB()?1:0]:(a.size0||a.size)));
 }
 
 // ═══ scroll ═══
 function sceneP(el){ const r=el.getBoundingClientRect(), span=r.height-innerHeight; return span<=0?1:clamp(-r.top/span); }
 let ticking=false;
 function onScroll(force){ const y=scrollY;
-  const inScene=LEVEL!=='quiet'&&['raceScene','why','workScene','dockScene'].some(id=>{ const el=$('#'+id), pin=el.querySelector('.pin')||el; if(getComputedStyle(pin).position!=='sticky') return false; const r=el.getBoundingClientRect(); return r.top<=10&&r.bottom>=innerHeight-10; });
   const past=y>innerHeight*0.75; $('#nav').classList.toggle('past',past);
-  const inRun=LEVEL!=='quiet'&&$('#heroRun').getBoundingClientRect().bottom>innerHeight*0.5;
-  $('#stickyCta').classList.toggle('on',!inScene&&!inRun&&past&&$('#cta').getBoundingClientRect().top>innerHeight*0.6);
-  if(force===true){ RW.t=-1; RW.k=-1; PICS.forEach(p=>p.t=-1); HABS.forEach(h=>h.t=-1); }
-  if(force===true){ WIN.p=-1; }
-  if(LEVEL==='quiet'){ if(force===true){ raceT=-1; renderRace(1); renderWin(1); } }
-  else { if(force===true){ raceT=-1; } renderRace(getComputedStyle($('#racePin')).position==='sticky'?sceneP($('#raceScene')):enterP($('#chart'),0.9)); renderWin(getComputedStyle($('#workScene .pin')).position==='sticky'?sceneP($('#workScene')):enterP($('#winBox'),1.1)); }
+  if(force===true){ RW.t=-1; RW.k=-1; PICS.forEach(p=>p.t=-1); HABS.forEach(h=>h.t=-1); WIN.p=-1; raceT=-1; kpiT=-1; }
+  if(LEVEL==='quiet'){ if(force===true){ renderRace(1); renderWin(1); } }
+  else if(PH()){ renderRace(enterP($('#kpis'),0.7)); renderWin(1); }
+  else { renderRace(getComputedStyle($('#racePin')).position==='sticky'?sceneP($('#raceScene')):enterP($('#chart'),0.9)); renderWin(getComputedStyle($('#workScene .pin')).position==='sticky'?sceneP($('#workScene')):enterP($('#winBox'),1.1)); }
   accScroll(); navGround(); dockScroll(); barsScroll(); pictoScroll(); roadScroll(); rwScroll(); habScroll(); heroVis();
   ticking=false; }
 // the nav is the colour of whatever sits right under it
@@ -1861,15 +1949,15 @@ function islFit(){ const cell=IS.wrap, W=cell.clientWidth, H=cell.clientHeight; 
   IS.isl.style.width=(W/k)+'px'; IS.isl.style.height=(H/k)+'px'; IS.isl.style.transform=`scale(${k.toFixed(4)})`; IS.k=k; IS.cw=W/k; IS.ch=H/k; }
 const ISCAP=['Nothing running · no line','One chat at work · one segment','Two chats · two segments','Three chats','Four chats · the line stays short','One needs you · amber','One is done · green','Hover the notch','The list · one row per chat, in the same order','What each one is doing now · click one to open it'];
 let islK=-1;
-function dockScroll(){ const p=LEVEL==='quiet'?1:sceneP(IS.scene);
+function dockScroll(){ const calm=LEVEL==='quiet'||PH(), p=calm?1:sceneP(IS.scene);
   const n=p<0.06?0:p<0.15?1:p<0.24?2:p<0.33?3:4, need=p>=0.43, done=p>=0.53;
   IS.segs.forEach((g,i)=>{ g.classList.toggle('on',i<n); g.className=(i<n?'on ':'')+(i===1&&need?'need':i===2&&done?'done':'run'); });
   // the pointer comes in, rests on the notch, then moves down onto the amber row
   const W=IS.cw||620, HH=IS.ch||480, cx=W/2, a=clamp((p-0.60)/0.12), o=clamp((p-0.74)/0.08), f=clamp((p-0.84)/0.12), b=clamp((p-0.86)/0.10);
   const U=PXU(), ea=cosE(a), eb=cosE(b), px=(cx+170*U)+(8*U-170*U)*ea+(-40*U)*eb, py=HH*0.78+(22*U-HH*0.78)*ea+(118-22)*U*eb;
-  IS.ptr.style.opacity=LEVEL==='quiet'?0:clamp((p-0.58)/0.04).toFixed(3); IS.ptr.style.transform=`translate(${px.toFixed(1)}px,${py.toFixed(1)}px)`;
+  IS.ptr.style.opacity=calm?0:clamp((p-0.58)/0.04).toFixed(3); IS.ptr.style.transform=`translate(${px.toFixed(1)}px,${py.toFixed(1)}px)`;
   IS.list.style.setProperty('--o',cosE(o).toFixed(4));
-  const k=LEVEL==='quiet'?9:p<0.06?0:n<4?n:!need?4:!done?5:o<=0?(a>0?7:6):f<0.5?8:9;
+  const k=calm?9:p<0.06?0:n<4?n:!need?4:!done?5:o<=0?(a>0?7:6):f<0.5?8:9;
   if(k!==islK){ islK=k; IS.cap.innerHTML=`<b>${String(k).padStart(2,'0')}</b>${ISCAP[k]}`; } }
 // models: each bar grows to its allowance as the columns come into view
 const BARS=$$('#cols .bar');
@@ -1879,7 +1967,7 @@ function barsScroll(){ const r=$('#cols').getBoundingClientRect(), p=LEVEL==='qu
 const NS='http://www.w3.org/2000/svg';
 function E(tag,a,parent,text){ const e=document.createElementNS(NS,tag); for(const k in a){ if(k==='fill'&&String(a[k]).startsWith('var(')) e.style.fill=a[k]; else e.setAttribute(k,a[k]); } if(text!=null) e.textContent=text; if(parent) parent.appendChild(e); return e; }
 const lerp=(a,b,u)=>a+(b-a)*u, seg=(t,a,b)=>clamp((t-a)/(b-a));
-function trail(path){ const L=path.getTotalLength(); path.style.strokeDasharray=L; path.style.strokeDashoffset=L; path._L=L; return u=>{ path.style.strokeDashoffset=(L*(1-u)).toFixed(1); }; }
+function trail(path){ let L=0; try{ L=path.getTotalLength(); }catch(e){} path.style.strokeDasharray=L; path.style.strokeDashoffset=L; path._L=L; return u=>{ path.style.strokeDashoffset=(L*(1-u)).toFixed(1); }; }
 // ═══ v2.3 · pictograms: one alphabet on a u = 8 grid, no words (the text under each one says it) ═══
 // v2.4: 01 shows the alphabet as 40 px icons on cards (static, in the HTML); the drawings here are 09's and the habits in 04.
 // square = a chat, a model, a step, an app or a device · circle = you, or MAT's lead · bar = context · line = a handoff
@@ -1932,9 +2020,12 @@ const PICTO={
       lines[0].style.opacity=r>=1?0:1; A[0].setAttribute('class',r>=1?'pgl':'pl'); }; }
 };
 // each one is set to its first frame as soon as it is built (nothing shows at the origin before the first scroll)
-const PICS=$$('[data-picto]').map(s=>{ const f=PICTO[s.dataset.picto](s); f(0); return {s,f,t:-1}; });
+// (v3.2: phones hide them, so each one is built the first time it is laid out — a hidden line has no length to draw)
+const PICS=$$('[data-picto]').map(s=>({s,f:null,t:-1}));
+function picBuild(p){ if(p.f) return true; if(!p.s.getBoundingClientRect().width) return false; p.f=PICTO[p.s.dataset.picto](p.s); p.f(0); return true; }
+PICS.forEach(picBuild);
 function pictoScroll(){ const vh=innerHeight;
-  for(const p of PICS){ const r=p.s.getBoundingClientRect(); if(LEVEL!=='quiet'&&(r.bottom<-50||r.top>vh+50)){ continue; }
+  for(const p of PICS){ if(!picBuild(p)) continue; const r=p.s.getBoundingClientRect(); if(LEVEL!=='quiet'&&(r.bottom<-50||r.top>vh+50)){ continue; }
     // starts as the picture's bottom edge enters the screen; done when its top reaches the upper third
     const t=LEVEL==='quiet'?1:clamp((vh-r.bottom+r.height*0.2)/(vh*0.5)); if(Math.abs(t-p.t)<1e-4) continue; p.t=t; p.f(t); } }
 // ═══ v2.4 · 04 · a strip for each habit, in the pictograms' alphabet. Each one is laid out for the width it has (64 units tall;
@@ -2150,10 +2241,25 @@ function hcRender(P){ if(Math.abs(P-HC.P)<1e-4) return; const back=P<HC.P; HC.P=
 function hcScrollP(){ const r=HC.run.getBoundingClientRect(), hero=$('#hero'), stuck=Math.max(0,hero.offsetHeight-innerHeight), span=Math.max(1,r.height*0.86);
   return clamp((scrollY-stuck)/span); }
 function hcTick(){ if(LEVEL==='quiet'||RM){ hcRender(3); return; }
+  if(PH()){ hcRender(HC.auto); return; }
   const p=hcScrollP(), P=p>0.002?1+2*p:HC.intro; hcRender(P); }
 function hcIntro(){ if(HC.introT) return; const t0=performance.now()+700, dur=6200;
   const step=now=>{ const u=clamp((now-t0)/dur); HC.intro=u; if(HC.P<1.0001) hcTick(); if(u<1) HC.introT=requestAnimationFrame(step); }; HC.introT=requestAnimationFrame(step); }
-function hcLevel(){ HC.P=-1; HC.rs=''; if(LEVEL==='quiet'||RM){ HC.rig.still=true; HC.rig.set('rest'); hcRender(3); } else { HC.rig.still=false; hcIntro(); hcTick(); } }
+// phones (v3.2): no run-out to scroll through. The chat plays its three calls by itself while three quarters of it are on screen (its
+// newest message is at the bottom, so less than that and the call would play out of sight) — 6.2 s a call, 2 s between — and holds
+// on the crew at work; it waits while it is off screen. Tap a step above the chat to play that call again.
+const HCA={rate:1/6.2,hold:2,wait:0.6,raf:0,last:0};
+HC.auto=0; HC.seen=false;
+function hcAutoStep(now){ HCA.raf=0; if(!PH()||LEVEL==='quiet'||RM||!HC.seen) return;
+  const dt=Math.min(0.1,(now-HCA.last)/1000); HCA.last=now;
+  if(HCA.wait>0) HCA.wait-=dt;
+  else { const a=HC.auto, b=Math.min(3,a+dt*HCA.rate); if(b<3&&Math.floor(b)>Math.floor(a)){ HC.auto=Math.floor(b); HCA.wait=HCA.hold; } else HC.auto=b; }
+  hcRender(HC.auto); if(HC.auto<3) HCA.raf=requestAnimationFrame(hcAutoStep); }
+function hcAuto(){ if(!HCA.raf&&HC.auto<3&&HC.seen){ HCA.last=performance.now(); HCA.raf=requestAnimationFrame(hcAutoStep); } }
+new IntersectionObserver(es=>es.forEach(e=>{ HC.seen=e.intersectionRatio>=0.75; if(HC.seen&&PH()) hcAuto(); }),{threshold:[0,0.5,0.75,1]}).observe(HC.el);
+HC.sp.forEach((el,i)=>el.addEventListener('click',()=>{ if(!PH()||LEVEL==='quiet'||RM) return; HC.auto=i; HCA.wait=0.3; hcRender(i); hcAuto(); }));
+function hcLevel(){ HC.P=-1; HC.rs=''; if(LEVEL==='quiet'||RM){ HC.rig.still=true; HC.rig.set('rest'); hcRender(3); }
+  else { HC.rig.still=false; if(PH()){ hcRender(HC.auto); hcAuto(); } else { hcIntro(); hcTick(); } } }
 hcBuild();
 // the hero counts as visible until the next sheet has slid most of the way over it
 function heroVis(){ const v=$('#problem').getBoundingClientRect().top>innerHeight*0.3; HC.vis=v; HC.rig.vis=v; if(LEVEL!=='quiet') hcTick(); }
@@ -2161,6 +2267,18 @@ function heroVis(){ const v=$('#problem').getBoundingClientRect().top>innerHeigh
 // ═══ v3.0 · 13 · MAT itself, at the end of the page: it swims slowly in its circle and leans toward your pointer; when you join, it is pleased.
 const ctaRig=makeRig('ctaRig',200,{ground:[36,26,11]}); ctaRig.sz=[200,132]; ctaRig.still=LEVEL==='quiet';
 function ctaJoy(){ if(LEVEL!=='quiet'&&!RM) ctaRig.set('pleased'); }
+
+// ═══ v3.2 · 11 · on phones the questions fold, as Notion's and Raycast's do: the question becomes a button, its answer opens under it.
+// Wider screens keep the three open newspaper columns (plain headings, no buttons).
+const QAS=$$('.qa');
+function faqMode(){ const ph=PH(); QAS.forEach(q=>{ const h=q.querySelector('h3'), a=q.querySelector('.qa-a'); let b=h.querySelector('.qa-q');
+    if(ph&&!b){ b=document.createElement('button'); b.type='button'; b.className='qa-q'; b.setAttribute('aria-controls',a.id); b.textContent=h.textContent; h.textContent=''; h.appendChild(b); }
+    else if(!ph&&b){ h.textContent=b.textContent; b=null; }
+    q.classList.remove('open'); if(b) b.setAttribute('aria-expanded','false'); }); }
+$('.faq-cols').addEventListener('click',e=>{ const b=e.target.closest('.qa-q'); if(!b) return; const q=b.closest('.qa'), on=!q.classList.contains('open'); q.classList.toggle('open',on); b.setAttribute('aria-expanded',String(on)); });
+faqMode();
+// crossing 699 px (a phone turned on its side, a window resized): the questions and the hero's chat change mode
+PHQ.addEventListener('change',()=>{ faqMode(); hcLevel(); });
 
 // ═══ the grid: press G to see the 12 columns every element sits on ═══
 const GOV=$('#gridov'); if(/[?&]grid\b/.test(location.search)) GOV.classList.add('on');
@@ -2173,7 +2291,7 @@ function tick(now){ const dt=Math.min(0.05,(now-lastT)/1000); lastT=now; const f
     if(fz){ if(!a.settled){ a.still=true; for(let i=0;i<200;i++) a.frame(1/60,false); a.settled=true; } continue; }
     if(!a._still&&a.still) a.still=false; a.frame(dt,false); }
   if(lenis) lenis.raf(now); followStep(dt); requestAnimationFrame(tick); }
-setLevel(LEVEL,false); hcLevel(); layout(); requestAnimationFrame(()=>{ layout(); onScroll(true); }); requestAnimationFrame(tick);
+lenisSet(); hcLevel(); layout(); requestAnimationFrame(()=>{ layout(); onScroll(true); }); requestAnimationFrame(tick);
 
 </script>
 
