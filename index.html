@@ -99,7 +99,9 @@ html[data-motion="quiet"] .body,html[data-motion="quiet"] .why-g{padding-bottom:
    official site asks its visitors. It moves (Bold) unless the system asks for reduced motion (Quiet); ?motion=quiet|bold|loud still
    forces a level for review. */
 .nav .cta{grid-column:11/13;display:flex;justify-content:flex-end}
-@media (max-width:1080px){ .links{display:none} }
+@media (max-width:1080px){ .links{display:none} .nav .cta{grid-column:7/13} }
+/* v3.3c · a button never wraps its label (between 861 and 900 px the nav's last two columns were narrower than “Join the waitlist”) */
+.btn{white-space:nowrap}
 
 /* ── buttons: flat, square, label flush left ── */
 .btn{display:inline-flex;align-items:center;justify-content:space-between;gap:var(--s4);height:calc(48*var(--px));padding:0 var(--s4);border:0;cursor:pointer;font-weight:600;font-size:calc(14*var(--px));transition:background .15s,color .15s}
@@ -1120,29 +1122,15 @@ html:not([data-motion="quiet"]) .dz-r.star.in:before{transform:none;opacity:1}
 
 
 
-/* ═══ v3.3 · 07 · your subscriptions, bound into one crew: a bus runs across the top of the nine columns from MAT's mark, each
-   subscription hangs off it at a junction, and the seats of one job sit on top of the bars they run on (filled junction = used) ═══ */
-.bind{grid-column:1/-1;display:flex;align-items:center;gap:var(--s3);padding-bottom:var(--s4)}
-.bind-m{display:flex;position:relative} .bind-m svg{display:block;width:calc(26*var(--px));height:auto}
-.bind-m:after{content:"";position:absolute;left:calc(8*var(--px));top:100%;height:calc(var(--s4) + 2px);border-left:1px solid var(--paper)}
-.bind b{font-size:calc(14*var(--px));font-weight:600;color:var(--paper);text-box:trim-both cap alphabetic}
-.bind-j{margin-left:auto;font:500 calc(12*var(--px))/1 var(--mono);color:var(--mute);text-box:trim-both cap alphabetic}
-.cols{border-top:1px solid var(--paper)}
-.mcol .jn{position:absolute;left:calc(12*var(--px));top:-4px;width:calc(7*var(--px));height:calc(7*var(--px));z-index:3;background:var(--sheet);box-shadow:inset 0 0 0 1px var(--paper)}
-.mcol.used .jn{background:var(--paper)}
-.mcol.skip .jn{box-shadow:inset 0 0 0 1px var(--dim)}
-.mcol .meta{padding-top:var(--s5)}
+/* ═══ v3.3b · 07 · one idea: your subscriptions, used together. The seats of one job sit on top of the bars they run on; the bars
+   are what each subscription has left. Nothing else is added: no labels on the faces (the hover card names them), one note. ═══ */
 .mcol .seats{position:absolute;left:calc(12*var(--px));right:calc(8*var(--px));bottom:calc(var(--v) * 0.78 * var(--g,1) + calc(10*var(--px)));z-index:2;display:flex;flex-wrap:wrap;gap:calc(4*var(--px));align-items:flex-end;pointer-events:none}
 .mcol .seats svg{display:block;width:calc(24*var(--px));height:calc(24*var(--px))}
 .mcol .seats svg.mk{width:calc(36*var(--px));height:auto}
-.mcol .seats em{flex-basis:100%;margin-bottom:calc(4*var(--px));font:500 calc(11*var(--px))/1 var(--mono);font-style:normal;color:var(--mute);text-box:trim-both cap alphabetic}
 html[data-motion="quiet"] .mcol .seats{opacity:1!important}
-@media (max-width:860px), (max-width:1199px) and (orientation:portrait){ .bind-j{display:none} }
 @media (max-width:699px){
-  .bind b{font-size:calc(13*var(--px))}
-  .mcol .jn{left:50%;margin-left:-3.5px}
   .mcol .seats{left:0;right:0;justify-content:center;flex-direction:column;align-items:center;flex-wrap:nowrap;gap:calc(3*var(--px));bottom:calc(var(--v) * 0.68 * var(--g,1) - calc(6*var(--px)));transform:translateY(100%)}
-  .mcol .seats svg{width:calc(14*var(--px));height:calc(14*var(--px))} .mcol .seats svg.mk{width:calc(22*var(--px))} .mcol .seats em{display:none}
+  .mcol .seats svg{width:calc(14*var(--px));height:calc(14*var(--px))} .mcol .seats svg.mk{width:calc(22*var(--px))}
 }
 
 
@@ -1412,12 +1400,11 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
   <div class="g hd side">
     <p class="lab"><b>07</b><span>Models and memory</span><em>Answers B</em></p>
     <h2 class="split rv">Every AI you pay for, working as one crew.</h2>
-    <p class="lede rv">Connect the subscriptions you have and MAT uses them together: each seat goes to the model that suits it and still has allowance. When one runs out, its seats move to another — and what MAT learns stays local.</p>
+    <p class="lede rv">Connect the subscriptions you have. MAT puts them on one crew, each seat on the model that suits it.</p>
   </div>
   <div class="g models-g">
-    <div class="bind" aria-hidden="true"><span class="bind-m" id="bindMark"></span><b>One crew, nine subscriptions</b><span class="bind-j">This job · AI note-taking apps · 9 seats on 4 of them, MAT on Claude</span></div>
     <div class="cols" id="cols" data-follow></div>
-    <div class="cols-note"><p class="small">Bars: allowance left this cycle. Faces: the seats of one job, on the subscription each one runs on.</p><p class="small">Copilot is used up, so its seats go to Gemini until it resets.</p></div>
+    <div class="cols-note"><p class="small">One job’s crew, on four of your subscriptions. Bars show the allowance left this cycle.</p></div>
   </div>
   <div class="g mem">
     <div class="mem-txt rv"><p class="k">Memory</p><h3>MAT’s memory stays local.</h3><p>When a job is delivered clean, MAT writes down what worked — by kind of work, not by chat and not by person. The next job of that kind starts from it, on whichever model. Deleting a chat never deletes it; only Settings › Memory does.</p></div>
@@ -2142,8 +2129,8 @@ const RESET=['Oct 1','Oct 3','Oct 1','Oct 3','Oct 6','Oct 1','Oct 12','Oct 1',''
 const MODELS=[['Claude',62,'#d97757','claude'],['ChatGPT',48,'#ffffff','openai'],['Gemini',80,'#3186ff','gemini'],['Copilot',0,'#ffffff','copilot'],['Perplexity',55,'#20808d','perplexity'],['DeepSeek',90,'#4d6bfe','deepseek'],['Mistral',70,'#fa520f','mistral'],['Qwen',75,'#615ced','qwen'],['Local',100,'#8e8e96','this-mac']];
 // v3.3 · the crew of one job sits on the subscriptions it runs on: you see your AIs used together, not side by side
 const MSEAT={Claude:['MAT'],ChatGPT:['Wren'],Gemini:['Bo','Ivy','Tess'],DeepSeek:['Juno','Otto','Lin'],Qwen:['Nia','Kai']}, MROLE={Claude:'plans · checks',ChatGPT:'writes',Gemini:'3 scouts',DeepSeek:'3 scouts',Qwen:'compares'};
-$('#cols').innerHTML=MODELS.map(([n,v,c,g],i)=>`<div class="mcol${v===0?' skip':''}${MSEAT[n]?' used':''}" style="--v:${v}%"><i class="jn"></i>${MSEAT[n]?`<span class="seats"><em>${MROLE[n]}</em>${MSEAT[n].map(f=>f==='MAT'?markSVG(28,'#111112'):FACE.tag(f,20)).join('')}</span>`:''}<div class="meta">${g?`<svg class="blogo" aria-hidden="true"><use href="#lg-${g}"/></svg>`:''}<div class="name">${n}</div></div>${v?`<i class="bar" style="--v:${v}%;--c:${c}"></i>`:'<span class="skipnote">used up<br>skipped this cycle</span><span class="route"><span>seat routed to Gemini</span></span>'}</div>`).join('');
-$('#cols').insertAdjacentHTML('beforeend','<span class="fol pill mpill" aria-hidden="true"></span>'); $('#bindMark').innerHTML=markSVG(26,'#111112');
+$('#cols').innerHTML=MODELS.map(([n,v,c,g],i)=>`<div class="mcol${v===0?' skip':''}${MSEAT[n]?' used':''}" style="--v:${v}%">${MSEAT[n]?`<span class="seats">${MSEAT[n].map(f=>f==='MAT'?markSVG(28,'#111112'):FACE.tag(f,20)).join('')}</span>`:''}<div class="meta">${g?`<svg class="blogo" aria-hidden="true"><use href="#lg-${g}"/></svg>`:''}<div class="name">${n}</div></div>${v?`<i class="bar" style="--v:${v}%;--c:${c}"></i>`:'<span class="skipnote">used up<br>skipped this cycle</span><span class="route"><span>seat routed to Gemini</span></span>'}</div>`).join('');
+$('#cols').insertAdjacentHTML('beforeend','<span class="fol pill mpill" aria-hidden="true"></span>');
 
 // ═══ 07 · The official ranking (claude/MAT-model-leaderboard.md v0.4 rules, 2026-10-03 data) ═══
 // Nine categories, Arena's and Artificial Analysis's own; the first six staff seats, the last three are for reference.
