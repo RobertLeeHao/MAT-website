@@ -456,9 +456,8 @@ footer{background:#111112;color:#F4EFE6;padding-top:var(--s9)}
 #cta .cta-g{padding-bottom:var(--s9)}
 .foot-wl{margin-top:var(--s5);max-width:calc(420*var(--px))}
 .foot-wl .wl{gap:var(--s2)} .foot-wl .wl input,.foot-wl .btn{height:calc(40*var(--px))}
-/* the nav button only once the hero has gone */
 .nav .cta .btn{transition:opacity .25s var(--out3)}
-.nav:not(.past) .cta .btn{opacity:0;pointer-events:none}
+/* v3.3 · the nav button is always there, top right (Apple, Linear, Raycast keep theirs from the first screen) */
 #problem,#answer,#soon,#faq{padding-bottom:var(--s10)}
 #ranks{padding-bottom:0}
 .k{font-family:var(--mono);font-size:var(--small);font-weight:600;color:var(--paper)}
@@ -1033,6 +1032,206 @@ html[data-motion="quiet"] .wf.on{animation:none}
   .fmap .fh span{margin-left:0;color:var(--paper);font-weight:600}
   .fmap .fh{font-family:var(--text)}
 }
+
+
+/* ═══ v3.3 · the footer's pages: a sheet over the page (Apple's legal pages, Linear's changelog: a plain page, a list by date) ═══ */
+.sheet{position:fixed;inset:0;z-index:80;background:#111112;color:var(--paper);display:flex;flex-direction:column;--sheet:#111112;--pop:#1C1C1E}
+.sheet[hidden]{display:none} .sheet:focus{outline:none}
+.sh-bar{flex:none;height:var(--navh);align-items:center;position:relative}
+.sh-bar:after{content:"";position:absolute;left:var(--m);right:var(--m);bottom:0;border-top:var(--hair)}
+.sh-bar .logo{grid-column:1/4}
+.sh-nav{grid-column:4/11;display:flex;gap:var(--s5);font-size:calc(13*var(--px));font-weight:500;color:var(--mute)}
+.sh-nav a{text-box:trim-both cap alphabetic} .sh-nav a:hover,.sh-nav a[aria-current="page"]{color:var(--paper)}
+.sh-x{grid-column:11/13;justify-self:end;display:flex;align-items:center;gap:var(--s3);height:calc(36*var(--px));padding:0 var(--s3);border:0;background:none;color:var(--mute);font-size:calc(13*var(--px));font-weight:600;cursor:pointer;box-shadow:inset 0 0 0 .5px var(--hc2)}
+.sh-x:hover{color:var(--paper)}
+.sh-x i{position:relative;width:calc(10*var(--px));height:calc(10*var(--px));background:linear-gradient(currentColor,currentColor) center/100% 1.25px no-repeat,linear-gradient(currentColor,currentColor) center/1.25px 100% no-repeat;transform:rotate(45deg)}
+.sh-x:focus-visible,.sh-nav a:focus-visible{outline:1px solid var(--amber);outline-offset:2px}
+.sh-scroll{flex:1 1 0;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.sh-pg{display:none;padding-top:var(--s10);padding-bottom:var(--s11);align-content:start}
+.sh-pg.on{display:grid}
+.sh-pg>.lab{grid-column:1/-1}
+.sh-pg h2{grid-column:1/10;margin-top:var(--s6)}
+.sh-pg>.lede{grid-column:1/6;margin-top:var(--s6);color:var(--mute)}
+.sh-log{grid-column:1/-1;list-style:none;margin:var(--s9) 0 0;padding:0;border-top:var(--hair)}
+.sh-log>li{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gt);padding:var(--s6) 0;border-bottom:var(--hair)}
+.sh-log time{grid-column:1/4;font:600 calc(12*var(--px))/1 var(--mono);color:var(--paper);text-box:trim-both cap alphabetic}
+.sh-log>li>div{grid-column:4/10}
+.sh-log ul{margin:var(--s4) 0 0;padding:0;list-style:none}
+.sh-log ul li{position:relative;padding-left:var(--s5);color:var(--mute);line-height:1.5}
+.sh-log ul li+li{margin-top:var(--s3)}
+.sh-log ul li:before{content:"";position:absolute;left:0;top:.7em;width:calc(8*var(--px));border-top:1px solid var(--dim)}
+.sh-cols{grid-column:1/-1;margin-top:var(--s9);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gt)}
+.sh-cols>div{border-top:var(--hair);padding-top:var(--s5)}
+.sh-cols p{margin-top:var(--s4);color:var(--mute);max-width:40ch;line-height:1.5}
+.sh-dl{grid-column:1/-1;margin:var(--s9) 0 0;border-top:var(--hair)}
+.sh-dl>div{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gt);padding:var(--s5) 0;border-bottom:var(--hair)}
+.sh-dl dt{grid-column:1/4;font:600 var(--h3)/1.2 var(--display);letter-spacing:-.015em;text-box:trim-both cap alphabetic}
+.sh-dl dd{grid-column:4/10;margin:0;color:var(--mute);line-height:1.5;text-box:trim-both cap alphabetic}
+.sh-acts{grid-column:1/-1;margin-top:var(--s8);display:flex;flex-wrap:wrap;gap:var(--s3)}
+html.sheet-on,html.sheet-on body{overflow:hidden}
+@media (max-width:860px), (max-width:1199px) and (orientation:portrait){
+  .sh-nav{display:none} .sh-bar .logo{grid-column:1/7} .sh-x{grid-column:7/-1}
+  .sh-pg h2,.sh-pg>.lede{grid-column:1/-1}
+  .sh-log time{grid-column:1/-1} .sh-log>li>div{grid-column:1/-1;margin-top:var(--s4)}
+  .sh-cols{grid-template-columns:1fr;row-gap:var(--s6)}
+  .sh-dl dt,.sh-dl dd{grid-column:1/-1} .sh-dl dd{margin-top:var(--s3)}
+  .sh-pg{padding-top:var(--s9)}
+}
+
+
+
+/* ═══ v3.3 · 03 · the third call is where MAT is strongest: its row is raised (the cards' surface), tagged, and set larger ═══ */
+.dz-r.star{position:relative;isolation:isolate;padding-top:var(--s5);border-top:0}
+.dz-r.star:before{content:"";position:absolute;inset:0 calc(-0.6 * var(--m));background:var(--pop);box-shadow:inset 0 0 0 .5px var(--hc2);z-index:-1}
+.dz-tag{grid-column:1/-1;margin-bottom:var(--s6)}
+.dz-tag span{display:inline-flex;align-items:center;height:calc(24*var(--px));padding:0 var(--s2);background:var(--paper);color:var(--ink);font:600 calc(11*var(--px))/1 var(--mono);letter-spacing:.04em;text-transform:uppercase}
+.dz-r.star .dz-q{font-size:calc(20*var(--px))}
+.dz-r.star .dz-c h3{font-size:var(--h3)}
+.dz-r.star .dz-c p{color:var(--paper);opacity:.8}
+.dz-r.star .dz-o b{font-size:calc(24*var(--px))}
+.dz-o em{display:block;margin-top:var(--s4);font:600 calc(12*var(--px))/1 var(--mono);font-style:normal;color:var(--green);text-box:trim-both cap alphabetic}
+.dz-r.star+.dz-note{margin-top:var(--s7)}
+html:not([data-motion="quiet"]) .dz-r.star:before{transform-origin:50% 0;transform:scaleY(.96);opacity:0;transition:opacity .6s var(--out3) .3s,transform .8s var(--out3) .3s}
+html:not([data-motion="quiet"]) .dz-r.star.in:before{transform:none;opacity:1}
+@media (max-width:860px), (max-width:1199px) and (orientation:portrait){ .dz-r.star{padding-left:0;padding-right:0} .dz-tag{margin-bottom:var(--s4)} }
+@media (max-width:699px){ .dz-r.star{padding:var(--s5) 0 var(--s6)} .dz-r.star:before{inset:0 calc(-0.5 * var(--m))} .dz-tag{grid-column:1/-1;grid-row:1;margin-bottom:var(--s5)} .dz-r.star .dz-c .ic{grid-row:2/4} .dz-o em{display:block;font:600 calc(12*var(--px))/1.4 var(--mono)} .dz-r.star .dz-o b{font-size:inherit} }
+
+
+
+/* ═══ v3.3 · 04 · one example, said as one: a tag on the caption and an honest note under the numbers ═══ */
+.hd .cap .ex{display:inline-flex;align-items:center;height:calc(20*var(--px));margin-right:var(--s3);padding:0 calc(6*var(--px));box-shadow:inset 0 0 0 .5px var(--hc2);font:600 calc(10*var(--px))/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--paper);vertical-align:1px}
+#race .hd .cap{grid-column:1/8;grid-row:3}
+.hd .kpi-note{grid-column:8/13;grid-row:3;margin-top:var(--s5);padding-left:var(--s4);border-left:2px solid var(--paper);font-size:calc(13*var(--px));line-height:1.5;color:var(--mute);text-box:trim-both cap alphabetic}
+.kpi-note b{color:var(--paper);font-weight:600}
+@media (max-width:860px), (max-width:1199px) and (orientation:portrait){ #race .hd .cap,.hd .kpi-note{grid-column:1/-1;grid-row:auto} .hd .kpi-note{margin-top:var(--s4)} }
+
+
+
+/* ═══ v3.3 · 01 reads as problems: each card is marked "Problem", carries a red rule on top and says what it costs you;
+   the icons draw the broken part in red (you, the bottleneck · the memory that's gone · the one model doing everything · the mistake) ═══ */
+.pain{position:relative}
+.pain:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:#E5484D}
+.pain-hd .k{color:#F27A7E;letter-spacing:.04em;text-transform:uppercase;font-size:calc(11*var(--px))}
+.ic .rdash{fill:none;stroke:#E5484D;stroke-width:1.5;stroke-dasharray:2.5 2.5}
+.pain p.cost{margin-top:auto;padding-top:var(--s5);display:flex;gap:var(--s3);align-items:baseline;font-size:calc(13*var(--px));font-weight:600;color:var(--paper)}
+.pain .cost span{font:600 calc(11*var(--px))/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:#F27A7E;text-box:trim-both cap alphabetic}
+.pain h3{margin-top:var(--s6)}
+@media (max-width:699px){ .pain:before{display:none} .pain p.cost{grid-column:2;margin-top:var(--s3);padding-top:0} .pain{border-top:.5px solid rgba(229,72,77,.6)} }
+
+
+
+/* ═══ v3.3 · 07 · your subscriptions, bound into one crew: a bus runs across the top of the nine columns from MAT's mark, each
+   subscription hangs off it at a junction, and the seats of one job sit on top of the bars they run on (filled junction = used) ═══ */
+.bind{grid-column:1/-1;display:flex;align-items:center;gap:var(--s3);padding-bottom:var(--s4)}
+.bind-m{display:flex;position:relative} .bind-m svg{display:block;width:calc(26*var(--px));height:auto}
+.bind-m:after{content:"";position:absolute;left:calc(8*var(--px));top:100%;height:calc(var(--s4) + 2px);border-left:1px solid var(--paper)}
+.bind b{font-size:calc(14*var(--px));font-weight:600;color:var(--paper);text-box:trim-both cap alphabetic}
+.bind-j{margin-left:auto;font:500 calc(12*var(--px))/1 var(--mono);color:var(--mute);text-box:trim-both cap alphabetic}
+.cols{border-top:1px solid var(--paper)}
+.mcol .jn{position:absolute;left:calc(12*var(--px));top:-4px;width:calc(7*var(--px));height:calc(7*var(--px));z-index:3;background:var(--sheet);box-shadow:inset 0 0 0 1px var(--paper)}
+.mcol.used .jn{background:var(--paper)}
+.mcol.skip .jn{box-shadow:inset 0 0 0 1px var(--dim)}
+.mcol .meta{padding-top:var(--s5)}
+.mcol .seats{position:absolute;left:calc(12*var(--px));right:calc(8*var(--px));bottom:calc(var(--v) * 0.78 * var(--g,1) + calc(10*var(--px)));z-index:2;display:flex;flex-wrap:wrap;gap:calc(4*var(--px));align-items:flex-end;pointer-events:none}
+.mcol .seats svg{display:block;width:calc(24*var(--px));height:calc(24*var(--px))}
+.mcol .seats svg.mk{width:calc(36*var(--px));height:auto}
+.mcol .seats em{flex-basis:100%;margin-bottom:calc(4*var(--px));font:500 calc(11*var(--px))/1 var(--mono);font-style:normal;color:var(--mute);text-box:trim-both cap alphabetic}
+html[data-motion="quiet"] .mcol .seats{opacity:1!important}
+@media (max-width:860px), (max-width:1199px) and (orientation:portrait){ .bind-j{display:none} }
+@media (max-width:699px){
+  .bind b{font-size:calc(13*var(--px))}
+  .mcol .jn{left:50%;margin-left:-3.5px}
+  .mcol .seats{left:0;right:0;justify-content:center;flex-direction:column;align-items:center;flex-wrap:nowrap;gap:calc(3*var(--px));bottom:calc(var(--v) * 0.68 * var(--g,1) - calc(6*var(--px)));transform:translateY(100%)}
+  .mcol .seats svg{width:calc(14*var(--px));height:calc(14*var(--px))} .mcol .seats svg.mk{width:calc(22*var(--px))} .mcol .seats em{display:none}
+}
+
+
+
+/* ═══ v3.3 · hero: the chat, and beside it the crew MAT hires — the point of MAT, shown first. MAT lays out the stages, hires a seat
+   for each (a token runs from MAT's mark down the rail to the seat, and the face appears there, with the model's mark on its stage),
+   then the seats work: their bars fill side by side, each stage's gate turns green before the next starts. Scroll-driven; rewinds.
+   1–4 the words and the waitlist; 5–12 the window (chat 42 %, crew the rest); stacked on phones and tablets upright. ═══ */
+.hero-l{grid-column:1/5}
+.hc-sp .s{display:none}
+.hero-chat{grid-column:5/13}
+.hc-steps{grid-template-columns:repeat(4,minmax(0,1fr))}
+.hc-win{flex-direction:row;padding:0}
+.hc-chat{flex:0 0 42%;min-width:0;display:flex;flex-direction:column;padding:0 var(--s5)}
+.hc-crew{flex:1 1 0;min-width:0;min-height:0;display:flex;flex-direction:column;box-shadow:inset .5px 0 0 var(--hc);container-type:inline-size;background:#18181A}
+.hero-run{height:300vh;height:300svh}
+.cr-h{flex:none;height:calc(64*var(--px));display:flex;align-items:center;gap:var(--s3);padding:0 calc(20*var(--px));box-shadow:inset 0 -.5px 0 var(--hc)}
+.cr-h svg.mk{display:block;flex:none;width:calc(22*var(--px));height:auto}
+.cr-h .k{flex:none;font:600 calc(11*var(--px))/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--dim);text-box:trim-both cap alphabetic}
+.cr-h b{min-width:0;font:600 calc(14*var(--px))/1.2 var(--text);color:var(--paper);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cr-st{margin-left:auto;flex:none;font:600 calc(11*var(--px))/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--dim);text-box:trim-both cap alphabetic;transition:color .3s}
+.cr-st.run{color:var(--run)} .cr-st.ok{color:var(--green)}
+.cr-b{position:relative;flex:1 1 0;min-height:0;padding:var(--s2) calc(20*var(--px)) 0;overflow:hidden}
+.cr-bd{display:none} .cr-bd.on{display:block}
+.cr-e{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:var(--s3);padding:0 calc(44*var(--px));transition:opacity .3s}
+.cr-e b{font:600 calc(15*var(--px))/1.3 var(--text);color:var(--paper)} .cr-e span{font-size:calc(13*var(--px));line-height:1.5;color:var(--mute);max-width:34ch}
+.cr-e.off{opacity:0}
+.cr-note{margin:var(--s5) 0 0 calc(24*var(--px));max-width:40ch;font-size:calc(13*var(--px));line-height:1.5;color:var(--dim);opacity:var(--na,0);text-box:trim-both cap alphabetic}
+.cr-r{position:relative;display:grid;grid-template-columns:calc(18*var(--px)) minmax(0,calc(150*var(--px))) minmax(0,1fr) calc(84*var(--px));align-items:center;column-gap:var(--s3);height:var(--rh,calc(52*var(--px)));margin-left:calc(24*var(--px));box-shadow:inset 0 -.5px 0 var(--hc);opacity:var(--a,0);transform:translateY(calc((1 - var(--a,0)) * calc(6*var(--px))))}
+.cr-r:before{content:"";position:absolute;left:-17px;top:0;bottom:0;border-left:1px solid var(--hc2)}
+.cr-r:first-child:before{top:calc(-1 * var(--s2))}
+.cr-g{position:absolute;left:-21px;bottom:-4px;width:calc(9*var(--px));height:calc(9*var(--px));z-index:2;background:#18181A;box-shadow:inset 0 0 0 1px var(--hc2);transition:background .25s,box-shadow .25s}
+.cr-g.ok{background:var(--green);box-shadow:none}
+.cr-n{font:600 calc(11*var(--px))/1 var(--mono);color:var(--dim);text-box:trim-both cap alphabetic}
+.cr-r.run .cr-n{color:var(--paper)}
+.cr-s{min-width:0;display:flex;flex-direction:column;gap:calc(6*var(--px))}
+.cr-s b{font:600 calc(13*var(--px))/1.1 var(--text);color:var(--paper);text-box:trim-both cap alphabetic}
+.cr-m{display:flex;align-items:center;gap:calc(4*var(--px));min-width:0;font:500 calc(11*var(--px))/1.1 var(--text);color:var(--mute);white-space:nowrap}
+.cr-m .blogo{width:calc(12*var(--px));height:calc(12*var(--px))} .cr-m .t{overflow:hidden;text-overflow:ellipsis;margin-left:2px}
+.cr-ps{display:flex;gap:calc(6*var(--px));min-width:0}
+.cr-p{position:relative;flex:none;display:flex;flex-direction:column;align-items:center;gap:calc(5*var(--px));width:calc(22*var(--px))}
+.cr-fc{position:relative;width:calc(22*var(--px));height:calc(22*var(--px))}
+.cr-fc:before{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 1px var(--hc2);opacity:.9}
+.cr-fc>svg{position:relative;display:block;width:calc(22*var(--px));height:calc(22*var(--px));opacity:0;transform:scale(.3);transition:opacity .2s,transform .35s cubic-bezier(.34,1.56,.64,1)}
+.cr-fc>svg.mk{width:calc(22*var(--px));height:auto;margin-top:calc(4*var(--px))}
+.cr-p.in .cr-fc>svg{opacity:1;transform:none} .cr-p.in .cr-fc:before{opacity:0}
+.cr-bar{position:relative;width:100%;height:2px;background:rgba(90,143,230,.22)}
+.cr-bar u{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--run)}
+.cr-p.done .cr-bar u{background:var(--green)}
+.cr-v{display:flex;align-items:center;justify-content:flex-end;gap:calc(6*var(--px));font:500 calc(11*var(--px))/1 var(--mono);color:var(--dim);white-space:nowrap}
+.cr-v .si{flex:none;width:calc(14*var(--px));height:calc(14*var(--px))} .cr-v .si svg{display:block;width:100%;height:100%}
+.cr-v.run{color:var(--run)} .cr-v.ok{color:var(--green)}
+.cr-tk{position:absolute;left:0;top:0;width:calc(8*var(--px));height:calc(8*var(--px));margin:-4px 0 0 -4px;border-radius:50%;background:var(--paper);opacity:0;z-index:3;pointer-events:none}
+.cr-ft{flex:none;height:calc(56*var(--px));display:grid;grid-template-columns:1fr 1fr 1.4fr;column-gap:var(--s3);align-items:center;padding:0 calc(20*var(--px));box-shadow:inset 0 .5px 0 var(--hc)}
+.cr-ft div{display:flex;flex-direction:column;gap:calc(6*var(--px));min-width:0}
+.cr-ft span{font:600 calc(10*var(--px))/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--dim);white-space:nowrap;text-box:trim-both cap alphabetic}
+.cr-ft b{font:600 calc(15*var(--px))/1 var(--display);letter-spacing:-.01em;color:var(--paper);font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-box:trim-both cap alphabetic}
+.cr-ft b.ok{color:var(--green)} .cr-ft b.dm{color:var(--dim)}
+@container (max-width:470px){
+  .cr-r{grid-template-columns:calc(16*var(--px)) minmax(0,calc(104*var(--px))) minmax(0,1fr) calc(14*var(--px));column-gap:var(--s2)}
+  .cr-v span{display:none}
+  .cr-ps{gap:calc(4*var(--px))} .cr-p,.cr-fc,.cr-fc>svg,.cr-fc>svg.mk{width:calc(18*var(--px))} .cr-fc{height:calc(18*var(--px))} .cr-fc>svg{height:calc(18*var(--px))}
+  .cr-ft{grid-template-columns:1fr 1fr 1.6fr}
+}
+@media (max-width:860px), (max-width:1199px) and (orientation:portrait){
+  .hero-l,.hero-chat{grid-column:1/-1}
+  .hero-chat{height:calc(720*var(--px))}
+  .hc-win{flex-direction:column}
+  .hc-chat{flex:0 0 44%;padding:0 var(--s4)}
+  .hc-crew{box-shadow:inset 0 .5px 0 var(--hc)}
+  .hero-run{height:260vh;height:260svh}
+}
+/* phones on their side: the window as wide, short as the screen; chat and crew side by side again, with lower heads */
+@media (orientation:landscape) and (max-height:540px) and (max-width:1199px){
+  .hero-chat{height:calc(100svh - var(--navh) - calc(24*var(--px)))}
+  .hc-win{flex-direction:row} .hc-chat{flex:0 0 42%} .hc-crew{box-shadow:inset .5px 0 0 var(--hc)}
+  .hc-chat .hc-head,.hc-chat .hc-input,.cr-h{height:calc(44*var(--px))} .cr-ft{height:calc(44*var(--px))} .hc-steps{padding-bottom:var(--s2)} .hc-hint{display:none}
+}
+@media (max-width:699px){
+  .hero-chat{height:calc(660*var(--px))}
+  .hc-chat{flex-basis:42%}
+  .hc-chat .hc-head,.hc-chat .hc-input{height:calc(52*var(--px))}
+  .cr-h{height:calc(48*var(--px));padding:0 var(--s4)} .cr-b{padding:var(--s2) var(--s4) 0} .cr-ft{height:calc(48*var(--px));padding:0 var(--s4)}
+  .cr-r:before{left:-13px} .cr-g{left:-17px} .cr-r{margin-left:calc(20*var(--px))}
+  .cr-e{padding:0 var(--s5)}
+  .hc-sp>span{font-size:calc(12*var(--px));white-space:nowrap} .hc-sp .l{display:none}
+  .hc-steps{column-gap:var(--s2)}
+}
+
 </style>
 
 <header class="nav g" id="nav">
@@ -1052,29 +1251,32 @@ html[data-motion="quiet"] .wf.on{animation:none}
       <div class="hero-wl rv"><form class="wl" data-wl="hero" novalidate><label class="wl-f"><span class="vh">Email</span><input type="email" name="email" placeholder="you@company.com" autocomplete="email" required></label><button class="btn primary" type="submit"><span class="bl">Join the waitlist</span><span class="arw"><i>→</i><i>→</i></span></button><p class="wl-done" role="status"><b>You're on the list.</b> We'll email you when your seat is ready.<span>Preview · this page doesn't send sign-ups yet.</span></p></form></div>
       <p class="small hero-meta rv">Desktop app · runs locally · free while in beta</p>
     </div>
-    <div class="hero-chat rv" id="heroChat" role="img" aria-label="A chat with MAT, in three calls. You ask whether to use RAG or fine-tuning, and MAT answers right there. You ask for a launch email, and MAT writes it on one model: ready in 52 seconds for $0.004. You ask for a look at twelve AI note-taking apps, and MAT puts a crew on it: about 14 minutes and $0.60, against $1.55 for one strong model.">
-      <div class="hc-steps" aria-hidden="true"><div class="hc-sp" data-k="0"><i><u></u></i><b>01</b><span>It answers</span></div><div class="hc-sp" data-k="1"><i><u></u></i><b>02</b><span>It does it</span></div><div class="hc-sp" data-k="2"><i><u></u></i><b>03</b><span>It staffs it</span></div></div>
+    <div class="hero-chat rv" id="heroChat" role="img" aria-label="A chat with MAT, and beside it the crew MAT hires. You ask whether to use RAG or fine-tuning, and MAT answers right there: no crew. You ask for a launch email, and MAT hires one seat, Wren on GPT-6.1 Sol, then checks the draft: 52 seconds, $0.004. You ask for a look at twelve AI note-taking apps, and MAT lays out five stages and hires a crew of nine across four of your subscriptions — six scouts on Gemini and DeepSeek, two to compare on Qwen, one to write on GPT-6.1 Sol — then the crew works stage by stage, each one checked before the next starts: 14 minutes and $0.60, against $1.55 for one strong model.">
+      <div class="hc-steps" aria-hidden="true"><div class="hc-sp" data-k="0"><i><u></u></i><b>01</b><span><span class="l">It answers</span><span class="s">Answers</span></span></div><div class="hc-sp" data-k="1"><i><u></u></i><b>02</b><span><span class="l">It does it</span><span class="s">One model</span></span></div><div class="hc-sp" data-k="2"><i><u></u></i><b>03</b><span><span class="l">It hires a crew</span><span class="s">Hires a crew</span></span></div><div class="hc-sp" data-k="3"><i><u></u></i><b>04</b><span><span class="l">The crew works</span><span class="s">Crew works</span></span></div></div>
       <div class="hc-win" aria-hidden="true">
-        <div class="hc-head"><canvas id="heroRig"></canvas><b>MAT</b><span class="hc-st" id="hcState">New chat</span></div>
-        <div class="hc-log"><div class="hc-in" id="hcIn"></div></div>
-        <div class="hc-input"><span class="hc-text"><span class="hc-ph" id="hcPh">Tell MAT what you need…</span><span class="hc-typed" id="hcTyped"></span><i class="hc-caret"></i></span><span class="hc-send" id="hcSend">↑</span></div>
+        <div class="hc-chat">
+          <div class="hc-head"><canvas id="heroRig"></canvas><b>MAT</b><span class="hc-st" id="hcState">New chat</span></div>
+          <div class="hc-log"><div class="hc-in" id="hcIn"></div></div>
+          <div class="hc-input"><span class="hc-text"><span class="hc-ph" id="hcPh">Tell MAT what you need…</span><span class="hc-typed" id="hcTyped"></span><i class="hc-caret"></i></span><span class="hc-send" id="hcSend">↑</span></div>
+        </div>
+        <div class="hc-crew" id="hcCrew"></div>
       </div>
       <p class="small hc-hint" aria-hidden="true"><span class="hint-scrub"><i></i><span>Scroll — MAT takes the next one</span></span></p>
     </div>
   </div>
 </section>
-<!-- the hero holds for two screens of scroll while its chat plays the next two calls; then the problem slides over it -->
+<!-- the hero holds for three screens of scroll while its chat plays the next two calls and the crew works; then the problem slides over it -->
 <div class="hero-run" id="heroRun" aria-hidden="true"></div>
 <!-- 01 · The problem: the title holds on the left, four cards with icons on the right -->
 <section id="problem" data-ground="red">
   <div class="g hd"><p class="lab"><b>01</b><span>The problem</span></p></div>
   <div class="g prob">
-    <div class="prob-t"><h2 class="split rv">Many models.<br>No team.</h2><p class="lede rv">You already pay for several AIs. Getting real work out of them is still your job.</p></div>
+    <div class="prob-t"><h2 class="split rv">Many models.<br>No team.</h2><p class="lede rv">You already pay for several AIs. Getting real work out of them is still your job — and it breaks in four places.</p></div>
     <div class="pains">
-      <div class="pain rv"><div class="pain-hd"><svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><circle class="f" cx="7" cy="20" r="5"/><path class="l" d="M12 20L28 8M12 20L28 20M12 20L28 32"/><rect class="l" x="28" y="4" width="8" height="8"/><rect class="l" x="28" y="16" width="8" height="8"/><rect class="l" x="28" y="28" width="8" height="8"/></svg><p class="k">A</p></div><h3>You run the workflow.</h3><p>You pick a model for every step, paste the context from one chat into the next and keep track of who said what.</p></div>
-      <div class="pain rv"><div class="pain-hd"><svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><rect class="l" x="2" y="12" width="16" height="16"/><rect class="f" x="5.5" y="15.5" width="9" height="1.5"/><rect class="f" x="5.5" y="19" width="6" height="1.5"/><rect class="l" x="22" y="12" width="16" height="16"/></svg><p class="k">B</p></div><h3>Nothing carries over.</h3><p>Each model remembers only its own chats. Switch tools or hit a limit, and the context — and what you taught it — is gone.</p></div>
-      <div class="pain rv"><div class="pain-hd"><svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><rect class="l" x="3" y="6" width="6" height="6"/><rect class="l" x="3" y="17" width="6" height="6"/><rect class="l" x="3" y="28" width="6" height="6"/><path class="l" d="M9 9L22 20M9 20L22 20M9 31L22 20"/><rect class="l" x="22" y="12" width="16" height="16"/><rect class="f" x="25" y="23" width="10" height="1.5"/><rect class="f" x="25" y="19.5" width="10" height="1.5"/><rect class="f" x="25" y="16" width="10" height="1.5"/></svg><p class="k">C</p></div><h3>One model does everything.</h3><p>A strong model is slow and expensive on the easy steps. A cheap one gets the hard steps wrong. Either way you pay for it.</p></div>
-      <div class="pain rv"><div class="pain-hd"><svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><path class="l" d="M11 20H15"/><path class="rl" d="M25 20H29"/><rect class="f" x="1" y="15" width="10" height="10"/><rect class="r" x="15" y="15" width="10" height="10"/><rect class="rl" x="29" y="15" width="10" height="10"/></svg><p class="k">D</p></div><h3>Nobody checks the work.</h3><p>A mistake in one step flows into the next. Finding it, and redoing what was built on it, is up to you.</p></div>
+      <div class="pain rv"><div class="pain-hd"><svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><circle class="r" cx="7" cy="20" r="5"/><path class="rdash" d="M12 20L28 8M12 20L28 20M12 20L28 32"/><rect class="l" x="28" y="4" width="8" height="8"/><rect class="l" x="28" y="16" width="8" height="8"/><rect class="l" x="28" y="28" width="8" height="8"/></svg><p class="k">Problem A</p></div><h3>You run the workflow.</h3><p>You pick a model for every step, paste the context from one chat into the next and keep track of who said what.</p><p class="cost"><span>Costs you</span>your time</p></div>
+      <div class="pain rv"><div class="pain-hd"><svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><rect class="l" x="2" y="12" width="16" height="16"/><rect class="f" x="5.5" y="15.5" width="9" height="1.5"/><rect class="f" x="5.5" y="19" width="6" height="1.5"/><rect class="rdash" x="22" y="12" width="16" height="16"/></svg><p class="k">Problem B</p></div><h3>Nothing carries over.</h3><p>Each model remembers only its own chats. Switch tools or hit a limit, and the context — and what you taught it — is gone.</p><p class="cost"><span>Costs you</span>the context, at every switch</p></div>
+      <div class="pain rv"><div class="pain-hd"><svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><rect class="l" x="3" y="6" width="6" height="6"/><rect class="l" x="3" y="17" width="6" height="6"/><rect class="l" x="3" y="28" width="6" height="6"/><path class="l" d="M9 9L22 20M9 20L22 20M9 31L22 20"/><rect class="rl" x="22" y="12" width="16" height="16"/><rect class="f" x="25" y="23" width="10" height="1.5"/><rect class="f" x="25" y="19.5" width="10" height="1.5"/><rect class="f" x="25" y="16" width="10" height="1.5"/></svg><p class="k">Problem C</p></div><h3>One model does everything.</h3><p>A strong model is slow and expensive on the easy steps. A cheap one gets the hard steps wrong. Either way you pay for it.</p><p class="cost"><span>Costs you</span>money, or quality</p></div>
+      <div class="pain rv"><div class="pain-hd"><svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><path class="l" d="M11 20H15"/><path class="rl" d="M25 20H29"/><rect class="f" x="1" y="15" width="10" height="10"/><rect class="r" x="15" y="15" width="10" height="10"/><rect class="rl" x="29" y="15" width="10" height="10"/></svg><p class="k">Problem D</p></div><h3>Nobody checks the work.</h3><p>A mistake in one step flows into the next. Finding it, and redoing what was built on it, is up to you.</p><p class="cost"><span>Costs you</span>rework</p></div>
     </div>
   </div>
 </section>
@@ -1117,10 +1319,11 @@ html[data-motion="quiet"] .wf.on{animation:none}
       <div class="dz-c"><svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><circle class="f" cx="7" cy="20" r="5"/><path class="l" pathLength="1" d="M12 20H22"/><rect class="l" pathLength="1" x="22" y="12" width="16" height="16"/></svg><div><h3>One model can finish it.</h3><p>One piece of writing: MAT writes it on one model and checks it before you see it.</p></div></div>
       <div class="dz-o"><b>A draft, ready to send</b><span>52 s · $0.004 · one model</span></div>
     </div>
-    <div class="dz-r rv" style="--i:2">
+    <div class="dz-r star rv" style="--i:2">
+      <p class="dz-tag"><span>Where MAT is strongest</span></p>
       <p class="dz-q">“Look at the AI note-taking apps: who’s winning, why, and what they charge.”</p>
-      <div class="dz-c"><svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><circle class="f" cx="5" cy="20" r="4"/><path class="l" pathLength="1" d="M9 20L15 9M9 20H15M9 20L15 31"/><rect class="l" pathLength="1" x="15" y="5" width="8" height="8"/><rect class="l" pathLength="1" x="15" y="16" width="8" height="8"/><rect class="l" pathLength="1" x="15" y="27" width="8" height="8"/><path class="l" pathLength="1" d="M23 9L31 20M23 20H31M23 31L31 20"/><rect class="gt" x="31" y="16" width="8" height="8"/></svg><div><h3>The work splits.</h3><p>Twelve apps at once: a crew of six scouts, two to compare and one to write, with MAT planning and checking every step.</p></div></div>
-      <div class="dz-o"><b>A report with 12 sources</b><span>14 min · $0.60 · against $1.55 on one strong model</span></div>
+      <div class="dz-c"><svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><circle class="f" cx="5" cy="20" r="4"/><path class="l" pathLength="1" d="M9 20L15 9M9 20H15M9 20L15 31"/><rect class="l" pathLength="1" x="15" y="5" width="8" height="8"/><rect class="l" pathLength="1" x="15" y="16" width="8" height="8"/><rect class="l" pathLength="1" x="15" y="27" width="8" height="8"/><path class="l" pathLength="1" d="M23 9L31 20M23 20H31M23 31L31 20"/><rect class="gt" x="31" y="16" width="8" height="8"/></svg><div><h3>The work splits.</h3><p>Twelve apps at once: a crew of six scouts, two to compare and one to write — each on the model that suits its step — with MAT planning and checking every stage. No single chat can do this.</p></div></div>
+      <div class="dz-o"><b>A report with 12 sources</b><span>14 min · $0.60 · against $1.55 on one strong model</span><em>9 seats · 5 models · 5 checks</em></div>
     </div>
     <p class="small dz-note rv">When a message could go either way, MAT asks one question first — and only when the answer changes how the work gets done.</p>
   </div>
@@ -1130,13 +1333,14 @@ html[data-motion="quiet"] .wf.on{animation:none}
   <div class="scene" id="raceScene" style="--sh:340vh"><div class="pin" id="racePin">
     <div class="g hd">
       <p class="lab"><b>04</b><span>What it saves</span><em>Answers C</em></p>
-      <h2 class="split rv">Same work. Less money, less time.</h2>
-      <p class="small cap rv">One illustrative job, done three ways · a competitor analysis of 12 apps · <span class="how" tabindex="0">How we counted<span class="pop tip">Tokens × each model's public list price (September 2026), same brief and the same 12 sources for both runs. Illustrative until measured runs replace it; MAT shows the real comparison on every job.</span></span></p>
+      <h2 class="split rv">When the work splits, less money and less time.</h2>
+      <p class="small cap rv"><b class="ex">One example</b>A competitor analysis of 12 apps, done three ways: work that splits into seats running side by side · <span class="how" tabindex="0">How we counted<span class="pop tip">Tokens × each model's public list price (September 2026), same brief and the same 12 sources for both runs. Illustrative until measured runs replace it; MAT shows the real comparison on every job.</span></span></p>
+      <p class="kpi-note rv"><b>Not every job gets both.</b> A short job is cheapest on one model, and work that can’t split doesn’t get faster. MAT gives its estimate before it starts and runs the job the cheaper way.</p>
     </div>
     <div class="g body race-body">
       <div class="kpis" id="kpis">
-        <div class="kpi" data-k="save"><div class="num flip" id="kSave">0%</div><p class="small">less spent than one strong model</p><div class="kbar"><i></i></div></div>
-        <div class="kpi" data-k="ahead"><div class="num flip" id="kAhead">0 min</div><p class="small">sooner</p><div class="kbar"><i></i></div></div>
+        <div class="kpi" data-k="save"><div class="num flip" id="kSave">0%</div><p class="small">less spent than one strong model, on this job</p><div class="kbar"><i></i></div></div>
+        <div class="kpi" data-k="ahead"><div class="num flip" id="kAhead">0 min</div><p class="small">sooner, because six seats ran at once</p><div class="kbar"><i></i></div></div>
         <div class="kpi" data-k="chk"><div class="num flip" id="kChk">0/12</div><p class="small">claims hold up · cheap models only: 9</p><div class="kbar"><i></i></div></div>
       </div>
       <div class="chart-cell"><div class="chart" id="chart" role="img" aria-label="Three runs on one time axis. One strong model alone: 22 minutes, $1.55, 12 of 12 claims hold up. Cheap models only: a failed check and a redo, 17.5 minutes, $0.38, 9 of 12 claims hold up. MAT and its crew: 14 minutes, $0.60, 12 of 12."><svg id="chartSvg" aria-hidden="true"></svg></div></div>
@@ -1207,12 +1411,13 @@ html[data-motion="quiet"] .wf.on{animation:none}
 <section id="models" data-ground="ink">
   <div class="g hd side">
     <p class="lab"><b>07</b><span>Models and memory</span><em>Answers B</em></p>
-    <h2 class="split rv">Runs on what you already pay for.</h2>
-    <p class="lede rv">Connect the subscriptions you have. When one runs out, MAT routes around it — and what it has learned stays local.</p>
+    <h2 class="split rv">Every AI you pay for, working as one crew.</h2>
+    <p class="lede rv">Connect the subscriptions you have and MAT uses them together: each seat goes to the model that suits it and still has allowance. When one runs out, its seats move to another — and what MAT learns stays local.</p>
   </div>
   <div class="g models-g">
+    <div class="bind" aria-hidden="true"><span class="bind-m" id="bindMark"></span><b>One crew, nine subscriptions</b><span class="bind-j">This job · AI note-taking apps · 9 seats on 4 of them, MAT on Claude</span></div>
     <div class="cols" id="cols" data-follow></div>
-    <div class="cols-note"><p class="small">Allowance left this cycle, per subscription.</p><p class="small">Copilot is used up, so its seats go to Gemini until it resets.</p></div>
+    <div class="cols-note"><p class="small">Bars: allowance left this cycle. Faces: the seats of one job, on the subscription each one runs on.</p><p class="small">Copilot is used up, so its seats go to Gemini until it resets.</p></div>
   </div>
   <div class="g mem">
     <div class="mem-txt rv"><p class="k">Memory</p><h3>MAT’s memory stays local.</h3><p>When a job is delivered clean, MAT writes down what worked — by kind of work, not by chat and not by person. The next job of that kind starts from it, on whichever model. Deleting a chat never deletes it; only Settings › Memory does.</p></div>
@@ -1276,7 +1481,7 @@ html[data-motion="quiet"] .wf.on{animation:none}
     <div class="rd-line" aria-hidden="true"><i id="rdFill"></i></div>
     <div class="rd"><p class="rd-k">Coming soon · 01</p><svg class="picto" data-picto="S" viewBox="0 0 320 200" aria-hidden="true"></svg><h3>Your computer is the server. Every device can call it.</h3><p>MAT runs a small server on the computer it lives on. Your phone, a tablet or another computer — any system, any browser — hands it work, answers its questions and picks up the results.</p></div>
     <div class="rd"><p class="rd-k">Coming soon · 02</p><svg class="picto" data-picto="M" viewBox="0 0 320 200" aria-hidden="true"></svg><h3>MAT as a bot in your chat apps.</h3><p>Add MAT to Slack, Telegram, WhatsApp or Lark. Hand over a job in a message; the question and the result come back in the same thread.</p></div>
-    <div class="rd"><p class="rd-k">Coming soon · 03</p><svg class="picto" data-picto="T" viewBox="0 0 320 200" aria-hidden="true"></svg><h3>A community of crews.</h3><p>Share a crew you have built — its seats, its models, its checks — and start from the crews other people share. One click puts it to work on your own models.</p></div>
+    <div class="rd"><p class="rd-k">Coming soon · 03</p><svg class="picto" data-picto="T" viewBox="0 0 320 200" aria-hidden="true"></svg><h3>Build your own crew. Then share it.</h3><p>Set the seats, the model on each and the checks for work you do often, and keep it as your crew. Share it, or start from one someone else built — it runs on your own models.</p></div>
   </div>
 </section>
 <!-- 12 · Questions: set in three newspaper columns -->
@@ -1291,7 +1496,7 @@ html[data-motion="quiet"] .wf.on{animation:none}
       <div class="qa"><p class="k">Q 02</p><h3>Which subscriptions can I connect?</h3><div class="qa-a" id="qa-02"><p class="vd">The ones you have.</p><p>Your Claude and ChatGPT plans, API keys from the major providers, any OpenAI-compatible server, and local models on your computer. The same provider can be added twice, for a work and a personal account.</p></div></div>
       <div class="qa"><p class="k">Q 03</p><h3>Where does my data live?</h3><div class="qa-a" id="qa-03"><p class="vd">Locally.</p><p>Your chats, projects and what MAT has learned are saved on your own computer, and finished work lands in Documents › MAT. Each model sees only the work for its step.</p></div></div>
       <div class="qa"><p class="k">Q 04</p><h3>Is it always cheaper than one model?</h3><div class="qa-a" id="qa-04"><p class="vd">No.</p><p>On a small job, one model is cheaper and faster, and MAT says so and runs it that way. The bigger the job, the more a crew of cheaper models saves.</p></div></div>
-      <div class="qa"><p class="k">Q 05</p><h3>Do I have to manage the crew?</h3><div class="qa-a" id="qa-05"><p class="vd">No.</p><p>You only talk to MAT, in one chat. It staffs the crew, checks the work and asks you only when a decision is yours; minimised, it’s one line under the notch.</p></div></div>
+      <div class="qa"><p class="k">Q 05</p><h3>Do I have to manage the crew?</h3><div class="qa-a" id="qa-05"><p class="vd">Not yet.</p><p>For now MAT staffs every crew for you: you talk to MAT, in one chat, and it asks only when a decision is yours. Next, you’ll be able to build crews of your own — the seats, their models and the checks — and share them (Coming soon · 03).</p></div></div>
       <div class="qa"><p class="k">Q 06</p><h3>When can I use it?</h3><div class="qa-a" id="qa-06"><p class="vd">As seats open.</p><p>MAT is in a closed beta, free while it lasts. Join the waitlist and we'll send you an invite.</p></div></div>
     </div>
   </div>
@@ -1312,11 +1517,76 @@ html[data-motion="quiet"] .wf.on{animation:none}
   <div class="g fmap">
     <div><div class="fh">MAT</div><p class="small">One chat, and a crew on the models you already pay for — running locally.</p><div class="foot-wl"><form class="wl" data-wl="foot" novalidate><label class="wl-f"><span class="vh">Email</span><input type="email" name="email" placeholder="you@company.com" autocomplete="email" required></label><button class="btn primary" type="submit"><span class="bl">Join the waitlist</span><span class="arw"><i>→</i><i>→</i></span></button><p class="wl-done" role="status"><b>You're on the list.</b> We'll email you when your seat is ready.<span>Preview · this page doesn't send sign-ups yet.</span></p></form></div></div>
     <div><div class="fh"><b>01</b><span>Product</span></div><a href="#problem">Why MAT</a><a href="#race">What it saves</a><a href="#work">How it works</a><a href="#ranks">The ranking</a><a href="#soon">Coming soon</a></div>
-    <div><div class="fh"><b>02</b><span>Beta</span></div><a href="#join">Join the waitlist</a><a href="#faq">Questions</a><a href="#hero">Changelog</a></div>
-    <div><div class="fh"><b>03</b><span>Company</span></div><a href="#hero">About</a><a href="#hero">Privacy</a><a href="#hero">Terms</a><a href="#hero">Contact</a></div>
+    <div><div class="fh"><b>02</b><span>Beta</span></div><a href="#join">Join the waitlist</a><a href="#faq">Questions</a><a href="#changelog" data-sheet>Changelog</a></div>
+    <div><div class="fh"><b>03</b><span>Company</span></div><a href="#about" data-sheet>About</a><a href="#privacy" data-sheet>Privacy</a><a href="#terms" data-sheet>Terms</a><a href="#contact" data-sheet>Contact</a></div>
   </div>
   <div class="g fbase"><span>© 2026 MAT</span><span>Desktop app · runs locally</span><span>Your memory stays on your computer</span></div>
 </footer>
+<!-- v3.3 · the footer's pages: one sheet over the page, a page per link (#changelog, #about, #privacy, #terms, #contact). Esc or × closes it. -->
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shTitle" tabindex="-1" hidden>
+  <div class="sh-bar g"><a class="logo" href="#" data-close aria-label="Close and go back to the page">MAT</a><nav class="sh-nav" aria-label="Pages"><a href="#changelog" data-sheet>Changelog</a><a href="#about" data-sheet>About</a><a href="#privacy" data-sheet>Privacy</a><a href="#terms" data-sheet>Terms</a><a href="#contact" data-sheet>Contact</a></nav><button class="sh-x" type="button" data-close aria-label="Close">Close<i aria-hidden="true"></i></button></div>
+  <div class="sh-scroll">
+  <article class="sh-pg g" data-pg="changelog">
+    <p class="lab"><b>B·01</b><span>Changelog</span></p>
+    <h2 id="shTitle">What changed in the beta.</h2>
+    <p class="lede">MAT is in a closed beta. Builds go to the people on it as they are ready; this is what each one changed.</p>
+    <ol class="sh-log">
+      <li><time datetime="2026-10-07">Oct 7, 2026</time><div><h3>Chats side by side, a queue, projects.</h3><ul>
+        <li>Chats run at the same time: two jobs in two chats no longer wait for each other.</li>
+        <li>What you send while MAT is busy waits above the input, up to ten. Steer one into the work now, edit it with the full input, drag to reorder, or delete it.</li>
+        <li>Projects: a name, instructions and files that MAT and every seat in the crew read. Chats can be pinned, renamed and moved into a project.</li>
+        <li>Minimised, the line under the notch has a segment per chat, and the list says what is happening in each one.</li>
+        <li>Memory is written as soon as a job is delivered clean, and MAT says so in the chat. Settings › Memory and Archive were rewritten.</li>
+        <li>Research seats search with MAT’s own browser when you have no search key, and read the top pages, not just their snippets.</li></ul></div></li>
+      <li><time datetime="2026-10-06">Oct 6, 2026</time><div><h3>One chat, and MAT decides.</h3><ul>
+        <li>Every chat is you and MAT. Each message is answered, asked about, done on one model or given a crew — and a plan starts by itself.</li>
+        <li>The crew works in a drawer beside the chat; with the drawer closed, one line under the chat’s title says who is doing what.</li>
+        <li>Stop lives in the input. Running is blue everywhere, as in the dock.</li></ul></div></li>
+      <li><time datetime="2026-10-03">Oct 3, 2026</time><div><h3>A ranking for every kind of work.</h3><ul>
+        <li>37 models ranked in nine categories, the way Arena and Artificial Analysis score them, rebuilt every week. MAT staffs every seat from the first six.</li></ul></div></li>
+    </ol>
+  </article>
+  <article class="sh-pg g" data-pg="about">
+    <p class="lab"><b>C·01</b><span>About</span></p>
+    <h2>One chat. A crew when it pays.</h2>
+    <p class="lede">MAT is a desktop app that turns the AIs you already pay for into one team.</p>
+    <div class="sh-cols">
+      <div><h3>What it is</h3><p>You talk to MAT. A question gets an answer; a job gets one model, or — when the work splits — a crew of models, each on the step it does best, with MAT planning the work and checking every stage before the next one starts.</p></div>
+      <div><h3>What we believe</h3><p>Process beats raw IQ. A good team of ordinary models, planned and checked, does better work for less than one strong model alone — on the jobs that split. On the ones that don’t, MAT says so and uses one model.</p></div>
+      <div><h3>Where it runs</h3><p>On your own computer. Your chats, projects and what MAT learns stay there, and your subscriptions stay yours: MAT doesn’t resell a model, it uses the ones you connect.</p></div>
+    </div>
+  </article>
+  <article class="sh-pg g" data-pg="privacy">
+    <p class="lab"><b>C·02</b><span>Privacy</span></p>
+    <h2>What stays, what goes.</h2>
+    <p class="lede">The short version, for the beta. The full policy comes with the first public build.</p>
+    <dl class="sh-dl">
+      <div><dt>On your computer</dt><dd>Your chats, projects and their files, the queue, and MAT’s memory. Finished work is saved in Documents › MAT. Deleting a chat or a project never touches the memory; only Settings › Memory does.</dd></div>
+      <div><dt>Your keys</dt><dd>Kept in your system’s keychain, used only to call the provider they belong to.</dd></div>
+      <div><dt>What leaves</dt><dd>Each step’s work goes to the model on that seat — to the provider you connected, under your account and that provider’s terms. A seat sees the work for its step, not your whole history.</dd></div>
+      <div><dt>This page</dt><dd>The waitlist field doesn’t send anything yet: this is a preview. When it does, your email is used for the invite and nothing else.</dd></div>
+    </dl>
+  </article>
+  <article class="sh-pg g" data-pg="terms">
+    <p class="lab"><b>C·03</b><span>Terms</span></p>
+    <h2>The beta, in plain words.</h2>
+    <p class="lede">A summary while MAT is in beta. Full terms come with the first public build.</p>
+    <dl class="sh-dl">
+      <div><dt>Free while in beta</dt><dd>MAT costs nothing during the beta. Seats open in waves, by invite.</dd></div>
+      <div><dt>Your models, your bill</dt><dd>MAT runs on the subscriptions and keys you connect, so their limits, prices and terms apply. MAT shows the estimated cost before a job runs and keeps to the spending cap you set.</dd></div>
+      <div><dt>It’s a beta</dt><dd>Things will change and some will break. Check what matters before you rely on it — MAT attaches its sources so you can.</dd></div>
+      <div><dt>Your work is yours</dt><dd>What you ask and what MAT delivers belong to you.</dd></div>
+    </dl>
+  </article>
+  <article class="sh-pg g" data-pg="contact">
+    <p class="lab"><b>C·04</b><span>Contact</span></p>
+    <h2>Talk to us.</h2>
+    <p class="lede">Questions, a bug, an idea for a crew — open an issue on GitHub and we’ll answer there.</p>
+    <div class="sh-acts"><a class="btn primary" href="https://github.com/RobertLeeHao/MAT-website/issues" target="_blank" rel="noopener"><span class="bl">Open an issue on GitHub</span><span class="arw"><i>↗</i><i>↗</i></span></a><a class="btn line" href="#join" data-close><span class="bl">Join the waitlist</span></a></div>
+  </article>
+  </div>
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
 <script>
@@ -1630,7 +1900,7 @@ const logo=makeRig('logoRig',22,{still:true,always:true}); logo.static=true; // 
 // Blocks are stages (same stage, same colour, in both rows; width = minutes). Lines are money spent so far.
 const STC={Brief:'#F4EFE6',Research:'#9882CF',Compare:'#C98565',Write:'#6FA8DC',Check:'#79C28E'};
 const SOLO=[['Brief',0,1],['Research',1,12],['Compare',12,16],['Write',16,20],['Check',20,22]];
-const TEAM=[['Brief','Opus plans',0,1.5,.10,1],['Research','Haiku ×6',1.5,7.5,.16,6],['Compare','Sonnet ×2',7.5,10.5,.10,2],['Write','Sonnet',10.5,12.5,.09,1],['Check','Opus checks',12.5,14,.15,1]];
+const TEAM=[['Brief','Opus plans',0,1.5,.10,1],['Research','Gemini Flash ×3 · DeepSeek ×3',1.5,7.5,.16,6],['Compare','Qwen ×2',7.5,10.5,.10,2],['Write','GPT-6.1',10.5,12.5,.09,1],['Check','Opus checks',12.5,14,.15,1]];
 const PAR=[4.4,5.1,5.8,6.0,5.3,4.7];
 // [stage, label, start, end, cost, failed?] — one cheap model end to end; the check finds 5 of 12 claims wrong; a redo; 9 of 12 hold up
 const CHEAP=[['Brief','Brief',0,0.5,.02],['Research','Research',0.5,6.5,.10],['Compare','Compare',6.5,8.5,.05],['Write','Write',8.5,10,.04],['Check','Check ✕',10,11,.03,1],['Research','Redo',11,15,.07],['Write','Redo',15,16.5,.04],['Check','Check',16.5,17.5,.03]];
@@ -1726,8 +1996,8 @@ function kpiRender(T){ if(Math.abs(T-kpiT)<1e-4) return; kpiT=T;
 // ═══ v3.0 · 06 · the app's window: the chat, and the drawer the crew works in. One pinned screen, driven by the scroll, and it rewinds.
 // The same window in three widths, like the app: wide (960 × 600) — chat 500 and drawer 460 side by side; medium (760 × 640) — 380 and
 // 380; narrow (380 × 640) — the chat alone with its Now row, and the drawer slides over it while the crew is hired.
-const WSTG=[['Brief',[['MAT','Opus plans']]],['Research',[['Bo','Haiku'],['Ivy','Haiku'],['Tess','Haiku'],['Juno','Haiku'],['Otto','Haiku'],['Lin','Haiku']]],
-  ['Compare',[['Nia','Sonnet'],['Kai','Sonnet']]],['Write',[['Wren','Sonnet']]],['Check',[['MAT','Opus checks']]]];
+const WSTG=[['Brief',[['MAT','Opus plans']]],['Research',[['Bo','Gemini Flash'],['Ivy','Gemini Flash'],['Tess','Gemini Flash'],['Juno','DeepSeek'],['Otto','DeepSeek'],['Lin','DeepSeek']]],
+  ['Compare',[['Nia','Qwen'],['Kai','Qwen']]],['Write',[['Wren','GPT-6.1']]],['Check',[['MAT','Opus checks']]]];
 // where each stage runs on the pinned stretch (0–1); MAT's question holds Compare between ASK[0] and ASK[1]
 const WRUN=[[0.22,0.25],[0.27,0.45],[0.46,0.69],[0.70,0.77],[0.78,0.83]], ASK=[0.52,0.60], WDONE=0.84, WJOB=0.22;
 const WEND=[[0.25],[0.40,0.42,0.44,0.45,0.43,0.41],[0.68,0.69],[0.77],[0.83]]; // when each seat hands in
@@ -1765,7 +2035,7 @@ function winBuild(){ const e=WIN.el;
   let board='<div class="pan" id="wPan"><svg class="wires" id="wWires" aria-hidden="true"></svg>';
   WSTG.forEach(([name,seats],i)=>{ board+=`<div class="wst" style="left:${WX(i)}px"><div class="h">${name}<span class="cnt">${seats.length>1?seats.length:''}</span></div><div class="s" data-s="${i}">Waiting</div></div>`;
     const n=Math.min(3,seats.length); seats.slice(0,3).forEach(([nm,mod],j)=>{ board+=`<div class="wk" data-s="${i}" data-j="${j}" style="left:${WX(i)}px;top:${wSeatY(n+(seats.length>3?0.6:0),j)}px">${nm==='MAT'?markSVG(20,'#1C1C1E'):FACE.tag(nm,16)}<span class="nm">${nm}</span><i class="si"></i></div>`; });
-    if(seats.length>3) board+=`<div class="wk more" data-s="${i}" data-j="3" style="left:${WX(i)}px;top:${wSeatY(3.6,3)}px">+${seats.length-3} more · ${seats[0][1]}</div>`; });
+    if(seats.length>3) board+=`<div class="wk more" data-s="${i}" data-j="3" style="left:${WX(i)}px;top:${wSeatY(3.6,3)}px">+${seats.length-3} more · ${seats[3][1]}</div>`; });
   board+=WSTG.slice(0,4).map((_,i)=>`<i class="wg" data-g="${i}" style="left:${WX(i)+WCW+18}px;top:${WMID-4}px"></i>`).join('')+'</div>';
   e.innerHTML=`<div class="wc"><div class="wc-h">${markSVG(22,'#18181A')}<div class="t"><b id="wName">New chat</b><span id="wSub"></span></div></div>
     <div class="wc-now" id="wNow"><i class="si"></i><span class="tx" id="wNowT"></span><span class="bar"><i id="wNowL"></i></span><span class="ct" id="wNowC"></span><span class="chev" aria-hidden="true">›</span></div>
@@ -1847,7 +2117,7 @@ function renderWin(p){ const E=WIN.E; if(!E||Math.abs(p-WIN.p)<1e-4) return; WIN
     const st=!hired?'off':p>=b?'d':p>=a?'a':''; if(w._s!==st){ w._s=st; w.setAttribute('class','wwr'+(st?' '+st:'')); } });
   const {x,max}=wPan(p); E.pan.style.transform=`translateX(${(-x).toFixed(1)}px)`; E.dr.classList.toggle('fl',x>4); E.dr.classList.toggle('fr',x<max-4);
   // the numbers: the plan's estimate, then what it came to — next to one strong model's
-  const est=done?'':'≈', V=[[est+'$0.60','$0.95 less · vs\u00a0$1.55',1],[est+'14\u00a0min','8\u00a0min faster · vs\u00a022\u00a0min',1],['4','Opus checks',0],asking?['1','decision needed',0]:p>=ASK[1]?['1','decision so far',0]:['0','decisions needed',0]];
+  const est=done?'':'≈', V=[[est+'$0.60','$0.95 less · vs\u00a0$1.55',1],[est+'14\u00a0min','8\u00a0min faster · vs\u00a022\u00a0min',1],['5','Opus checks',0],asking?['1','decision needed',0]:p>=ASK[1]?['1','decision so far',0]:['0','decisions needed',0]];
   V.forEach(([v,c,g],i)=>{ if(E.v[i]._t!==v){ E.v[i]._t=v; E.v[i].textContent=v; } if(E.c[i]._t!==c){ E.c[i]._t=c; E.c[i].textContent=c; } E.c[i].classList.toggle('gr',!!g); });
   E.num.classList.toggle('pre',p<WRUN[1][0]);
   // what the crew says, newest at the bottom
@@ -1870,8 +2140,10 @@ winBuild();
 const RESET=['Oct 1','Oct 3','Oct 1','Oct 3','Oct 6','Oct 1','Oct 12','Oct 1',''];
 // each maker's mark colour (Figma model/* variables; mono marks are white on dark grounds)
 const MODELS=[['Claude',62,'#d97757','claude'],['ChatGPT',48,'#ffffff','openai'],['Gemini',80,'#3186ff','gemini'],['Copilot',0,'#ffffff','copilot'],['Perplexity',55,'#20808d','perplexity'],['DeepSeek',90,'#4d6bfe','deepseek'],['Mistral',70,'#fa520f','mistral'],['Qwen',75,'#615ced','qwen'],['Local',100,'#8e8e96','this-mac']];
-$('#cols').innerHTML=MODELS.map(([n,v,c,g],i)=>`<div class="mcol${v===0?' skip':''}"><div class="meta">${g?`<svg class="blogo" aria-hidden="true"><use href="#lg-${g}"/></svg>`:''}<div class="name">${n}</div></div>${v?`<i class="bar" style="--v:${v}%;--c:${c}"></i>`:'<span class="skipnote">used up<br>skipped this cycle</span><span class="route"><span>seat routed to Gemini</span></span>'}</div>`).join('');
-$('#cols').insertAdjacentHTML('beforeend','<span class="fol pill mpill" aria-hidden="true"></span>');
+// v3.3 · the crew of one job sits on the subscriptions it runs on: you see your AIs used together, not side by side
+const MSEAT={Claude:['MAT'],ChatGPT:['Wren'],Gemini:['Bo','Ivy','Tess'],DeepSeek:['Juno','Otto','Lin'],Qwen:['Nia','Kai']}, MROLE={Claude:'plans · checks',ChatGPT:'writes',Gemini:'3 scouts',DeepSeek:'3 scouts',Qwen:'compares'};
+$('#cols').innerHTML=MODELS.map(([n,v,c,g],i)=>`<div class="mcol${v===0?' skip':''}${MSEAT[n]?' used':''}" style="--v:${v}%"><i class="jn"></i>${MSEAT[n]?`<span class="seats"><em>${MROLE[n]}</em>${MSEAT[n].map(f=>f==='MAT'?markSVG(28,'#111112'):FACE.tag(f,20)).join('')}</span>`:''}<div class="meta">${g?`<svg class="blogo" aria-hidden="true"><use href="#lg-${g}"/></svg>`:''}<div class="name">${n}</div></div>${v?`<i class="bar" style="--v:${v}%;--c:${c}"></i>`:'<span class="skipnote">used up<br>skipped this cycle</span><span class="route"><span>seat routed to Gemini</span></span>'}</div>`).join('');
+$('#cols').insertAdjacentHTML('beforeend','<span class="fol pill mpill" aria-hidden="true"></span>'); $('#bindMark').innerHTML=markSVG(26,'#111112');
 
 // ═══ 07 · The official ranking (claude/MAT-model-leaderboard.md v0.4 rules, 2026-10-03 data) ═══
 // Nine categories, Arena's and Artificial Analysis's own; the first six staff seats, the last three are for reference.
@@ -1921,7 +2193,7 @@ function heroStick(){ const h=$('#hero'); h.style.top=getComputedStyle(h).positi
 function layout(){
   heroStick();
   const W=innerWidth;
-  winFit(); islFit(); RIGS.forEach(a=>sizeRig(a,a.sz?a.sz[MOB()?1:0]:(a.size0||a.size)));
+  CR.lay=''; HC.P=-1; winFit(); islFit(); RIGS.forEach(a=>sizeRig(a,a.sz?a.sz[MOB()?1:0]:(a.size0||a.size)));
 }
 
 // ═══ scroll ═══
@@ -1962,7 +2234,7 @@ function dockScroll(){ const calm=LEVEL==='quiet'||PH(), p=calm?1:sceneP(IS.scen
 // models: each bar grows to its allowance as the columns come into view
 const BARS=$$('#cols .bar');
 // they start as soon as the columns' top edge enters the screen and are all full by the time it reaches the lower third
-function barsScroll(){ const r=$('#cols').getBoundingClientRect(), p=LEVEL==='quiet'?1:clamp((innerHeight*1.02-r.top)/(innerHeight*0.36)); BARS.forEach((b,i)=>{ const u=clamp((p-i*0.025)/0.8); b.style.transform=`scaleY(${cosE(u).toFixed(3)})`; }); $('#cols').classList.toggle('in',p>=0.95); }
+function barsScroll(){ const r=$('#cols').getBoundingClientRect(), p=LEVEL==='quiet'?1:clamp((innerHeight*1.02-r.top)/(innerHeight*0.36)); BARS.forEach((b,i)=>{ const u=clamp((p-i*0.025)/0.8), e=cosE(u); b.style.transform=`scaleY(${e.toFixed(3)})`; b.parentElement.style.setProperty('--g',e.toFixed(3)); }); $$('#cols .seats').forEach((q,i)=>q.style.opacity=clamp((p-0.7)/0.25).toFixed(3)); $('#cols').classList.toggle('in',p>=0.95); }
 // ═══ v2.2 · pictograms (01, 09) and the rewiring diagram (02). All of them are drawn by the scroll and run back with it. ═══
 const NS='http://www.w3.org/2000/svg';
 function E(tag,a,parent,text){ const e=document.createElementNS(NS,tag); for(const k in a){ if(k==='fill'&&String(a[k]).startsWith('var(')) e.style.fill=a[k]; else e.setAttribute(k,a[k]); } if(text!=null) e.textContent=text; if(parent) parent.appendChild(e); return e; }
@@ -1997,17 +2269,20 @@ const PICTO={
     const pk=Y.map(()=>E('rect',{width:8,height:4,class:'pf'},s));
     return t=>{ Y.forEach((y,i)=>{ const u=seg(t,i*0.12,i*0.12+0.34); tr[i](u); D[i].setAttribute('class',u>=1?'pl':'pd');
         const k=seg(t,0.58+i*0.1,0.88+i*0.04), q=k<0.5?k*2:2-k*2, x2=DV[i][0]; pk[i].setAttribute('x',(96+(x2-96)*q-4).toFixed(1)); pk[i].setAttribute('y',(100+(y-100)*q-2).toFixed(1)); pk[i].style.opacity=k>0&&k<1?1:0; }); }; },
-  // T · a community of crews: three crews other people shared fill in; yours (MAT and three seats) is copied into the open slot
-  T(s){ const crew=(x,y,k,cls,par)=>{ const g=E('g',{},par||s); E('rect',{x,y,width:96*k,height:96*k,class:cls},g); E('circle',{cx:x+24*k,cy:y+48*k,r:8*k,class:'pf'},g);
-      [20,48,76].forEach(yy=>{ E('line',{x1:x+32*k,y1:y+48*k,x2:x+56*k,y2:y+yy*k,class:'pl'},g); E('rect',{x:x+56*k,y:y+(yy-8)*k,width:16*k,height:16*k,class:'pl'},g); }); return g; };
-    crew(0,52,1,'pl');
-    const SL=[[192,52],[248,52],[192,108],[248,108]];
-    E('rect',{x:SL[3][0],y:SL[3][1],width:40,height:40,class:'pdash'},s);
-    const others=SL.slice(0,3).map(([x,y])=>crew(x,y,40/96,'pl'));
-    const copy=crew(0,52,1,'pl'); copy.style.transformBox='view-box';
-    return t=>{ others.forEach((g,i)=>{ g.style.opacity=seg(t,i*0.1,i*0.1+0.2).toFixed(3); });
-      const u=cosE(seg(t,0.45,0.9)), k=1+(40/96-1)*u, x=SL[3][0]*u, y=52+(SL[3][1]-52)*u;
-      copy.setAttribute('transform',`translate(${x.toFixed(1)},${y.toFixed(1)}) scale(${k.toFixed(4)}) translate(0,-52)`); copy.style.opacity=t>=0.45?1:0; }; },
+  // T · (v3.3) build your own crew, then share it: a fourth seat is added and one seat changes model (you set it up),
+  // then copies of the crew go out on green lines to three other people's slots
+  T(s){ const SY=[66,88,110,132];
+    const crew=(x,y,k,par,live)=>{ const g=E('g',{},par||s), o={g,seat:[],ln:[]}; E('rect',{x,y,width:96*k,height:96*k,class:'pl'},g); E('circle',{cx:x+20*k,cy:y+48*k,r:8*k,class:'pf'},g);
+      SY.forEach((yy,j)=>{ const yc=y+(yy-52)*k, add=live&&j===3; const ln=E('line',{x1:x+28*k,y1:y+48*k,x2:x+60*k,y2:yc,class:add?'pd':'pl'},g);
+        const r=E('rect',{x:x+60*k,y:yc-7*k,width:14*k,height:14*k,class:add?'pdash':'pl'},g); o.seat.push(r); o.ln.push(ln); }); return o; };
+    const me=crew(0,52,1,null,true), add=trail(E('line',{x1:28,y1:100,x2:60,y2:SY[3],class:'pl'},s));
+    const SL=[[232,36],[232,100],[232,164]];
+    SL.forEach(([x,y])=>{ E('rect',{x,y:y-20,width:40,height:40,class:'pdash'},s); E('line',{x1:96,y1:100,x2:x,y2:y,class:'pdash'},s); });
+    const go=SL.map(([x,y])=>trail(E('line',{x1:96,y1:100,x2:x,y2:y,class:'pgl'},s)));
+    const cp=SL.map(([x,y])=>{ const o=crew(x,y-20,40/96); o.g.style.opacity=0; return o; });
+    return t=>{ const a=seg(t,0.06,0.26); add(a); me.seat[3].setAttribute('class',a>=1?'pl':'pdash');
+      me.seat[1].setAttribute('class',t>=0.36?'pf':'pl');
+      SL.forEach((_,i)=>{ const u=seg(t,0.5+i*0.1,0.72+i*0.1); go[i](u); cp[i].g.style.opacity=u>=1?1:0; cp[i].seat[1].setAttribute('class','pf'); }); }; },
   // M · a job comes in from a chat app; the result goes back to the same chat
   M(s){ const Y=[44,84,124];
     Y.forEach(y=>E('line',{x1:32,y1:y+16,x2:192,y2:100,class:'pd'},s));
@@ -2087,21 +2362,24 @@ const RWCAP=[['Before','You, between six apps. Each keeps its own memory.'],['A'
 // where each change happens on the pinned stretch (0–1): Before holds, every change takes 0.12–0.16 and then holds
 const RWS=[[0.14,0.30],[0.36,0.52],[0.58,0.70],[0.76,0.92]];
 function rwBuild(){ const s=RW.svg, W=s.parentElement.clientWidth, port=W<560; RW.mode=port?'p':'l'; s.innerHTML='';
-  const G=port?{vb:[360,540],hub:[28,96],you1:[28,24],mx:56,mw:200,my:i=>176+i*56,mem:[276,160,72,340],leadLbl:[60,100],
-                fan:cy=>`M28,118 L28,${cy-14} Q28,${cy} 42,${cy} L56,${cy}`,pre:'M28,107 L',chip0:i=>[264,176+i*56+9],chip:i=>[284,222+i*44],memSub:'~/MAT'}
-               :{vb:[720,420],hub:[190,210],you1:[40,210],mx:330,mw:164,my:i=>50+i*64,mem:[600,26,96,368],leadLbl:[190,256],
-                fan:cy=>`M212,210 C272,210 270,${cy} 330,${cy}`,pre:'M201,210 L',chip0:i=>[510,50+i*64+9],chip:i=>[612,98+i*46],memSub:'kept locally'};
+  // v3.3: the memory column spans exactly the six model rows (top of the first to the bottom of the last) and its right edge is the
+  // figure's; its label sits above it, so nothing is crammed inside. Each model's memory slides along its own line into the column,
+  // so the chips line up with the rows. Model boxes have 12 in on both sides; the figure's middle row is the hub's line.
+  const G=port?{vb:[360,500],hub:[28,96],you1:[28,24],mx:56,mw:200,my:i=>176+i*56,mem:[272,176,88,312],leadLbl:[60,100],
+                fan:cy=>`M28,118 L28,${cy-14} Q28,${cy} 42,${cy} L56,${cy}`,pre:'M28,107 L',chip0:i=>[262,176+i*56+9],chip:i=>[302,176+i*56+9],memSub:'kept locally'}
+               :{vb:[720,392],hub:[190,204],you1:[14,204],mx:320,mw:184,my:i=>28+i*64,mem:[616,28,104,352],leadLbl:[190,250],
+                fan:cy=>`M212,204 C272,204 266,${cy} 320,${cy}`,pre:'M201,204 L',chip0:i=>[512,28+i*64+9],chip:i=>[654,28+i*64+9],memSub:'kept locally'};
   RW.G=G; s.setAttribute('viewBox',`0 0 ${G.vb[0]} ${G.vb[1]}`);
   // the one memory (B)
-  const [mx,my,mw,mh]=G.mem; RW.memG=E('g',{},s); E('rect',{x:mx,y:my,width:mw,height:mh,class:'pl'},RW.memG); E('text',{x:mx+10,y:my+22,class:'pt b'},RW.memG,'Memory'); E('text',{x:mx+10,y:my+40,class:'pt'},RW.memG,G.memSub);
+  const [mx,my,mw,mh]=G.mem; RW.memG=E('g',{},s); E('rect',{x:mx,y:my,width:mw,height:mh,class:'pl'},RW.memG); const mt=E('text',{x:mx+mw,y:my-10,class:'pt b','text-anchor':'end'},RW.memG,'Memory'); E('tspan',{class:'pt',dx:8},mt,G.memSub);
   // your dashed lines (before) and the lead's lines (after) are the same lines: same point, same route, same six models
   RW.old=RWM.map((m,i)=>E('path',{d:G.pre+G.fan(G.my(i)+16).slice(1),class:'pdash'},s));
   RW.fan=RWM.map((m,i)=>{ const p=E('path',{d:G.fan(G.my(i)+16),class:'pl'},s); return [p,trail(p)]; });
   RW.link=RWM.map((m,i)=>{ const y=G.my(i)+16, a=E('line',{x1:G.mx+G.mw,y1:y,x2:mx,y2:y,class:'pl'},s); return [a,trail(a)]; });
   RW.gate=RW.fan.map(([p])=>{ const q=p.getPointAtLength(port?p._L-8:p._L*0.8); return E('rect',{x:(q.x-5).toFixed(1),y:(q.y-5).toFixed(1),width:10,height:10,class:'pd',fill:'var(--sheet)'},s); });
   // the six models, fixed in place; each one's own memory sits beside it until B
-  RW.mod=RWM.map(([n,c,role],i)=>{ const g=E('g',{transform:`translate(${G.mx},${G.my(i)})`},s); const box=E('rect',{x:0,y:0,width:G.mw,height:32,class:'pd',fill:'var(--sheet)'},g); E('use',{href:'#lg-'+c,x:9,y:9,width:14,height:14,class:'plg'},g); E('text',{x:29,y:20,class:'pt b'},g,n);
-    const rl=E('text',{x:G.mw-10,y:20,class:'pt','text-anchor':'end'},g,role); const chip=E('g',{},s); [0,1,2].forEach(j=>E('rect',{x:0,y:j*6,width:[28,20,24][j],height:3,class:'pfm'},chip)); return {g,box,rl,chip}; });
+  RW.mod=RWM.map(([n,c,role],i)=>{ const g=E('g',{transform:`translate(${G.mx},${G.my(i)})`},s); const box=E('rect',{x:0,y:0,width:G.mw,height:32,class:'pd',fill:'var(--sheet)'},g); E('use',{href:'#lg-'+c,x:12,y:9,width:14,height:14,class:'plg'},g); E('text',{x:34,y:20,class:'pt b'},g,n);
+    const rl=E('text',{x:G.mw-12,y:20,class:'pt','text-anchor':'end'},g,role); const chip=E('g',{},s); [0,1,2].forEach(j=>E('rect',{x:0,y:j*6,width:[28,20,24][j],height:3,class:'pfm'},chip)); return {g,box,rl,chip}; });
   // you, and the lead who takes your place
   RW.youL=E('line',{class:'pl'},s);
   // MAT's mark where you sat: the rig's rest formation, the front two cut from the one behind by the ground colour
@@ -2163,7 +2441,7 @@ function followStep(dt){ const k=1-Math.exp(-dt/0.14);
   for(const f of FOLS){ if(!f.ready) continue; f.x+=(f.tx-f.x)*k; f.y+=(f.ty-f.y)*k; f.item.style.transform=`translate3d(${f.x.toFixed(1)}px,${f.y.toFixed(1)}px,0) translate(-50%,-50%)`; }
  }
 // the models pill says what the column under the pointer holds
-const MINFO={Claude:'62% left · resets Oct 1',ChatGPT:'48% left · resets Oct 3',Gemini:'80% left · resets Oct 1',Copilot:'used up · resets Oct 3 · its seats go to Gemini',Perplexity:'55% left · resets Oct 6',DeepSeek:'90% left · resets Oct 1',Mistral:'70% left · resets Oct 12',Qwen:'75% left · resets Oct 1','Local':'models on your computer · free, no allowance'};
+const MINFO={Claude:'62% left · resets Oct 1 · MAT plans and checks here',ChatGPT:'48% left · resets Oct 3 · Wren writes here',Gemini:'80% left · resets Oct 1 · Bo, Ivy and Tess scout here',Copilot:'used up · resets Oct 3 · its seats go to Gemini',Perplexity:'55% left · resets Oct 6',DeepSeek:'90% left · resets Oct 1 · Juno, Otto and Lin scout here',Mistral:'70% left · resets Oct 12',Qwen:'75% left · resets Oct 1 · Nia and Kai compare here','Local':'models on your computer · free, no allowance'};
 const mp=$('.mpill'); $$('#cols .mcol').forEach(col=>col.addEventListener('mouseenter',()=>{ const n=col.querySelector('.name').textContent; mp.innerHTML=`<b>${col.querySelector('.blogo')?.outerHTML||''}${n}</b><span>${MINFO[n]||''}</span>`; }));
 // ═══ v0.9 · the three habits open in turn as you scroll (wide screens, Bold / Loud).
 // Hover only tints a closed row; clicking or focusing one scrolls to it. Phones and Quiet show all three open.
@@ -2181,6 +2459,22 @@ ACC.forEach((r,i)=>{ r.addEventListener('click',()=>{ if(!r.classList.contains('
 let lenis=null;
 function lenisSet(){ const want=LEVEL!=='quiet'&&!RM&&window.Lenis; if(want&&!lenis){ lenis=new Lenis({lerp:0.1,smoothWheel:true}); } else if(!want&&lenis){ lenis.destroy(); lenis=null; } }
 document.addEventListener('click',e=>{ const a=e.target.closest&&e.target.closest('a[href^="#"]'); if(!a||!lenis) return; const t=document.querySelector(a.getAttribute('href')); if(!t) return; e.preventDefault(); lenis.scrollTo(t,{offset:a.getAttribute('href')==='#hero'?0:-56,duration:1.2}); });
+
+// ═══ v3.3 · the footer's pages: #changelog, #about, #privacy, #terms, #contact open the sheet; Esc, × or MAT close it ═══
+const SH={el:$('#sheet'),pgs:$$('#sheet .sh-pg'),back:null};
+function sheetOpen(id,push){ const pg=SH.pgs.find(p=>p.dataset.pg===id); if(!pg) return false;
+  if(SH.el.hidden){ SH.back=document.activeElement; SH.el.hidden=false; ROOT.classList.add('sheet-on'); if(lenis) lenis.stop(); }
+  SH.pgs.forEach(p=>p.classList.toggle('on',p===pg)); $$('#sheet .sh-nav a').forEach(a=>a.toggleAttribute('aria-current',a.getAttribute('href')==='#'+id)); if(SH.el.querySelector('.sh-nav a[aria-current]')) SH.el.querySelector('.sh-nav a[aria-current]').setAttribute('aria-current','page');
+  SH.el.querySelector('.sh-scroll').scrollTop=0; pg.querySelector('h2').id='shTitle'; SH.pgs.forEach(p=>{ if(p!==pg) p.querySelector('h2').removeAttribute('id'); });
+  if(push) history.pushState(null,'','#'+id); SH.el.focus({preventScroll:true}); return true; }
+function sheetClose(push){ if(SH.el.hidden) return; SH.el.hidden=true; ROOT.classList.remove('sheet-on'); if(lenis) lenis.start();
+  if(push) history.pushState(null,'',location.pathname+location.search); if(SH.back&&SH.back.focus) SH.back.focus({preventScroll:true}); }
+document.addEventListener('click',e=>{ const a=e.target.closest&&e.target.closest('[data-sheet],[data-close]'); if(!a) return;
+  if(a.hasAttribute('data-sheet')){ e.preventDefault(); e.stopImmediatePropagation(); sheetOpen(a.getAttribute('href').slice(1),true); }
+  else { const h=a.getAttribute('href'); sheetClose(true); if(!h||h==='#'){ e.preventDefault(); e.stopImmediatePropagation(); } } },true);
+addEventListener('keydown',e=>{ if(e.key==='Escape'&&!SH.el.hidden){ e.preventDefault(); sheetClose(true); } });
+addEventListener('popstate',()=>{ const id=location.hash.slice(1); if(!sheetOpen(id,false)) sheetClose(false); });
+{ const id=location.hash.slice(1); if(SH.pgs.some(p=>p.dataset.pg===id)) sheetOpen(id,false); }
 // ═══ v3.1 · Hero: one chat with MAT, three calls — it answers, it does it on one model, it staffs it with a crew.
 // The first call plays by itself as the page opens; then the hero holds for two screens (the run-out under it) and the scroll plays
 // the second and third. Everything is a function of one number, P (0–3): scroll back and it rewinds. Quiet: all three, still.
@@ -2198,6 +2492,75 @@ const HCX=[
   {you:'Look at the AI note-taking apps: who’s winning, why, and what they charge.',
    mat:'This one splits: twelve apps to price, all at once. I’ll put a crew on it and check every step. About 14 minutes and $0.60, against $1.55 for one strong model.',
    now:'Research · 6 scouts on 12 apps',st:'A crew is on it',run:1}];
+
+// ═══ v3.3 · the hero's crew pane: what MAT hires for each call, and the crew at work. Everything is a function of P, like the chat.
+// Call 2 (P 1–2): one seat — Wren on GPT-6.1 Sol writes, MAT checks. Call 3 (P 2–4): MAT lays out five stages (u .40–.58), hires nine
+// seats across four subscriptions (a token runs from MAT's mark down the rail to each seat, u .60–1.10), then the stages run in turn,
+// Research's six side by side, each gate green before the next stage starts (u 1.10–1.90). u = P − the call's index.
+const CRB=[null,
+  {job:'Launch email for the October release',show:0.40,done:0.88,note:'One piece of writing: one seat is enough, so no crew. A crew starts when the work splits.',rows:[
+    {n:'Write',lg:['openai'],m:'GPT-6.1 Sol',seats:['Wren'],run:[0.64,0.84],hire:[[0.52,0.62]]},
+    {n:'Check',lg:['claude'],m:'Claude Opus 5.5',seats:['MAT'],run:[0.85,0.88]}]},
+  {job:'AI note-taking apps',show:0.40,done:1.90,rows:[
+    {n:'Brief',lg:['claude'],m:'Claude Opus 5.5',seats:['MAT'],run:[1.10,1.18]},
+    {n:'Research',lg:['gemini','deepseek'],m:'Gemini · DeepSeek',seats:['Bo','Ivy','Tess','Juno','Otto','Lin'],run:[1.20,1.46],ends:[1.38,1.42,1.46,1.44,1.40,1.43]},
+    {n:'Compare',lg:['qwen'],m:'Qwen3.8 Max',seats:['Nia','Kai'],run:[1.48,1.64],ends:[1.62,1.64]},
+    {n:'Write',lg:['openai'],m:'GPT-6.1 Sol',seats:['Wren'],run:[1.66,1.78]},
+    {n:'Check',lg:['claude'],m:'Claude Opus 5.5',seats:['MAT'],run:[1.80,1.88]}]}];
+{ let k=0; CRB[2].rows.forEach(r=>{ r.hire=r.seats.map(f=>{ if(f==='MAT') return null; const h=[0.60+k*0.05,0.70+k*0.05]; k++; return h; }); }); }
+const CR={el:$('#hcCrew'),bi:-1,lay:''};
+function crBuild(){ const lg=ids=>ids.map(id=>`<svg class="blogo" aria-hidden="true"><use href="#lg-${id}"/></svg>`).join('');
+  CR.el.innerHTML=`<div class="cr-h">${markSVG(22,'#18181A')}<span class="k">Crew</span><b id="crJob"></b><span class="cr-st" id="crSt"></span></div>
+    <div class="cr-b" id="crB"><div class="cr-e" id="crE"><b></b><span></span></div>${CRB.slice(1).map((B,bi)=>`<div class="cr-bd" data-b="${bi+1}">${B.rows.map((r,i)=>`<div class="cr-r"><i class="cr-g"></i><span class="cr-n">${String(i+1).padStart(2,'0')}</span><div class="cr-s"><b>${r.n}</b><span class="cr-m">${lg(r.lg)}<span class="t">${r.m}</span></span></div><div class="cr-ps">${r.seats.map(f=>`<span class="cr-p"><span class="cr-fc">${f==='MAT'?markSVG(22,'#18181A'):FACE.tag(f,22)}</span><i class="cr-bar"><u></u></i></span>`).join('')}</div><span class="cr-v"><i class="si"></i><span></span></span></div>`).join('')}${B.note?`<p class="cr-note">${B.note}</p>`:''}</div>`).join('')}</div>
+    <div class="cr-ft"><div><span>Time</span><b id="crT"></b></div><div><span>Cost</span><b id="crC"></b></div><div><span id="crXk"></span><b id="crX"></b></div></div>`;
+  const q=x=>CR.el.querySelector(x);
+  Object.assign(CR,{job:q('#crJob'),st:q('#crSt'),b:q('#crB'),e:q('#crE'),T:q('#crT'),C:q('#crC'),Xk:q('#crXk'),X:q('#crX'),
+    bds:[null,...CR.el.querySelectorAll('.cr-bd')]});
+  CR.B=CRB.map((B,bi)=>{ if(!B) return null; const bd=CR.bds[bi]; return {bd,rows:[...bd.querySelectorAll('.cr-r')].map((el,i)=>{ const r=B.rows[i];
+      return {el,r,g:el.querySelector('.cr-g'),v:el.querySelector('.cr-v'),vi:el.querySelector('.cr-v .si'),vt:el.querySelector('.cr-v span'),
+        ps:[...el.querySelectorAll('.cr-p')].map((p,j)=>{ const hire=r.hire&&r.hire[j]; let tk=null; if(hire){ tk=document.createElement('i'); tk.className='cr-tk'; CR.b.appendChild(tk); }
+          return {p,u:p.querySelector('u'),fc:p.querySelector('.cr-fc'),hire,tk,end:r.ends?r.ends[j]:r.run[1],xy:null}; })}; })}; }); CR.lay=''; }
+// where each seat sits, without transforms (offsets), so the tokens land on it; redone when the board or the size changes
+function crLayout(bi){ const B=CR.B[bi]; if(!B) return; const key=bi+':'+CR.b.clientWidth+'x'+CR.b.clientHeight; if(CR.lay===key) return; CR.lay=key;
+  const n=5, rh=Math.max(28,Math.min(PXU()*56,(CR.b.clientHeight-PXU()*12)/n)); CR.b.style.setProperty('--rh',rh.toFixed(1)+'px');
+  B.rows.forEach(R=>{ const row=R.el, rx=row.offsetLeft+parseFloat(getComputedStyle(row,'::before').left)+0.5;
+    R.ps.forEach(S=>{ const p=S.p, f=S.fc; S.xy=[rx,row.offsetTop+p.offsetTop+f.offsetTop+f.offsetHeight/2,row.offsetLeft+p.offsetLeft+f.offsetLeft+f.offsetWidth/2]; }); }); }
+const crTxt=(el,t,cls)=>{ if(el._t!==t){ el._t=t; el.textContent=t; } if(cls!==undefined&&el._c!==cls){ el._c=cls; el.className=cls; } };
+// returns what the chat's Now row and state should say for call 3
+function crRender(P){ const bi=P>=2.32?2:P>=1.32?1:0, B=CRB[bi], u=P-bi;
+  if(bi!==CR.bi){ CR.bi=bi; CR.bds.forEach((d,i)=>d&&d.classList.toggle('on',i===bi)); CR.lay=''; }
+  const shown=B&&u>=B.show;
+  // the empty pane says why there is no crew yet
+  const e=P<0.32?['No job yet.','When a message needs work, the crew MAT hires for it shows up here.']:bi===0?['No crew needed.','A question gets its answer right in the chat.']:['Laying out the plan…','MAT reads the request, splits it into stages and picks a model for each.'];
+  CR.e.classList.toggle('off',!!shown); crTxt(CR.e.firstChild,e[0]); crTxt(CR.e.lastChild,e[1]);
+  crTxt(CR.job,B?B.job:'');
+  // every token is hidden unless its seat is being hired right now
+  CR.B.forEach((b,i)=>{ if(b&&i!==bi) b.rows.forEach(R=>R.ps.forEach(S=>{ if(S.tk) S.tk.style.opacity=0; })); });
+  let out={stage:-1,hired:0,N:0,prog:0,done:false,ended:0};
+  if(!B){ crTxt(CR.st,P>=0.32&&P<0.5?'Reading':'','cr-st'); crTxt(CR.Xk,'Seats'); crTxt(CR.T,'—','dm'); crTxt(CR.C,'—','dm'); crTxt(CR.X,'None','dm'); return out; }
+  crLayout(bi); const R0=CR.B[bi]; if(bi===1) R0.bd.style.setProperty('--na',seg(u,B.show+0.12,B.show+0.2).toFixed(3));
+  R0.rows.forEach((R,i)=>{ const r=R.r, a=seg(u,B.show+i*0.035,B.show+i*0.035+0.08); R.el.style.setProperty('--a',a.toFixed(3));
+    const run=u>=r.run[0]&&u<r.run[1], ok=u>=r.run[1]; R.el.classList.toggle('run',run); R.g.classList.toggle('ok',ok&&u>=r.run[1]+0.004);
+    if(run) out.stage=i; if(ok) out.ended++;
+    let allIn=true;
+    R.ps.forEach((S,j)=>{ let inn;
+      if(S.hire){ out.N++; const t=seg(u,S.hire[0],S.hire[1]); inn=t>=1; if(inn) out.hired++;
+        const [rx,ty,tx]=S.xy||[0,0,0], L1=ty, L2=tx-rx, d=cosE(t)*(L1+L2), x=d<L1?rx:rx+d-L1, y=d<L1?d:ty;
+        S.tk.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`; S.tk.style.opacity=t>0&&t<1?1:0; }
+      else inn=a>=0.6;
+      if(!inn) allIn=false; S.p.classList.toggle('in',inn);
+      const w=clamp((u-r.run[0])/Math.max(0.001,S.end-r.run[0])); S.u.style.width=(w*100).toFixed(1)+'%'; S.p.classList.toggle('done',u>=S.end); });
+    const [k,t,c]=ok?['done','Checked','cr-v ok']:run?['run','Running','cr-v run']:allIn?['wait','Ready','cr-v']:['wait','Hiring','cr-v'];
+    setSI(R.vi,k); crTxt(R.vt,t); if(R.v._c!==c){ R.v._c=c; R.v.className=c; } });
+  const first=B.rows[0].run[0]; out.prog=clamp((u-first)/(B.done-first)); out.done=u>=B.done;
+  const st=!shown?['Planning','cr-st run']:out.done?['Done','cr-st ok']:out.stage>=0?['Running · '+B.rows[out.stage].n,'cr-st run']:out.hired<out.N?[`Hiring · ${out.hired} of ${out.N}`,'cr-st run']:u<first?['Ready','cr-st run']:['Checking','cr-st run'];
+  crTxt(CR.st,st[0],st[1]);
+  if(bi===1){ crTxt(CR.Xk,'Seats'); crTxt(CR.X,'1 · one model',''); crTxt(CR.T,u<first?'≈ 1 min':Math.round(52*out.prog)+' s',out.done?'ok':u<first?'dm':'');
+    crTxt(CR.C,u<first?'≈ $0.004':'$'+(0.004*out.prog).toFixed(3),out.done?'ok':u<first?'dm':''); }
+  else { crTxt(CR.Xk,'One strong model'); crTxt(CR.X,'$1.55 · 22 min','dm'); crTxt(CR.T,u<first?'≈ 14 min':Math.round(14*out.prog)+' min',out.done?'ok':u<first?'dm':'');
+    crTxt(CR.C,u<first?'≈ $0.60':'$'+(0.60*out.prog).toFixed(2),out.done?'ok':u<first?'dm':''); }
+  return out; }
+crBuild();
 // one call, inside its own unit of P: type (0–.30) · send (.32) · think (.36–.50) · reply word by word (.50–.84) · its result (.88)
 const HU={type:[0.02,0.30],send:0.32,think:0.50,words:[0.50,0.84],tag:0.88};
 function hcEl(cls,html){ const d=document.createElement('div'); d.className=cls; d.innerHTML=html; return d; }
@@ -2206,10 +2569,10 @@ function hcBuild(){ HC.in.innerHTML=''; HC.ex=HCX.map((x,i)=>{
     const you=hcEl('hc-m you',hcWho(1,i)+`<div class="tx">${x.you}</div>`);
     const think=hcEl('hc-m think',hcWho(0,i)+`<div class="tx"><i class="si think">${SI.think}</i>Thinking…</div>`);
     let extra=''; if(x.tag) extra=`<div class="hc-tag${x.ok?' ok':''}">${x.ok?`<i class="si done">${SI.done}</i>`:''}<span>${x.tag}</span></div>`;
-    if(x.now) extra=`<div class="hc-now"><i class="si run">${SI.run}</i><span class="t">${x.now}</span><span class="bar"><i></i></span><span class="ct">1 / 5</span></div>`;
+    if(x.now) extra=`<div class="hc-now"><i class="si run">${SI.run}</i><span class="t">${x.now}</span><span class="bar"><i></i></span><span class="ct">0 / 5</span></div>`;
     const mat=hcEl('hc-m mat',hcWho(0,i)+`<div class="tx">${x.mat.split(' ').map(w=>`<span class="w">${w} </span>`).join('')}</div>`+extra);
     [you,think,mat].forEach(e=>HC.in.appendChild(e));
-    return {x,you,think,mat,words:[...mat.querySelectorAll('.w')],tag:mat.querySelector('.hc-tag,.hc-now'),bar:mat.querySelector('.hc-now .bar i'),n:-1}; }); }
+    return {x,you,think,mat,words:[...mat.querySelectorAll('.w')],tag:mat.querySelector('.hc-tag,.hc-now'),bar:mat.querySelector('.hc-now .bar i'),nowI:mat.querySelector('.hc-now .si'),nowT:mat.querySelector('.hc-now .t'),nowC:mat.querySelector('.hc-now .ct'),n:-1}; }); }
 function hcInput(text){ if(HC.typed.textContent===text) return; HC.typed.textContent=text; HC.ph.style.display=text?'none':''; HC.send.classList.toggle('on',!!text);
   HC.text.classList.toggle('over',HC.typed.offsetWidth>HC.text.clientWidth-8); }
 function hcState(t,cls){ if(HC.st._t===t) return; HC.st._t=t; HC.st.textContent=t; HC.st.className='hc-st'+(cls?' '+cls:''); }
@@ -2224,25 +2587,33 @@ function hcRender(P){ if(Math.abs(P-HC.P)<1e-4) return; const back=P<HC.P; HC.P=
     const shown=u>=HU.think; E.mat.classList.toggle('on',shown);
     const n=Math.round(E.words.length*clamp((u-HU.words[0])/(HU.words[1]-HU.words[0])));
     if(n!==E.n){ E.n=n; E.words.forEach((w,j)=>w.classList.toggle('on',j<n)); }
-    const tg=u>=HU.tag; if(E.tag) E.tag.classList.toggle('on',tg); if(E.bar) E.bar.style.width=(24*clamp((u-HU.tag)/(1-HU.tag))).toFixed(1)+'%';
+    const tg=u>=HU.tag; if(E.tag) E.tag.classList.toggle('on',tg);
     if(shown&&mode!=='lis'&&mode!=='think'){ mode=tg?'done':'reply'; cur=i; } });
   hcInput(typing);
-  // the three steps over the chat: the one playing is lit, its bar fills; the ones before it are full
-  const k=Math.max(0,Math.min(2,cur<0?0:cur)); HC.sp.forEach((el,i)=>{ el.classList.toggle('on',i===k); el.style.setProperty('--f',clamp(P-i).toFixed(3)); });
-  const x=HCX[k];
-  if(mode==='lis'){ hcState('Listening','lis'); } else if(mode==='think'){ hcState('Thinking'); } else if(mode==='done'){ hcState(x.st,x.run?'run':x.ok?'ok':''); } else if(mode==='reply'){ hcState('Answering'); } else hcState('New chat');
+  // v3.3 · the crew pane, and what the third call's Now row says while its crew is hired and works
+  const cr=crRender(P), E3=HC.ex[2];
+  if(E3&&E3.nowT){ const u3=P-2, NOWS=['Brief · MAT plans it','Research · 6 scouts on 12 apps','Compare · Nia and Kai','Write · Wren drafts the report','Check · MAT checks every claim'];
+    const t=cr.done?'Done · a report with 12 sources':cr.stage>=0?NOWS[cr.stage]:u3>=1.1?'Check · MAT signs it off':u3>=0.6?`Hiring the crew · ${cr.hired} of ${cr.N}`:'Planning the crew';
+    crTxt(E3.nowT,t); setSI(E3.nowI,cr.done?'done':'run'); E3.bar.style.width=(100*(u3>=1.1?cr.prog:0)).toFixed(1)+'%';
+    crTxt(E3.nowC,`${cr.ended} / 5`); }
+  // the four steps over the window: the one playing is lit, its bar fills; the ones before it are full
+  const k=P>=3?3:Math.max(0,Math.min(2,cur<0?0:cur)); HC.sp.forEach((el,i)=>{ el.classList.toggle('on',i===k); el.style.setProperty('--f',clamp(P-i).toFixed(3)); });
+  const x=HCX[Math.min(2,k)];
+  if(mode==='lis'){ hcState('Listening','lis'); } else if(mode==='think'){ hcState('Thinking'); }
+  else if(mode==='done'){ if(x.run){ const u3=P-2; hcState(cr.done?'Done · 14 min · $0.60':u3>=1.1?'A crew is on it':'Hiring a crew',cr.done?'ok':'run'); } else hcState(x.st,x.ok?'ok':''); }
+  else if(mode==='reply'){ hcState('Answering'); } else hcState('New chat');
   // MAT's mark: it listens while you type (a tick per key), thinks, and is pleased when one model gets it done
   const rs=mode==='lis'?'listening':mode==='think'?'thinking':'rest';
   if(LEVEL!=='quiet'&&!RM){ if(rs!==HC.rs){ HC.rs=rs; HC.rig.set(rs); }
     if(mode==='lis'&&!back) HC.rig.key();
     if(!back&&x.ok&&mode==='done'&&!HC.joyed){ HC.joyed=true; HC.rig.set('pleased'); HC.rs='pleased'; } if(P<1.8) HC.joyed=false; }
-  HC.hint.classList.toggle('off',P>=2.97||P<0.95); }
+  HC.hint.classList.toggle('off',P>=3.95||P<0.95); }
 // P: the first call by time when the page opens (0 → 1), then 1 → 3 over the run-out
 function hcScrollP(){ const r=HC.run.getBoundingClientRect(), hero=$('#hero'), stuck=Math.max(0,hero.offsetHeight-innerHeight), span=Math.max(1,r.height*0.86);
   return clamp((scrollY-stuck)/span); }
-function hcTick(){ if(LEVEL==='quiet'||RM){ hcRender(3); return; }
+function hcTick(){ if(LEVEL==='quiet'||RM){ hcRender(4); return; }
   if(PH()){ hcRender(HC.auto); return; }
-  const p=hcScrollP(), P=p>0.002?1+2*p:HC.intro; hcRender(P); }
+  const p=hcScrollP(), P=p>0.002?1+3*p:HC.intro; hcRender(P); }
 function hcIntro(){ if(HC.introT) return; const t0=performance.now()+700, dur=6200;
   const step=now=>{ const u=clamp((now-t0)/dur); HC.intro=u; if(HC.P<1.0001) hcTick(); if(u<1) HC.introT=requestAnimationFrame(step); }; HC.introT=requestAnimationFrame(step); }
 // phones (v3.2): no run-out to scroll through. The chat plays its three calls by itself while three quarters of it are on screen (its
@@ -2253,12 +2624,12 @@ HC.auto=0; HC.seen=false;
 function hcAutoStep(now){ HCA.raf=0; if(!PH()||LEVEL==='quiet'||RM||!HC.seen) return;
   const dt=Math.min(0.1,(now-HCA.last)/1000); HCA.last=now;
   if(HCA.wait>0) HCA.wait-=dt;
-  else { const a=HC.auto, b=Math.min(3,a+dt*HCA.rate); if(b<3&&Math.floor(b)>Math.floor(a)){ HC.auto=Math.floor(b); HCA.wait=HCA.hold; } else HC.auto=b; }
-  hcRender(HC.auto); if(HC.auto<3) HCA.raf=requestAnimationFrame(hcAutoStep); }
-function hcAuto(){ if(!HCA.raf&&HC.auto<3&&HC.seen){ HCA.last=performance.now(); HCA.raf=requestAnimationFrame(hcAutoStep); } }
+  else { const a=HC.auto, b=Math.min(4,a+dt*HCA.rate); if(b<4&&Math.floor(b)>Math.floor(a)){ HC.auto=Math.floor(b); HCA.wait=HCA.hold; } else HC.auto=b; }
+  hcRender(HC.auto); if(HC.auto<4) HCA.raf=requestAnimationFrame(hcAutoStep); }
+function hcAuto(){ if(!HCA.raf&&HC.auto<4&&HC.seen){ HCA.last=performance.now(); HCA.raf=requestAnimationFrame(hcAutoStep); } }
 new IntersectionObserver(es=>es.forEach(e=>{ HC.seen=e.intersectionRatio>=0.75; if(HC.seen&&PH()) hcAuto(); }),{threshold:[0,0.5,0.75,1]}).observe(HC.el);
 HC.sp.forEach((el,i)=>el.addEventListener('click',()=>{ if(!PH()||LEVEL==='quiet'||RM) return; HC.auto=i; HCA.wait=0.3; hcRender(i); hcAuto(); }));
-function hcLevel(){ HC.P=-1; HC.rs=''; if(LEVEL==='quiet'||RM){ HC.rig.still=true; HC.rig.set('rest'); hcRender(3); }
+function hcLevel(){ HC.P=-1; HC.rs=''; if(LEVEL==='quiet'||RM){ HC.rig.still=true; HC.rig.set('rest'); hcRender(4); }
   else { HC.rig.still=false; if(PH()){ hcRender(HC.auto); hcAuto(); } else { hcIntro(); hcTick(); } } }
 hcBuild();
 // the hero counts as visible until the next sheet has slid most of the way over it
