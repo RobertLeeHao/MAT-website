@@ -1,0 +1,24 @@
+# Only the page and its public files go out as static assets.
+.git
+.github
+.wrangler
+node_modules
+worker
+_site
+README.md
+publish.sh
+wrangler.jsonc
+package.json
+package-lock.json
+.gitignore
+.DS_Store
+*.sh
+*.md
+assets-src
+.dev.vars*
+.env*
+touch.svg
+render_icons.py
+patch_site.py
+*.py
+social

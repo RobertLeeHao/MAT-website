@@ -1,0 +1,26 @@
+// MAT website on Cloudflare: one Worker serves the page (static assets) and the waitlist API (/api/*).
+// Setup steps: worker/SETUP.md
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mat-website",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    // database_id comes from: npx wrangler d1 create mat-waitlist
+    { "binding": "DB", "database_name": "mat-waitlist", "database_id": "REPLACE_WITH_DATABASE_ID" }
+  ],
+  "triggers": { "crons": ["*/10 * * * *"] },
+  "vars": {
+    "SITE_URL": "https://askmat.app",
+    "MAIL_FROM": "MAT <hello@askmat.app>",
+    "DAILY_MAIL_CAP": "95",
+    "REF_BONUS": "5"
+  },
+  "observability": { "enabled": true }
+  // secrets (never in this file): npx wrangler secret put RESEND_API_KEY / ADMIN_TOKEN / IP_SALT
+}

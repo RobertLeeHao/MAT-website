@@ -2,9 +2,9 @@
 
 **一个对话，用上你已经付费的所有 AI。** 小事 MAT 当场回答；一件活，MAT 判断是一个模型做完，还是排一支团队分头去做，每一步都复核，只在需要你拍板时打扰你。
 
-🌐 **官网：<https://robertleehao.github.io/MAT-website/>**
+🌐 **官网：<https://askmat.app>**（域名开通前：<https://robertleehao.github.io/MAT-website/>）
 
-这个仓库是 MAT 的官网：一个自包含的 [`index.html`](index.html)，推送到 `main` 后自动发布到 GitHub Pages。MAT 的 macOS 应用源码在另一个仓库，暂不公开。
+这个仓库是 MAT 的官网：一个自包含的 [`index.html`](index.html)，加一个很小的 Cloudflare Worker（[`worker/`](worker)）负责等候名单。推送到 `main` 后 Cloudflare 自动部署；上线步骤见 [`worker/SETUP.md`](worker/SETUP.md)。MAT 的 macOS 应用源码在另一个仓库，暂不公开。
 
 > English summary: MAT is a macOS app that turns the AI subscriptions and API keys you already have into one chat. Every message is judged first: a question gets an answer right there; a job one model can finish runs on one model; a job that splits gets a crew — strong models plan and check, cheaper models do the steps in parallel, and a gate checks every stage before the next one starts. What worked is remembered locally, by kind of work, and belongs to you rather than to any model vendor. Minimised, MAT is a single line under the MacBook notch. Status: working prototype, closed beta not yet open. This repository holds the website only.
 
@@ -77,7 +77,7 @@ MAT 的核心判断是：**大部分需要 AI 完成的工作，并不需要最�
 
 ## 5. 官网的结构
 
-首屏是一个窗口：左边是和 MAT 的对话（回答 / 一个模型做 / 排团队），右边是 MAT 为这件活雇的团队——先排出阶段，再把座位一个个雇上（每个座位标着用的是哪家模型），然后团队按阶段开工，每段过闸门才进下一段。随滚动播放、可倒放。往下依次是：
+首屏只有标语、一句话和等候名单。往下滑，一段一镜到底的演示视频（36 秒，`media/`）从下面升起、长到屏幕宽度并自动播放；再往下，01 从下面盖上来，视频退后、变暗、暂停。以前首屏右侧随滚动播放的对话和团队（下面这段描述）仍在代码里，但已关掉（`HERO_FILM`）。原来的首屏是一个窗口：左边是和 MAT 的对话（回答 / 一个模型做 / 排团队），右边是 MAT 为这件活雇的团队——先排出阶段，再把座位一个个雇上（每个座位标着用的是哪家模型），然后团队按阶段开工，每段过闸门才进下一段。随滚动播放、可倒放。往下依次是：
 
 | # | 段落 | 讲什么 |
 |---|---|---|
@@ -98,16 +98,18 @@ MAT 的核心判断是：**大部分需要 AI 完成的工作，并不需要最�
 - 手机上（宽度 ≤ 699 px）是一栏安静的版本：什么都不钉住，不用滚好几屏去推动画；首屏的对话自己把三个例子播一遍（点对话上方的 01 / 02 / 03 可以重播那一段）；每段只留编号、标题、一句话和一块内容，04 的赛跑图、06 的应用窗口、10 的示意图、字母编号、交叉引用和数据表只在宽屏上出现；列表统一成一种样式；问答折叠；导航只有标志和一个"Join the waitlist"按钮（滑过首屏的输入框后出现），底部不再有常驻条。
 - 导航右上角的 "Join the waitlist" 一直在。
 - 页脚的 Changelog / About / Privacy / Terms / Contact 打开同一张覆盖页（网址带 `#changelog` 等，可直接分享；Esc 或 Close 关闭）。Privacy 和 Terms 是测试期的简要版，Contact 指向本仓库的 GitHub Issues。
-- 等候名单目前只是预览，不会发送任何邮箱地址。
+- 等候名单在 askmat.app 上是真的：填邮箱 → 收到确认邮件 → 点链接后看到自己的排位、专属邀请链接（每邀请一个人确认，前进 5 位）和一个问题"你最想先让 MAT 做什么"。在其它地址（GitHub Pages、预览）上它仍是预览，不发送任何东西。
 - 页面里的数字（时间、花销）是按各家公开价格算的示意，不是实测。
 
 ## 6. 技术说明
 
 - 单个 HTML 文件，CSS 和 JS 都内联；唯一的外部依赖是 jsDelivr 上的 [Lenis](https://github.com/darkroomengineering/lenis)（平滑滚动，加载失败时页面照常工作）。
 - 各家标志：`<body>` 开头内联一份 SVG sprite（21 个 `<symbol id="lg-…">`），同一套 24 网格、同一视觉体积，颜色跟随文字（`fill: currentColor`）。02 的六个模型框、07 的各家订阅列和悬停卡片、08 排行的每一行都用它：订阅和产品用产品标志（Claude、ChatGPT → OpenAI、Gemini…），排行用厂商标志。来源 LobeHub Icons（MIT）、Simple Icons（CC0）、svglogos.dev（CC0）、Lucide（ISC），归一化方法见 MAT 项目文档 `MAT-logos.md`。标志的商标权归各家：Microsoft（Copilot）要书面许可，Google、Meta、MiniMax 要先批准——正式公开前取得许可，或删掉对应的 `<symbol>` 和 `MODELS` / `MKLG` 里的 id，那一处只显示文字。
-- 没有构建步骤、没有统计、没有 cookie；`localStorage` 只记一件事：是否已提交等候名单（以前存过的动效强度，打开页面时会被清掉）。
+- 没有构建步骤、没有 cookie。统计用 Cloudflare Web Analytics（不用 cookie、不识别个人），token 填在 `index.html` 的 `MAT_SITE.beacon`。`localStorage` 只记这台浏览器上的便利信息：等候名单状态（`mat-wl`）、自己的查看链接（`mat-wl-t`）、来源渠道和邀请码（`mat-src` / `mat-ref`）（以前存过的动效强度，打开页面时会被清掉）。
+- 等候名单：`worker/index.js`（接口）+ `worker/schema.sql`（D1 表）+ `wrangler.jsonc`（配置）。双重确认、排队发信（不超过 Resend 免费版每天 100 封）、按渠道统计、CSV 导出、一键退出并删除数据。`.assetsignore` 保证只有页面和图片作为静态文件发出去，代码、README、密钥都不会。
+- 分享卡片和图标：`og.png`（2400×1260）、`favicon.svg` / `favicon-32.png` / `apple-touch-icon.png`；社交素材在 `social/`（GitHub 社交预览、X 头图和头像、build log 帖子模板）。设计源文件在 Figma：MAT 文件 › Brand & Website › "Social · share card, GitHub, X (2026-10-09)"。
 - 本地预览：直接用浏览器打开 `index.html`。
-- 发布：`sh publish.sh`。第一次会建仓库、打开 GitHub Pages；以后再跑就是提交并推送，`.github/workflows/pages.yml` 只把 `index.html` 发布出去。
+- 发布：`sh publish.sh`。提交并推送到 GitHub；Cloudflare 连上仓库后自动部署 askmat.app。`.github/workflows/pages.yml` 仍把 `index.html` 发布到旧的 GitHub Pages 地址（那里的表单只是预览）。
 
 ## 7. 现状
 

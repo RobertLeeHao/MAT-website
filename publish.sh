@@ -43,8 +43,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Only the page goes out
-        run: mkdir _site && cp index.html _site/
+      - name: Only the page and its public images go out
+        run: mkdir _site && cp -r index.html og.png favicon.svg favicon-32.png apple-touch-icon.png media _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

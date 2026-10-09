@@ -1,0 +1,4 @@
+ADMIN_TOKEN=change-me
+IP_SALT=dev
+SITE_URL=http://localhost:8787
+# RESEND_API_KEY=re_...

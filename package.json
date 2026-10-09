@@ -1,0 +1,10 @@
+{
+  "name": "mat-website",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:init": "wrangler d1 execute mat-waitlist --remote --file=worker/schema.sql"
+  },
+  "devDependencies": { "wrangler": "4.149.0" }
+}
