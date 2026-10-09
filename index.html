@@ -38,6 +38,7 @@ window.MAT_SITE={api:/(^|\.)askmat\.app$|\.workers\.dev$|^localhost$|^127\.0\.0\
 html body #hero,html body .hero-in{min-height:78vh;min-height:78svh}
 #film{position:relative;z-index:1;height:320vh;height:320svh;margin-bottom:-100vh;margin-bottom:-100svh}
 #problem{position:relative;z-index:2}
+main>#film{background:none}
 .film-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 .film-lab{position:absolute;left:var(--m);top:calc(var(--navh) + var(--s5));display:flex;gap:var(--s3);align-items:baseline;font-size:calc(13*var(--px));color:var(--mute);z-index:2}
 .film-lab b{font:600 calc(12*var(--px))/1 var(--mono);color:var(--paper)}
@@ -1329,13 +1330,13 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
 <!-- v3.5 · the film: one take, 36 s. It rises over the hero, grows to the screen's width and plays; the problem slides over it. -->
 <section id="film" data-ground="ink" aria-label="MAT, in one take">
   <div class="film-pin" id="filmPin">
-    <p class="film-lab" id="filmLab"><b>00</b><span>See it work · one take, 36 seconds</span></p>
+    <p class="film-lab" id="filmLab"><b>00</b><span>See it work · one take, 32 seconds</span></p>
     <div class="film-frame" id="filmFrame">
       <video id="filmV" muted playsinline preload="metadata" poster="media/mat-demo-poster.jpg"
         aria-label="One chat with MAT. Asked the difference between Otter and Granola, MAT answers right there. Asked who is winning among AI note-taking apps, MAT plans a crew of five, hires each seat on a model, runs the stages with a check between each, asks one question, and delivers a report: 14 minutes and $0.60, against $1.55 and 22 minutes for one strong model. Minimised, it is a line under the notch."></video>
       <i class="film-bar" id="filmBar"></i>
     </div>
-    <div class="film-ui"><span id="filmT">0:00 / 0:36</span><button type="button" id="filmBtn">Play</button></div>
+    <div class="film-ui"><span id="filmT">0:00 / 0:32</span><button type="button" id="filmBtn">Play</button></div>
   </div>
 </section>
 <!-- 01 · The problem: the title holds on the left, four cards with icons on the right -->
@@ -2605,7 +2606,7 @@ addEventListener('popstate',()=>{ const id=location.hash.slice(1); if(id==='welc
   if(one()) F.v.poster='media/mat-demo-poster-crew.jpg';
   F.fr.addEventListener('click',()=>{ if(!one()) return; const v=F.v; if(v.webkitEnterFullscreen){ v.play(); v.webkitEnterFullscreen(); } else if(v.requestFullscreen){ v.requestFullscreen(); v.play(); } });
   const fmt=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
-  function ui(){ const d=F.v.duration||36, c=F.v.currentTime||0; F.t.textContent=`${fmt(c)} / ${fmt(d)}`; F.bar.style.width=(100*c/d).toFixed(2)+'%';
+  function ui(){ const d=F.v.duration||31.6, c=F.v.currentTime||0; F.t.textContent=`${fmt(c)} / ${fmt(d)}`; F.bar.style.width=(100*c/d).toFixed(2)+'%';
     F.btn.textContent=F.v.ended?'Replay':F.v.paused?'Play':'Pause'; }
   ['timeupdate','play','pause','ended','loadedmetadata'].forEach(e=>F.v.addEventListener(e,ui));
   F.v.addEventListener('play',()=>{ const loop=()=>{ ui(); if(!F.v.paused) F.raf=requestAnimationFrame(loop); }; cancelAnimationFrame(F.raf); F.raf=requestAnimationFrame(loop); });
@@ -2624,11 +2625,11 @@ addEventListener('popstate',()=>{ const id=location.hash.slice(1); if(id==='welc
     const nav=(document.querySelector('.nav')||{offsetHeight:56}).offsetHeight, room=vh-nav;      // the film is centred in the room under the nav
     const w1=Math.min(vw,room*16/9), w0=Math.min(vw*0.66,w1*0.72), w=w0+(w1-w0)*e, h=w*9/16;
     const top0=vh*0.08, top1=nav+(room-h)/2;
-    // the hero's words lift away as the film rises over them, so nothing is cut by the section's edge
-    HI.style.opacity=(1-cl(e*1.5)).toFixed(3); HI.style.transform=`translateY(${(-60*e).toFixed(1)}px)`;
+    // the frame's own edge covers the hero as it rises; once it has, the hero is hidden so nothing shows round its edges
+    HI.style.opacity=e>=0.999?'0':''; HI.style.transform='';
     F.fr.style.width=w.toFixed(1)+'px'; F.fr.style.top=(top0+(top1-top0)*e).toFixed(1)+'px';
     F.fr.style.transform=`translateX(-50%) scale(${(1-0.06*x).toFixed(4)})`; F.fr.style.filter=x>0?`brightness(${(1-0.6*x).toFixed(3)})`:'';
-    F.lab.style.top=(top0+(top1-top0)*e-30).toFixed(1)+'px'; F.lab.style.left=`calc(50% - ${(w/2).toFixed(1)}px)`; F.lab.style.opacity=(1-cl(e*1.8)).toFixed(3);
+    F.lab.style.top=(top0+(top1-top0)*e-30).toFixed(1)+'px'; F.lab.style.left=`calc(50% - ${(w/2).toFixed(1)}px)`; F.lab.style.opacity=(1-cl(e*4)).toFixed(3);   // gone before it can sit over the hero's words
     if(e>0.7&&x<0.85) play(); else if(e<0.25||x>=0.85) pause(); }
   let q=0; const req=()=>{ if(!q) q=requestAnimationFrame(()=>{ q=0; frame(); }); };
   addEventListener('scroll',req,{passive:true}); addEventListener('resize',req); if(window.lenis&&lenis.on) lenis.on('scroll',req);
