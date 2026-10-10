@@ -1,0 +1,10 @@
+{"Done":{"zh-Hans":"完成","zh-Hant":"完成","ja":"完了","ko":"완료","es":"Listo","fr":"Terminé","de":"Fertig"},
+ "Open":{"zh-Hans":"打开","zh-Hant":"打開","ja":"開く","ko":"열기","es":"Abrir","fr":"Ouvrir","de":"Öffnen"},
+ "write":{"zh-Hans":"撰写","zh-Hant":"撰寫","ja":"執筆","ko":"작성","es":"redactar","fr":"rédiger","de":"schreiben"},
+ "research":{"zh-Hans":"调研","zh-Hant":"研究","ja":"リサーチ","ko":"리서치","es":"investigar","fr":"rechercher","de":"recherchieren"},
+ "compare":{"zh-Hans":"比较","zh-Hant":"比較","ja":"比較","ko":"비교","es":"comparar","fr":"comparer","de":"vergleichen"},
+ "free":{"zh-Hans":"免费","zh-Hant":"免費","ja":"無料","ko":"무료","es":"gratis","fr":"gratuit","de":"gratis"},
+ "Ready":{"zh-Hans":"就绪","zh-Hant":"就緒","ja":"準備完了","ko":"준비됨","es":"Listo","fr":"Prêt","de":"Bereit"},
+ "Hiring":{"zh-Hans":"招募中","zh-Hant":"招募中","ja":"採用中","ko":"모집 중","es":"Contratando","fr":"Recrutement","de":"Besetzung"},
+ "Planning":{"zh-Hans":"规划中","zh-Hant":"規劃中","ja":"計画中","ko":"계획 중","es":"Planificando","fr":"Planification","de":"Planung"},
+ "Checking":{"zh-Hans":"检查中","zh-Hant":"檢查中","ja":"チェック中","ko":"검사 중","es":"Revisando","fr":"Contrôle","de":"Prüfung läuft"}}
