@@ -1297,6 +1297,92 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
   .hc-steps{column-gap:var(--s2)}
 }
 
+
+/* ═══ v3.8 · Download: the dialog that opens as the file starts (2026-10-10). A note from Robert, then the four clicks macOS asks
+   for a build Apple hasn't notarized yet (Apple, "Open a Mac app from an unknown developer"; macOS 15 removed right-click › Open).
+   Amber rings the button you click next: amber means "needs you". Phones get a sheet instead: MAT is a Mac app, so it hands you
+   the link rather than a zip. Figma: Brand & Website › "Download · first open (2026-10-10)". ═══ */
+.dlg{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:var(--s6) var(--m)}
+.dlg[hidden]{display:none}
+.dlg-scrim{position:absolute;inset:0;background:rgba(17,17,18,.8);opacity:0;transition:opacity .2s var(--out)}
+.dlg.on .dlg-scrim{opacity:1}
+.dlg-box{position:relative;display:flex;flex-direction:column;width:min(100%,calc(960*var(--px)));max-height:100%;background:#1C1C1E;box-shadow:inset 0 0 0 .5px var(--hc),0 24px 64px rgba(0,0,0,.5);color:var(--paper);opacity:0;transform:translateY(12px);transition:opacity .2s var(--out),transform .25s var(--out)}
+.dlg.on .dlg-box{opacity:1;transform:none}
+.dlg-box:focus{outline:none}
+.dlg-bar{flex:none;display:flex;align-items:center;gap:var(--s4);height:calc(56*var(--px));padding:0 var(--s5);border-bottom:var(--hair)}
+.dlg-st{display:flex;align-items:center;gap:calc(10*var(--px));min-width:0;font-size:calc(13*var(--px))}
+.dlg-st b{font-weight:600;white-space:nowrap} .dlg-st .f{font:400 calc(13*var(--px))/1 var(--mono);color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dlg-ring{flex:none;width:calc(14*var(--px));height:calc(14*var(--px));border-radius:50%;border:1.5px solid rgba(90,143,230,.3);border-top-color:#5A8FE6;animation:dlspin 1.2s linear infinite}
+.dlg[data-st="done"] .dlg-ring{animation:none;border-color:var(--green);background:radial-gradient(circle,var(--green) 0 2px,transparent 2.5px)}
+@keyframes dlspin{to{transform:rotate(360deg)}}
+.dlg a.u,.dlg-ft a{color:var(--mute);text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:.5px;font-size:calc(13*var(--px));font-weight:500;white-space:nowrap}
+.dlg a.u:hover,.dlg-ft a:hover{color:var(--paper)}
+.dlg-x{margin-left:auto;flex:none;display:flex;align-items:center;gap:var(--s2);height:calc(36*var(--px));padding:0 var(--s3);border:0;background:none;color:var(--mute);font:600 calc(13*var(--px))/1 var(--text);cursor:pointer;box-shadow:inset 0 0 0 .5px var(--hc2)}
+.dlg-x:hover{color:var(--paper)} .dlg-x kbd{font:400 calc(11*var(--px))/1 var(--mono);color:var(--dim)}
+.dlg-x:focus-visible,.dlg a:focus-visible,.dlg button:focus-visible,.dlg summary:focus-visible{outline:1px solid var(--amber);outline-offset:2px}
+.dlg-body{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:grid;grid-template-columns:calc(312*var(--px)) .5px minmax(0,1fr);column-gap:var(--s7);padding:var(--s6) var(--s7)}
+.dlg-body:before{content:"";grid-column:2;grid-row:1;background:var(--hc)}
+.dlg-k{font:500 calc(11*var(--px))/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+.dlg-note{grid-column:1;grid-row:1}
+.dlg-note h2{margin-top:var(--s4);font-size:calc(28*var(--px));letter-spacing:-.02em;line-height:1.1;font-weight:600}
+.dlg-note p{margin-top:var(--s4);text-box:none;font-size:calc(14*var(--px));line-height:1.5;color:rgba(244,239,230,.72)}
+.dlg-sig{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s5)}
+.dlg-sig img{width:calc(40*var(--px));height:calc(40*var(--px))}
+.dlg-sig b{display:block;font-size:calc(14*var(--px));font-weight:600} .dlg-sig span{font-size:calc(12*var(--px));color:var(--dim)}
+.dlg-steps{grid-column:3;grid-row:1}
+.dlg-hd{display:flex;align-items:baseline;gap:var(--s3);padding-bottom:var(--s3)} .dlg-hd span{font-size:calc(12*var(--px));color:var(--dim)}
+.dlg-steps ol{list-style:none;margin:0;padding:0;counter-reset:dst}
+.dlg-steps li{counter-increment:dst;display:grid;grid-template-columns:calc(28*var(--px)) minmax(0,1fr);column-gap:var(--s5);padding:calc(14*var(--px)) 0;border-top:var(--hair)}
+.dlg-steps li:before{content:counter(dst,decimal-leading-zero);font:500 calc(12*var(--px))/1.6 var(--mono)}
+.dlg-steps h3{font-size:calc(16*var(--px));font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.dlg-steps p{margin-top:var(--s2);font-size:calc(13*var(--px));line-height:1.45;color:var(--mute)}
+.dlg-steps p b{color:var(--paper);font-weight:600}
+.dlg-mock{margin-top:var(--s3)}
+.dm-flow{display:flex;align-items:center;flex-wrap:wrap;gap:calc(10*var(--px));font-size:calc(12*var(--px));font-weight:500}
+.dm-flow span{display:inline-flex;align-items:center;gap:var(--s2);padding:calc(6*var(--px)) calc(10*var(--px));box-shadow:inset 0 0 0 .5px var(--hc)}
+.dm-flow i{font-style:normal;color:var(--dim)} .dm-flow img{width:calc(18*var(--px));height:calc(18*var(--px))}
+.dm-alert,.dm-set{border-radius:calc(12*var(--px));box-shadow:inset 0 0 0 .5px rgba(244,239,230,.12);padding:calc(12*var(--px)) calc(14*var(--px))}
+.dm-alert{width:calc(300*var(--px));max-width:100%;background:#2A2A2C}
+.dm-alert .t{display:flex;align-items:center;gap:calc(10*var(--px));font-size:calc(13*var(--px));font-weight:600} .dm-alert .t img{width:calc(28*var(--px));height:calc(28*var(--px))}
+.dm-alert .m{margin-top:var(--s2);font-size:calc(11*var(--px));line-height:1.45;text-box:none;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dm-alert .b{display:flex;gap:var(--s2);margin-top:var(--s2)}
+.dm-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;height:calc(26*var(--px));padding:0 calc(10*var(--px));border-radius:calc(6*var(--px));background:rgba(244,239,230,.08);color:rgba(244,239,230,.55);font-size:calc(12*var(--px));font-weight:500;white-space:nowrap}
+.dm-btn.go{background:rgba(244,239,230,.16);color:var(--paper);box-shadow:0 0 0 2px var(--amber)}
+.dm-set{width:calc(420*var(--px));max-width:100%;background:#242426}
+.dm-set .l{font-size:calc(11*var(--px));font-weight:600;color:var(--mute)}
+.dm-set .r{display:flex;align-items:center;gap:var(--s3);margin-top:calc(6*var(--px));font-size:calc(12*var(--px));color:rgba(244,239,230,.85)} .dm-set .r>span:first-child{flex:1;min-width:0}
+.dm-set .dm-btn{flex:none}
+.dlg-ft{flex:none;display:flex;align-items:center;flex-wrap:wrap;gap:var(--s3) var(--s5);padding:var(--s4) var(--s7);border-top:var(--hair)}
+.dlg-ft details{flex:1 1 calc(380*var(--px));min-width:0}
+.dlg-ft summary{display:inline-flex;align-items:center;gap:var(--s2);cursor:pointer;list-style:none;font-size:calc(13*var(--px));font-weight:500;color:var(--mute)}
+.dlg-ft summary::-webkit-details-marker{display:none}
+.dlg-ft summary:before{content:"›";display:inline-block;width:.8em;font-size:1.1em;transition:transform .2s var(--out)} .dlg-ft details[open] summary:before{transform:rotate(90deg)}
+.dlg-ft summary:hover{color:var(--paper)}
+.dlg-cmd{display:flex;align-items:center;gap:var(--s4);margin-top:var(--s3);padding:var(--s3) var(--s4);background:#111112;box-shadow:inset 0 0 0 .5px var(--hc)}
+.dlg-cmd code{flex:1;min-width:0;font:400 calc(13*var(--px))/1.4 var(--mono);overflow-x:auto;white-space:nowrap}
+.dlg-cmd+p{margin-top:var(--s2);font-size:calc(12*var(--px));color:var(--dim)}
+.dlg-ft .links{display:flex;gap:var(--s5);margin-left:auto}
+/* a phone: MAT is a Mac app, so the sheet hands over the link */
+.dlg-phone{display:none}
+.dlg[data-dev="phone"]{align-items:flex-end;padding:0}
+.dlg[data-dev="phone"] .dlg-box{width:100%;max-height:92%;transform:translateY(24px);box-shadow:0 -.5px 0 var(--hc)}
+.dlg[data-dev="phone"].on .dlg-box{transform:none}
+.dlg[data-dev="phone"] .dlg-phone{display:block;padding:var(--s5) var(--m) 0}
+.dlg[data-dev="phone"] .dlg-st,.dlg[data-dev="phone"] .dlg-bar>a.u,.dlg[data-dev="phone"] .dlg-mock,.dlg[data-dev="phone"] .dlg-ft details,.dlg[data-dev="phone"] .dlg-steps p .x{display:none}
+.dlg[data-dev="phone"] .dlg-bar .ph{display:block} .dlg[data-dev="phone"] .dlg-x kbd{display:none}
+.dlg-bar .ph{display:none;font-size:calc(15*var(--px));font-weight:600}
+.dlg-phone p{font-size:calc(15*var(--px));line-height:1.45;color:rgba(244,239,230,.85)}
+.dlg-phone .acts{margin-top:var(--s4);display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)} .dlg-phone .btn{justify-content:center}
+/* one column: a narrow window, a tablet upright, a phone */
+@media (max-width:860px), (max-width:1199px) and (orientation:portrait){
+  .dlg-body{grid-template-columns:minmax(0,1fr);row-gap:var(--s6);padding:var(--s5) var(--m) var(--s6)} .dlg-body:before{display:none}
+  .dlg-note,.dlg-steps{grid-column:1;grid-row:auto} .dlg-steps{border-top:var(--hair);padding-top:var(--s5)}
+  .dlg-bar{padding:0 var(--m)} .dlg-ft{padding:var(--s4) var(--m)} .dlg-ft .links{margin-left:0}
+  .dlg-st .f{display:none}
+}
+@media (max-width:699px){ .dlg:not([data-dev="phone"]){padding:0} .dlg:not([data-dev="phone"]) .dlg-box{width:100%;height:100%;max-height:100%} .dlg-note h2{font-size:calc(26*var(--px))} .dlg-note p{font-size:calc(15*var(--px))} }
+@media (prefers-reduced-motion: reduce){ .dlg-scrim,.dlg-box{transition:none} .dlg-ring{animation:none} }
+html.dlg-open,html.dlg-open body{overflow:hidden}
 </style>
 
 <header class="nav g" id="nav">
@@ -1618,6 +1704,51 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
   </div>
   <div class="g fbase"><span>© 2026 MAT</span><span>Desktop app · runs locally</span><span>Your memory stays on your computer</span></div>
 </footer>
+
+<!-- v3.8 · Download: opens over the page as the file starts (any [data-dl] outside the sheet). Esc, Close or the scrim close it. -->
+<div class="dlg" id="dlg" hidden data-st="busy" data-dev="mac">
+  <div class="dlg-scrim" data-dlg-close></div>
+  <div class="dlg-box" role="dialog" aria-modal="true" aria-labelledby="dlgTitle" tabindex="-1">
+    <div class="dlg-bar">
+      <p class="dlg-st" aria-live="polite"><i class="dlg-ring" aria-hidden="true"></i><b id="dlgSt">Downloading</b><span class="f">MAT-macOS.zip<span data-ver></span></span></p>
+      <a class="u" id="dlgAgain" href="https://github.com/RobertLeeHao/MAT/releases/latest/download/MAT-macOS.zip">Didn’t start? Download again</a>
+      <span class="ph">Get MAT on your Mac</span>
+      <button class="dlg-x" type="button" data-dlg-close>Close<kbd aria-hidden="true">esc</kbd></button>
+    </div>
+    <div class="dlg-phone">
+      <p>MAT is a Mac app. Send yourself the link and download it there.</p>
+      <div class="acts"><button class="btn primary" type="button" id="dlgCopy"><span class="bl">Copy link</span></button><button class="btn line" type="button" id="dlgShare"><span class="bl">Share…</span></button></div>
+    </div>
+    <div class="dlg-body">
+      <div class="dlg-note">
+        <p class="dlg-k">A note from the maker</p>
+        <h2 id="dlgTitle">Hi, I’m Robert.</h2>
+        <p>I make MAT on my own — one person, no company behind it yet. That’s why your Mac will stop it the first time you open it.</p>
+        <p>Apple vouches only for apps it has checked, and I haven’t had the beta notarized yet. That doesn’t mean MAT is unsafe — it means Apple hasn’t looked at it. MAT has no account and no server of its own; it talks only to the models you connect.</p>
+        <p>It takes four clicks, once. Thank you for trying something this early — tell me what breaks.</p>
+        <div class="dlg-sig"><img src="favicon.svg" alt=""><div><b>Robert</b><span>Makes MAT</span></div></div>
+      </div>
+      <div class="dlg-steps" role="group" aria-label="Open it the first time">
+        <p class="dlg-hd"><span class="dlg-k">Open it the first time</span><span>about a minute</span></p>
+        <ol>
+          <li><div><h3>Unzip it and move it.</h3><p>Double-click <b>MAT-macOS.zip</b>, then drag <b>MAT</b> into Applications.<span class="x"> macOS 13 or later, Apple silicon or Intel.</span></p>
+            <div class="dlg-mock dm-flow" aria-hidden="true"><span>MAT-macOS.zip</span><i>→</i><span><img src="favicon.svg" alt="">MAT</span><i>→</i><span>Applications</span></div></div></li>
+          <li><div><h3>Open MAT, then click Done.</h3><p>macOS stops it and says it can’t check it. That’s the expected first step — click <b>Done</b>, not Move to Trash.</p>
+            <div class="dlg-mock dm-alert" aria-hidden="true"><div class="t"><img src="favicon.svg" alt="">“MAT” Not Opened</div><p class="m">Apple could not verify “MAT” is free of malware…</p><div class="b"><span class="dm-btn">Move to Trash</span><span class="dm-btn go">Done</span></div></div></div></li>
+          <li><div><h3>Allow it in System Settings.</h3><p><b>System Settings › Privacy &amp; Security</b>, scroll to Security and click <b>Open Anyway</b>.<span class="x"> The button stays for about an hour after you tried.</span></p>
+            <div class="dlg-mock dm-set" aria-hidden="true"><p class="l">Privacy &amp; Security › Security</p><div class="r"><span>“MAT” was blocked to protect your Mac.</span><span class="dm-btn go">Open Anyway</span></div></div></div></li>
+          <li><div><h3>Confirm once.</h3><p>Click <b>Open Anyway</b> again, then use Touch ID or your password. From now on MAT opens like any app — add a model in <b>Settings › Providers</b> and ask it something.</p></div></li>
+        </ol>
+      </div>
+    </div>
+    <div class="dlg-ft">
+      <details><summary>Comfortable with Terminal? One line does steps 2–4.</summary>
+        <div class="dlg-cmd"><code id="dlgCmd">xattr -dr com.apple.quarantine /Applications/MAT.app</code><button class="btn line md" type="button" id="dlgCmdCopy"><span class="bl">Copy</span></button></div>
+        <p>It removes the “downloaded from the internet” flag from MAT only. Run it after step 1, then open MAT.</p></details>
+      <div class="links"><a href="#install" id="dlgGuide">Full guide</a><a href="https://github.com/RobertLeeHao/MAT/discussions" target="_blank" rel="noopener">Stuck? Ask in Discussions ↗</a></div>
+    </div>
+  </div>
+</div>
 <!-- v3.3 · the footer's pages: one sheet over the page, a page per link (#install, #changelog, #about, #privacy, #terms, #contact). Esc or × closes it. -->
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shTitle" tabindex="-1" hidden>
   <div class="sh-bar g"><a class="logo" href="#" data-close aria-label="Close and go back to the page">MAT</a><nav class="sh-nav" aria-label="Pages"><a href="#install" data-sheet>Get the beta</a><a href="#changelog" data-sheet>Changelog</a><a href="#about" data-sheet>About</a><a href="#privacy" data-sheet>Privacy</a><a href="#terms" data-sheet>Terms</a><a href="#contact" data-sheet>Contact</a></nav><button class="sh-x" type="button" data-close aria-label="Close">Close<i aria-hidden="true"></i></button></div>
@@ -2640,6 +2771,37 @@ addEventListener('keydown',e=>{ if(e.key==='Escape'&&!SH.el.hidden){ e.preventDe
 addEventListener('popstate',()=>{ const id=location.hash.slice(1); if(!sheetOpen(id,false)) sheetClose(false); });
 { const id=location.hash.slice(1); if(SH.pgs.some(p=>p.dataset.pg===id)) sheetOpen(id,false); }
 
+
+// ═══ v3.8 · Download: the file starts and the dialog opens over the page; on a phone, the sheet hands over the link instead ═══
+{ const DL=$('#dlg'), box=DL.querySelector('.dlg-box'), B=(window.MAT_SITE||{}).beta||{};
+  const PHONE=/iPhone|iPod|Android/i.test(navigator.userAgent)||(/iPad/.test(navigator.userAgent))||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  let back=null, t1=0;
+  const flash=(btn,txt)=>{ const l=btn.querySelector('.bl')||btn, o=l.textContent; l.textContent=txt; setTimeout(()=>{ l.textContent=o; },1600); };
+  const copy=async(txt,btn,done)=>{ try{ await navigator.clipboard.writeText(txt); flash(btn,done); }catch(e){ flash(btn,'Press ⌘C'); } };
+  function dlgOpen(href){ if(!DL.hidden) return; back=document.activeElement; DL.dataset.dev=PHONE?'phone':'mac';
+    const real=!!B.version; $('#dlgAgain').href=href||$('#dlgAgain').href;
+    $('#dlgSt').textContent=real?'Downloading':'The beta is on GitHub'; DL.dataset.st='busy'; clearTimeout(t1);
+    if(real) t1=setTimeout(()=>{ DL.dataset.st='done'; $('#dlgSt').textContent='Downloaded — check your Downloads'; },4000); else DL.dataset.st='done';
+    DL.hidden=false; ROOT.classList.add('dlg-open'); if(lenis) lenis.stop();
+    requestAnimationFrame(()=>requestAnimationFrame(()=>DL.classList.add('on'))); box.focus({preventScroll:true}); }
+  function dlgClose(){ if(DL.hidden) return; DL.classList.remove('on'); ROOT.classList.remove('dlg-open'); if(lenis&&SH.el.hidden) lenis.start();
+    setTimeout(()=>{ DL.hidden=true; },RM?0:220); if(back&&back.focus) back.focus({preventScroll:true}); }
+  // any Download outside the sheet's own guide (that page already says all of this)
+  document.addEventListener('click',e=>{ const a=e.target.closest&&e.target.closest('[data-dl]'); if(!a||a.closest('#sheet')||a.closest('#dlg')) return;
+    if(PHONE) e.preventDefault();             // a zip on a phone helps no one
+    dlgOpen(a.href); });
+  DL.addEventListener('click',e=>{ if(e.target.closest('[data-dlg-close]')) dlgClose(); });
+  addEventListener('keydown',e=>{ if(DL.hidden) return;
+    if(e.key==='Escape'){ e.preventDefault(); e.stopImmediatePropagation(); dlgClose(); return; }
+    if(e.key==='Tab'){ const f=[...box.querySelectorAll('a[href],button,summary')].filter(n=>n.offsetParent!==null); if(!f.length) return;
+      const i=f.indexOf(document.activeElement); if(e.shiftKey&&(i<=0)){ e.preventDefault(); f[f.length-1].focus(); } else if(!e.shiftKey&&i===f.length-1){ e.preventDefault(); f[0].focus(); } } },true);
+  $('#dlgGuide').addEventListener('click',e=>{ e.preventDefault(); e.stopImmediatePropagation(); dlgClose(); sheetOpen('install',true); });
+  $('#dlgCmdCopy').addEventListener('click',e=>copy($('#dlgCmd').textContent,e.currentTarget,'Copied'));
+  const LINK=(/(^|\.)askmat\.app$/.test(location.hostname)?location.origin:'https://askmat.app')+'/';
+  $('#dlgCopy').addEventListener('click',e=>copy(LINK,e.currentTarget,'Link copied'));
+  const sh=$('#dlgShare'); if(!navigator.share) sh.hidden=true; else sh.addEventListener('click',()=>{ navigator.share({title:'MAT — a Mac app',text:'Download MAT on your Mac:',url:LINK}).catch(()=>{}); });
+  if(!navigator.share) $('#dlgCopy').parentNode.style.gridTemplateColumns='1fr';
+}
 // ═══ v3.5 · the film ═══
 // Entry: the section slides up over the hero; the frame grows from 66 % of the screen to its full width (capped so it fits the
 // height) and moves from just under the label to the centre. It starts playing once it is mostly grown, from the top, in time.
