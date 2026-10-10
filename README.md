@@ -153,7 +153,7 @@ The first screen is just the claim, one sentence and the two ways in: **Download
 
 - **Motion.** There is one motion design for everyone: the page moves, with a few scroll-driven scenes, and stands still when the system's Reduce Motion setting is on. For review, `?motion=quiet`, `?motion=bold` or `?motion=loud` forces a level. Press **G** (or add `?grid`) to see the 12-column grid every element sits on.
 - **Phones and tablets.** Below 861 px, and on any portrait screen up to 1199 px, the page is one column: the film sits in the flow at the grid's width instead of pinning and growing. On phones (≤ 699 px) it's one calm column — nothing pinned, the questions fold, and tapping the film plays it full screen.
-- **Footer pages.** Get the beta (how to open it), Changelog, About, Privacy, Terms and Contact open as one sheet over the page, each with its own shareable link (`#install`, `#changelog`, `#privacy`, …); Esc or Close shuts it. Privacy and Terms are short beta versions; Contact points to Discussions, and to hello@askmat.app for anything private.
+- **Footer pages.** Get the beta (how to open it), Changelog, About, Privacy, Terms and Contact open as one sheet over the page, each with its own shareable link (`#install`, `#changelog`, `#privacy`, …); Esc or Close shuts it. Privacy and Terms are short beta versions; Contact points to Discussions and to the issue forms.
 - **Download button.** It always points at `releases/latest/download/MAT-macOS.zip`. The version and size under it come from `MAT_SITE.beta` in `index.html`, which `release.sh` in the app repository writes when it publishes a build; with no build out yet, the button opens the releases page instead.
 - **Numbers.** The times and costs on the page are illustrative, worked out from each provider's public list prices (September 2026), until measured runs replace them. MAT shows the real comparison on every job.
 
@@ -180,7 +180,7 @@ MAT is in an open beta, free while it lasts: anyone can [download it](https://gi
 1. **Your computer is the server. Every device can call it.** MAT runs a small server on the computer it lives on. Your phone, a tablet or another computer — any system, any browser — hands it work, answers its questions and picks up the results.
 2. **MAT as a bot in your chat apps.** Add MAT to Slack, Telegram, WhatsApp or Lark. Hand over a job in a message; the question and the result come back in the same thread.
 3. **Build your own crew. Then share it.** Set the seats, the model on each and the checks for work you do often, and keep it as your crew. Share it, or start from one someone else built — it runs on your own models.
-4. **Crews built for your company.** Company work is bigger and repeats: the same reports, reviews and research every week. We'll build a crew for one of your workflows — strong models where judgement matters, cheap ones for the volume — so the savings grow with every run, on your own machines and keys. [hello@askmat.app](mailto:hello@askmat.app)
+4. **Crews built for your company.** Company work is bigger and repeats: the same reports, reviews and research every week. We'll build a crew for one of your workflows — strong models where judgement matters, cheap ones for the volume — so the savings grow with every run, on your own machines and keys. [Tell us about your workflow](https://github.com/RobertLeeHao/MAT/issues/new?template=company.yml).
 
 **Also on the list**
 
