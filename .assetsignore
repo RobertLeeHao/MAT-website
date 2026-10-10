@@ -24,3 +24,4 @@ patch_site.py
 *.py
 social
 i18n
+readme

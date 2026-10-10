@@ -1,6 +1,10 @@
-# MAT · Website
+# MAT
 
 **Ask once. MAT decides.** MAT is one chat for every AI you already pay for, running on your own computer. A question gets an answer. A job gets one model — or, when the work splits, a crew, checked at every step.
+
+![In one chat, MAT plans a job as stages and staffs each seat with a model: Claude Opus plans and checks, Gemini Flash and DeepSeek research, Qwen compares, GPT-6.1 writes.](readme/02-crew.gif)
+
+<sub>Every card says which model that seat runs on.</sub>
 
 ⬇️ **Free beta for Mac: [Download MAT-macOS.zip](https://github.com/RobertLeeHao/MAT/releases/latest/download/MAT-macOS.zip)** · macOS 13 or later · Apple silicon and Intel · [how to open it](#get-the-beta)
 
@@ -23,7 +27,7 @@ Updating: replace MAT in Applications with the new build; your chats, memory and
 
 ## 1. What MAT is
 
-MAT is a desktop app. You only ever talk to it, the way you would in any AI chat app: chats on the left, the conversation in the middle, the input at the bottom. The difference is what sits behind it — not one model, but every model you have: Claude, ChatGPT, Gemini, DeepSeek, Kimi, Qwen, Z.ai, Mistral, Grok, MiniMax, OpenRouter, Groq, Cerebras, any OpenAI-compatible server, and local models on your own computer.
+MAT is a desktop app. You only ever talk to it, the way you would in any AI chat app: chats on the left, the conversation in the middle, the input at the bottom. The difference is what sits behind it — not one model, but every model you have: Claude, ChatGPT, Gemini, DeepSeek, Kimi, Qwen, Z.ai, Mistral, Grok, MiniMax, OpenRouter, Groq, Cerebras, and local models on your own computer.
 
 MAT reads every message first and makes one of three calls:
 
@@ -32,6 +36,10 @@ MAT reads every message first and makes one of three calls:
 | A question — "RAG or fine-tuning for our support bot?" | Answers it, right here in the chat | An answer · seconds · no job |
 | Something one model can finish — "Draft the launch email for the October release. Under 200 words." | Writes it on one model and checks it before you see it | A draft, ready to send · 52 s · $0.004 · one model |
 | Work that splits — "Look at the AI note-taking apps: who's winning, why, and what they charge." | Twelve apps at once: six scouts, two to compare and one to write, each on the model that suits its step, with MAT planning and checking every stage | A report with 12 sources · 14 min · $0.60, against $1.55 on one strong model · 9 seats · 5 models · 5 checks |
+
+![MAT opens from the bottom of the screen; you ask what the difference is between Otter and Granola, and MAT answers right in the chat.](readme/01-answer.gif)
+
+<sub>Work that splits gets a crew instead — the clip at the top.</sub>
 
 When a message could go either way, MAT asks one question first — and only when the answer changes how the work gets done.
 
@@ -50,6 +58,10 @@ MAT's bet: **process beats raw IQ.** Most AI work doesn't need the smartest mode
 
 And it's honest about the limits: **not every job gets both.** A short job is cheapest on one model, and work that can't split doesn't get faster. MAT gives its estimate before it starts and runs the job the cheaper way.
 
+![The finished job: delivered with 12 sources; $0.60 and 14 minutes, against $1.55 and 22 minutes for one strong model.](readme/06-cost.gif)
+
+<sub>The same note-taking job, delivered with 12 sources.</sub>
+
 ## 3. How it works
 
 ```
@@ -67,12 +79,29 @@ You ──▶ MAT (decides)
                                      a job delivered clean is written down by kind of work ──▶ the next job of that kind starts from it
 ```
 
+![Three research seats run side by side and finish at different times; each seat's card ticks when it hands in, and the stage is checked when the last one is done.](readme/03-pace.gif)
+
+<sub>Time-lapse: Bo hands in first; the stage waits for its last seat before MAT checks it.</sub>
+
+![MAT's question, whether to count Notion AI, takes the place of the chat input; the comparing seats pause until you pick an answer.](readme/04-asks.gif)
+
+<sub>Answer with one click, or in your own words.</sub>
+
 - **The right model for every seat.** MAT keeps an official ranking of 37 models in nine categories, named and scored the way Arena and Artificial Analysis do it. Six of them staff seats — Agents, Search, Reasoning, Writing, Factuality, Image generation; Coding, Instruction following and Vision are for reference. Research seats are picked by Search, writers by Writing, checkers by Factuality.
 - **A gate after every step.** Each stage passes MAT's check before the next one starts, so nothing downstream is built on a mistake. A failed check can't be overruled by MAT's sign-off. Results come with sources; when MAT can't find one, it says so instead of answering from memory.
+
+  ![Stage by stage, each gate on the board turns green before the next stage starts, until MAT signs off.](readme/05-checked.gif)
+
+  <sub>The gate between two stages turns green only after MAT's check.</sub>
+
 - **Relay between models.** If a model fails, the next one takes the seat; a provider whose allowance has run out is skipped; a retired model is replaced with one of the same tier.
 - **Spending under control.** Before a job runs, MAT estimates its time and cost next to one strong model's. If the crew would cost too much, MAT shrinks it to one model. You set a cap per job.
 - **Memory that's yours.** When a job is delivered clean, MAT writes down what worked — by kind of work, not by chat and not by person — on your computer. The next job of that kind starts from it, on whichever model. Deleting a chat never deletes it; only Settings › Memory does.
 - **Out of the way until you're needed.** Minimised, MAT is one still line at the top of the screen — under the notch on a Mac — a segment per chat: blue while it thinks or works, amber when it needs you, red if it stopped, green when it's done and you haven't looked.
+
+  ![The window shrinks into the notch at the top of the screen and leaves one thin line; hovering shows the list of chats.](readme/07-dock.gif)
+
+  <sub>Hover the line to see each chat and where it stands.</sub>
 
 ## 4. How MAT differs
 
@@ -94,9 +123,9 @@ MAT is **not** a chat client, **not** an editor for hand-drawn workflows, and **
 
 MAT has **no account and no server of its own.** It runs on your computer and calls the models you connect directly, with your own keys.
 
-- **Stays local.** Chats, projects, the queue and what MAT learns are saved on your computer; finished work lands in Documents › MAT. Your keys sit in your system's keychain.
+- **Stays local.** Chats, projects, the queue and what MAT learns are saved on your computer; finished work lands in Documents › MAT.
 - **Need to know.** Each model sees only its step: a scout gets the pages it reads, not your history; the writer gets the findings, not your other chats.
-- **Locked and encrypted, if you want.** Turn it on in Settings › Security: Touch ID or your login password opens MAT, and your chats, memory and keys are encrypted with AES-256.
+- **Your keys stay on your computer.** In a file only your account can read, with a copy in your keychain. Each key goes only to the provider it belongs to.
 - **Honest note.** Each step's text goes to the provider whose model runs it, under that provider's terms. For work that mustn't leave your computer, connect a local model and MAT can run the whole job on your own machine, web searches aside.
 
 We don't hold anything about you: no account, no email list. Downloads and discussions happen on GitHub, under GitHub's terms.
@@ -132,9 +161,10 @@ The first screen is just the claim, one sentence and the two ways in: **Download
 
 - **One file.** CSS and JS are inline. The only external dependency is [Lenis](https://github.com/darkroomengineering/lenis) from jsDelivr, for smooth scrolling; the page works without it.
 - **Brand marks.** An inline SVG sprite at the top of `<body>` holds 21 `<symbol id="lg-…">` marks on one 24 grid at the same optical size, drawn in the text's colour (`fill: currentColor`). Subscriptions and products use product marks (Claude, ChatGPT → OpenAI, Gemini…); the ranking uses maker marks. Sources: LobeHub Icons (MIT), Simple Icons (CC0), svglogos.dev (CC0), Lucide (ISC). The trademarks belong to their owners: Microsoft (Copilot) requires written permission, and Google, Meta and MiniMax require approval first — get it before a public launch, or remove the `<symbol>` and its id in `MODELS` / `MKLG`, and that spot shows text only.
-- **No build step, no cookies.** Analytics is Cloudflare Web Analytics (no cookies, doesn't identify anyone); its token goes in `MAT_SITE.beacon` in `index.html`, and without one the script isn't loaded. Nothing is stored in the browser (the keys an older version left behind are cleared on load).
+- **No build step, no cookies.** Visits aren't counted (Cloudflare Web Analytics is wired but off: its token goes in `MAT_SITE.beacon`, and it only loads on askmat.app). Download clicks are counted: each click on a Download button adds one to a public counter on Abacus (`MAT_SITE.clicks`, once per kind per page load, never when the browser sends Do Not Track / GPC); GitHub counts the zip downloads itself. `sh stats.sh` prints both. Nothing is stored in the browser (the keys an older version left behind are cleared on load).
 - **Hosting.** Static files only: GitHub Pages now, Cloudflare (`wrangler.jsonc`, assets only — no Worker code, no database, no secrets) once askmat.app is live. `.assetsignore` makes sure only the page and its public images are served. The waitlist Worker from v3.4 is kept, unused, in `archive/waitlist-worker/`. Setup: [`SETUP.md`](SETUP.md).
 - **GitHub.** `.github/ISSUE_TEMPLATE/` has two forms (a bug in the beta, a crew for your company) and sends ideas and questions to Discussions; `.github/DISCUSSION_TEMPLATE/` has the forms for Ideas and Use cases.
+- **README clips.** `readme/01–07-*.gif` are cut from the demo film along its own captions (1100 px wide, 15 fps, 0.9–3 MB each), so each clip carries its title; the line under each one adds what the clip shows. They are not deployed with the site (`.assetsignore`).
 - **Share card and icons.** `og.png` (2400 × 1260), `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`; social assets (GitHub social preview, X header and avatar, a build-log post template) in `social/`.
 - **Preview locally.** Open `index.html` in a browser.
 - **Publish.** `sh publish.sh` commits and pushes to GitHub; once the repository is connected to Cloudflare, every push redeploys askmat.app. `.github/workflows/pages.yml` publishes the page, its images and `media/` to the GitHub Pages address.
