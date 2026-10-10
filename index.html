@@ -1365,7 +1365,8 @@ html.dlg-open,html.dlg-open body{overflow:hidden}
 /* v4.1 · the GitHub repo, as a small boxed link left of the globe (same look). Phones: only in the footer. */
 .gh-b{text-decoration:none}
 .gh-b svg{width:calc(9*var(--px));height:calc(9*var(--px))}
-@media (max-width:699px){ .nav .gh-b{display:none} }
+/* also while the section links share the row and it is tight (1081–1279; es and ja ran into it at 1081) */
+@media (max-width:699px), (min-width:1081px) and (max-width:1279px){ .nav .gh-b{display:none} }
 .lang-b svg{flex:none;width:calc(14*var(--px));height:calc(14*var(--px));fill:none;stroke:currentColor;stroke-width:1.1}
 .lang-b:focus-visible{outline:1px solid var(--amber);outline-offset:2px}
 .lang-b span{text-box:trim-both cap alphabetic}
