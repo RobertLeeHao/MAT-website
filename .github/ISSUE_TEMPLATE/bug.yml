@@ -1,0 +1,60 @@
+name: Bug in the beta
+description: Something in the MAT app broke, or did the wrong thing.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for trying MAT. Issues are public: **never paste an API key**, a chat you'd rather keep private, or anything from `~/.matdemo`.
+  - type: input
+    id: version
+    attributes:
+      label: MAT version
+      description: Settings › About.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: mac
+    attributes:
+      label: macOS and Mac
+      placeholder: "macOS 26.1 · MacBook Air M3"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+      placeholder: "I asked for a comparison of 12 apps. The crew stopped at Research with \"no sources\", but the search worked yesterday."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to make it happen again
+      placeholder: |
+        1. New chat
+        2. Ask "…"
+        3. …
+  - type: dropdown
+    id: providers
+    attributes:
+      label: Providers you have connected
+      multiple: true
+      options:
+        - Claude API
+        - OpenAI API
+        - ChatGPT plan
+        - Gemini
+        - DeepSeek
+        - Qwen
+        - Kimi
+        - OpenRouter
+        - Ollama (local)
+        - Other
+  - type: textarea
+    id: more
+    attributes:
+      label: Screenshots or anything else
+      description: Drag images in here. Crop out keys and private text first.

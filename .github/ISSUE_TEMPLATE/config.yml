@@ -1,0 +1,10 @@
+# Issues are for something specific: a bug in the beta, or a crew for your company.
+# Ideas, questions and "what I'd use it for" go to Discussions.
+blank_issues_enabled: false
+contact_links:
+  - name: Ideas, questions, what you'd hand MAT first
+    url: https://github.com/RobertLeeHao/MAT/discussions
+    about: Start or join a discussion. No bug needed.
+  - name: Talk about your company's workflow in private
+    url: https://robertleehao.github.io/MAT/#contact
+    about: Issues are public. For anything you'd rather not post, write to hello@askmat.app.

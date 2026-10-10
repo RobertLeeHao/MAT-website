@@ -1,0 +1,27 @@
+title: "I'd hand MAT: "
+labels: ["use case"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One job you'd hand MAT first. Real ones help us most — we tune the crews, the checks and the model picks on them.
+  - type: textarea
+    id: job
+    attributes:
+      label: The job
+      placeholder: "Compare twelve vendors for our support tool and tell me which one to pick, with sources."
+    validations:
+      required: true
+  - type: dropdown
+    id: often
+    attributes:
+      label: How often you'd run it
+      options:
+        - Once
+        - Every week or so
+        - Every day
+  - type: textarea
+    id: models
+    attributes:
+      label: The AIs you already pay for
+      placeholder: "ChatGPT Plus, a DeepSeek key, Ollama on my Mac"

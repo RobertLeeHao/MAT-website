@@ -1,0 +1,15 @@
+title: "[Idea] "
+labels: ["idea"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What should MAT do?
+      placeholder: "Let me keep a crew I like and run it again next week on new data."
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: What would it save you?
+      description: The job you'd use it for, and what you do instead today.

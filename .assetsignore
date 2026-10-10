@@ -4,6 +4,7 @@
 .wrangler
 node_modules
 worker
+archive
 _site
 README.md
 publish.sh

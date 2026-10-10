@@ -1,7 +1,7 @@
 #!/bin/sh
 # 把官网发到 GitHub（公开仓库）并用 GitHub Pages 托管：
-#   仓库 https://github.com/RobertLeeHao/MAT-website
-#   官网 https://robertleehao.github.io/MAT-website/
+#   仓库 https://github.com/RobertLeeHao/MAT
+#   官网 https://robertleehao.github.io/MAT/
 #
 # 用法： sh ~/code/MAT-website/publish.sh
 # 第一次跑会建仓库并推上去、打开 Pages；以后再跑就是提交改动并推送（推送后官网自动更新）。
@@ -9,7 +9,7 @@
 cd "$(dirname "$0")" || exit 1
 
 OWNER=RobertLeeHao
-REPO=MAT-website
+REPO=MAT
 SITE="https://robertleehao.github.io/$REPO/"
 
 command -v gh >/dev/null 2>&1 || { echo "❌ 没有 gh。先跑： brew install gh && gh auth login"; exit 1; }

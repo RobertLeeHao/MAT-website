@@ -6,35 +6,36 @@
 <title>MAT — Ask once. MAT decides.</title>
 <meta name="description" content="MAT is one chat for every AI you already pay for, running on your own computer. A question gets an answer. A job gets one model — or, when the work splits, a crew, checked at every step.">
 <meta name="theme-color" content="#111112">
-<!-- v3.4 · live waitlist, share card, analytics. Until askmat.app is live the absolute URLs point at GitHub Pages; worker/SETUP.md §2 switches them. -->
-<link rel="canonical" href="https://robertleehao.github.io/MAT-website/">
+<!-- v3.7 · no waitlist: Download for Mac (GitHub Releases) and Discuss on GitHub. v3.4 · share card, analytics. Until askmat.app is live the absolute URLs point at GitHub Pages; worker/SETUP.md §2 switches them. -->
+<link rel="canonical" href="https://robertleehao.github.io/MAT/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MAT">
-<meta property="og:url" content="https://robertleehao.github.io/MAT-website/">
+<meta property="og:url" content="https://robertleehao.github.io/MAT/">
 <meta property="og:title" content="MAT — Ask once. MAT decides.">
 <meta property="og:description" content="One chat for every AI you already pay for. A question gets an answer; a job gets one model — or, when the work splits, a crew, checked at every step. Runs locally.">
-<meta property="og:image" content="https://robertleehao.github.io/MAT-website/og.png">
+<meta property="og:image" content="https://robertleehao.github.io/MAT/og.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
 <meta property="og:image:alt" content="MAT — Ask once. MAT decides. One chat, and a crew on the models you already pay for.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MAT — Ask once. MAT decides.">
 <meta name="twitter:description" content="One chat for every AI you already pay for. A crew when the work splits, checked at every step. Runs locally.">
-<meta name="twitter:image" content="https://robertleehao.github.io/MAT-website/og.png">
+<meta name="twitter:image" content="https://robertleehao.github.io/MAT/og.png">
 <script>
-// Where the waitlist API lives: only on MAT's own domain (and local dev). Anywhere else — the old GitHub Pages copy,
-// a preview — the form stays a preview and sends nothing. Cloudflare Web Analytics: paste the site's token into CF_BEACON.
-window.MAT_SITE={api:/(^|\.)askmat\.app$|\.workers\.dev$|^localhost$|^127\.0\.0\.1$/.test(location.hostname)?'/api':'', beacon:''};
-(function(t){ if(!t||!window.MAT_SITE.api) return; var s=document.createElement('script'); s.defer=true; s.src='https://static.cloudflareinsights.com/beacon.min.js'; s.setAttribute('data-cf-beacon',JSON.stringify({token:t})); document.head.appendChild(s); })(window.MAT_SITE.beacon);
+// beta: written by ~/code/MATDemo/release.sh when it publishes a build (version empty = no build yet: the download buttons open
+// the releases page instead). beacon: the Cloudflare Web Analytics token; it only loads on askmat.app.
+window.MAT_SITE={beta:{version:'0.1.0',size:'5.8 MB'}, beacon:''};
+(function(t){ if(!t||!/(^|\.)askmat\.app$/.test(location.hostname)) return; var s=document.createElement('script'); s.defer=true; s.src='https://static.cloudflareinsights.com/beacon.min.js'; s.setAttribute('data-cf-beacon',JSON.stringify({token:t})); document.head.appendChild(s); })(window.MAT_SITE.beacon);
 </script>
 <style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#111112;color:#F4EFE6}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}/* ═══ v3.5 · the film: the hero is the claim, the lede and the waitlist; the one-take film rises over it, grows to the
    width of the screen and plays; then the problem slides over it while it settles back and dims. Apple's scroll-scale pattern:
    the scroll moves the frame, the film plays in time (never scrubbed). Quiet / reduced motion: no growth, no autoplay. ═══ */
 .hero-chat,.hero-run{display:none!important}
 #hero .hero-l{grid-column:1/6}
+@media (max-width:860px), (max-width:1199px) and (orientation:portrait){ #hero .hero-l{grid-column:1/-1} }   /* v3.7 fix: v3.5 left the hero's text in 5 columns on phones and tablets */
 html body #hero,html body .hero-in{min-height:78vh;min-height:78svh}
 #film{position:relative;z-index:1;height:320vh;height:320svh;margin-bottom:-100vh;margin-bottom:-100svh}
 #problem{position:relative;z-index:2}
@@ -492,36 +493,21 @@ footer{background:#111112;color:#F4EFE6;padding-top:var(--s9)}
   .fmap>*:nth-child(1){grid-column:1/7} .fmap>*:nth-child(2){grid-column:7/9} .fmap>*:nth-child(3){grid-column:9/11} .fmap>*:nth-child(4){grid-column:11/13}
 }
 
-/* ═══ v2.1 · problem → answer → modules → next → questions → waitlist ═══ */
+/* ═══ v2.1 · problem → answer → modules → next → questions → get the beta ═══ */
 .lab em{margin-left:auto;font-style:normal;font-family:var(--mono);font-size:calc(11*var(--px));color:var(--dim);text-box:trim-both cap alphabetic}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-/* the waitlist: one field, one button; square, flat */
-.wl{display:flex;flex-wrap:wrap;align-items:stretch;gap:var(--s3);max-width:calc(560*var(--px))}
-.wl-f{flex:1 1 calc(240*var(--px));display:flex}
-.wl input{flex:1;min-width:0;height:calc(48*var(--px));padding:0 var(--s4);border:0;border-radius:0;background:transparent;color:var(--paper);box-shadow:inset 0 0 0 .5px var(--hc2);font:500 calc(14*var(--px))/1 var(--text);outline:none}
-.wl input::placeholder{color:var(--dim)}
-.wl input:focus{box-shadow:inset 0 0 0 1px var(--paper)}
-.wl.err input{box-shadow:inset 0 0 0 1px #E5484D}
-.wl .btn{flex:none}
-.wl-done{display:none;flex-basis:100%;font-size:var(--body);line-height:1.5;color:var(--paper);text-box:trim-both cap alphabetic}
-.wl-done b{font-weight:600}
-.wl-done span{display:block;margin-top:var(--s3);font-size:var(--small);color:var(--dim)}
-.wl.done .wl-f,.wl.done .btn{display:none}
-.wl.done .wl-done{display:block}
-/* v3.4 · live waitlist: sending, an error line, the honeypot */
-.wl-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.wl.busy .btn{opacity:.55;pointer-events:none}
-.wl-msg{display:none;flex-basis:100%;margin:0;font-size:var(--small);line-height:1.5;color:#F2777A}
-.wl.err .wl-msg:not(:empty){display:block}
-.wl.done .wl-msg{display:none}
-.wl-done a.u{color:var(--paper);text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:.5px}
-#hero .hero-wl{grid-column:1/6;margin-top:var(--s8)}
+/* v3.7 · two ways in, side by side: download the beta, talk on GitHub. Square, flat; they wrap to two full-width rows on phones */
+.get{display:flex;flex-wrap:wrap;gap:var(--s3)}
+.get .btn{flex:none}
+.u{color:inherit;text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:.5px}
+.u:hover{color:var(--paper)}
+#hero .hero-get{grid-column:1/6;margin-top:var(--s8)}
 #hero .hero-meta{grid-column:1/6;margin-top:var(--s4)}
-.cta-wl{grid-column:1/7;margin-top:var(--s8)}
+.cta-get{grid-column:1/7;margin-top:var(--s8)}
 #cta .cta-g>.small{grid-column:1/7;margin-top:var(--s4)}
 #cta .cta-g{padding-bottom:var(--s9)}
-.foot-wl{margin-top:var(--s5);max-width:calc(420*var(--px))}
-.foot-wl .wl{gap:var(--s2)} .foot-wl .wl input,.foot-wl .btn{height:calc(40*var(--px))}
+.foot-get{margin-top:var(--s5);max-width:calc(420*var(--px))}
+.foot-get .get{gap:var(--s2)} .foot-get .btn{height:calc(40*var(--px))}
 .nav .cta .btn{transition:opacity .25s var(--out3)}
 /* v3.3 · the nav button is always there, top right (Apple, Linear, Raycast keep theirs from the first screen) */
 #problem,#answer,#soon,#faq,#private{padding-bottom:var(--s10)}
@@ -592,8 +578,8 @@ footer{background:#111112;color:#F4EFE6;padding-top:var(--s9)}
   .rk-row{grid-template-columns:var(--s7) 1fr auto;column-gap:var(--s3)} .rk-row .rn{grid-column:1} .rk-row .mn{grid-column:2;padding:var(--s3) 0} .rk-row .tx{flex-wrap:wrap;row-gap:var(--s2);column-gap:var(--s2)} .rk-row .mn small{flex-basis:100%;order:3}
 
   .rk-row .cq{grid-column:3} .rk-row .cv,.rk-row .cs{display:none}
-  #hero .hero-wl,#hero .hero-meta,.cta-wl,#cta .cta-g>.small{grid-column:1/-1}
-  .wl .btn{flex:1 1 100%}
+  #hero .hero-get,#hero .hero-meta,.cta-get,#cta .cta-g>.small{grid-column:1/-1}
+  .get .btn{flex:1 1 100%}
 }
 /* phones: a tighter card (padding 16, a shorter ramp) and the head stacks — title, then the two meta lines together */
 @media (max-width:699px){
@@ -604,8 +590,8 @@ footer{background:#111112;color:#F4EFE6;padding-top:var(--s9)}
   .rk-ttl{flex-direction:column;align-items:flex-start;gap:var(--s3)}
 }
 @media (min-width:700px) and (max-width:1199px) and (orientation:portrait){
-  #hero .hero-wl,#hero .hero-meta,.cta-wl,#cta .cta-g>.small{grid-column:1/9}
-  .wl .btn{flex:none}
+  #hero .hero-get,#hero .hero-meta,.cta-get,#cta .cta-g>.small{grid-column:1/9}
+  .get .btn{flex:none}
   .rk-row{grid-template-columns:var(--s7) 1fr repeat(3,calc(104*var(--px)))} .rk-row .cv,.rk-row .cs{display:block} .rk-row .cq{grid-column:3} .rk-row .cv{grid-column:4} .rk-row .cs{grid-column:5}
 }
 /* ═══ v2.2 · no two sections share a structure ═══
@@ -756,11 +742,11 @@ html:not([data-motion="quiet"]) .si.think circle{animation:dot 1.2s ease-in-out 
 @keyframes dot{0%,80%,100%{opacity:.3}40%{opacity:1}}
 @media (prefers-reduced-motion: reduce){ .si .arc,.si circle{animation:none!important} }
 
-/* ── hero: the claim across 1–12; what MAT is and the waitlist in 1–5; one chat with MAT, playing, in 7–12 ── */
+/* ── hero: the claim across 1–12; what MAT is and the two ways in (download, discuss) in 1–5; one chat with MAT, playing, in 7–12 ── */
 .hero-in{pointer-events:auto}
 .hero-l{grid-column:1/6;grid-row:2;margin-top:var(--s8);display:flex;flex-direction:column}
 #hero .hero-l .lede{margin-top:0;max-width:34ch}
-#hero .hero-l .hero-wl{margin-top:var(--s7)}
+#hero .hero-l .hero-get{margin-top:var(--s7)}
 #hero .hero-l .hero-meta{margin-top:var(--s4)}
 /* v3.1 · the chat is the hero's picture, so it is big and framed like the app, and it is played by the scroll: the hero holds for
    two screens (the run-out) while the second and third calls play; the first plays by itself when the page opens. Rewinds. */
@@ -957,7 +943,7 @@ html[data-motion="quiet"] .wf.on{animation:none}
 .isl-row .si{width:calc(14*var(--px));height:calc(14*var(--px))}
 .isl-row[data-c="need"] .isl-txt span{color:var(--need)}
 
-/* ── 13 · waitlist: MAT itself, at the end ── */
+/* ── 13 · get the beta: the two buttons, and MAT itself, at the end ── */
 #cta .cta-meta{grid-column:1/7;margin-top:var(--s4)}
 .cta-mat{grid-column:10/13;grid-row:2/5;align-self:end;display:flex;justify-content:flex-start}
 .cta-mat canvas{display:block}
@@ -1113,7 +1099,7 @@ html[data-motion="quiet"] .wf.on{animation:none}
   .qa p:not(.k):not(.vd){margin-top:var(--s3)}
   /* 12 and the footer: one field at the end, then the links */
   footer{padding-top:var(--s8)}
-  .foot-wl,.fmap .fh b,.fbase>*:not(:first-child){display:none}
+  .foot-get,.fmap .fh b,.fbase>*:not(:first-child){display:none}
   .fmap>*{padding-bottom:var(--s7)}
   .fmap .fh span{margin-left:0;color:var(--paper);font-weight:600}
   .fmap .fh{font-family:var(--text)}
@@ -1155,14 +1141,12 @@ html[data-motion="quiet"] .wf.on{animation:none}
 .sh-dl dd{grid-column:4/10;margin:0;color:var(--mute);line-height:1.5;text-box:trim-both cap alphabetic}
 .sh-acts{grid-column:1/-1;margin-top:var(--s8);display:flex;flex-wrap:wrap;gap:var(--s3)}
 html.sheet-on,html.sheet-on body{overflow:hidden}
-/* v3.4 · the welcome sheet: your place, your invite link, one question */
-.sh-dl dd b{color:var(--paper);font-weight:600}
-.wl-num{display:block;font:600 var(--d2)/1 var(--display);letter-spacing:-.03em;color:var(--paper);margin-bottom:var(--s4);text-box:trim-both cap alphabetic}
-.wl-row{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s4)}
-.wl-row input,.wl-ta{flex:1 1 calc(260*var(--px));min-width:0;height:calc(44*var(--px));padding:0 var(--s4);border:0;border-radius:0;background:transparent;color:var(--paper);box-shadow:inset 0 0 0 .5px var(--hc2);font:500 calc(14*var(--px))/1.4 var(--text);outline:none}
-.wl-ta{display:block;width:100%;height:auto;min-height:calc(88*var(--px));padding:var(--s3) var(--s4);margin-top:var(--s4);resize:vertical;box-sizing:border-box}
-.wl-row input:focus,.wl-ta:focus{box-shadow:inset 0 0 0 1px var(--paper)}
-.wl-note{display:block;margin-top:var(--s3);font-size:var(--small);color:var(--dim)}
+/* v3.7 · How to open it: numbered steps */
+.sh-steps{grid-column:1/-1;margin:var(--s7) 0 0;padding:0;list-style:none;counter-reset:st;border-top:var(--hair)}
+.sh-steps li{counter-increment:st;display:grid;grid-template-columns:calc(48*var(--px)) minmax(0,1fr);column-gap:var(--gt);padding:var(--s5) 0;border-bottom:var(--hair)}
+.sh-steps li:before{content:counter(st,decimal-leading-zero);font:600 var(--small)/1 var(--mono);color:var(--paper);text-box:trim-both cap alphabetic}
+.sh-steps h3{font-size:calc(17*var(--px))} .sh-steps p{margin-top:var(--s3);color:var(--mute);max-width:60ch}
+.sh-steps b{color:var(--paper);font-weight:600}
 .sh-dl dd a.u{color:var(--paper);text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:.5px}
 @media (max-width:860px), (max-width:1199px) and (orientation:portrait){
   .sh-nav{display:none} .sh-bar .logo{grid-column:1/7} .sh-x{grid-column:7/-1}
@@ -1231,7 +1215,7 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
 /* ═══ v3.3 · hero: the chat, and beside it the crew MAT hires — the point of MAT, shown first. MAT lays out the stages, hires a seat
    for each (a token runs from MAT's mark down the rail to the seat, and the face appears there, with the model's mark on its stage),
    then the seats work: their bars fill side by side, each stage's gate turns green before the next starts. Scroll-driven; rewinds.
-   1–4 the words and the waitlist; 5–12 the window (chat 42 %, crew the rest); stacked on phones and tablets upright. ═══ */
+   1–4 the words and the two ways in; 5–12 the window (chat 42 %, crew the rest); stacked on phones and tablets upright. ═══ */
 .hero-l{grid-column:1/5}
 .hc-sp .s{display:none}
 .hero-chat{grid-column:5/13}
@@ -1318,19 +1302,19 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
 <header class="nav g" id="nav">
   <a class="logo" href="#hero" aria-label="MAT home"><canvas id="logoRig" aria-hidden="true"></canvas>MAT</a>
   <nav class="links" aria-label="Sections"><a href="#problem">Why MAT</a><a href="#race">What it saves</a><a href="#work">How it works</a><a href="#ranks">Models</a><a href="#private">Privacy</a><a href="#faq">Questions</a></nav>
-  <div class="cta"><a class="btn primary md" href="#join" id="navJoin"><span class="bl">Join the waitlist</span></a></div>
+  <div class="cta"><a class="btn primary md" href="#join" id="navJoin"><span class="bl">Get the beta</span></a></div>
 </header>
 <div class="gridov g" id="gridov" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
 <main>
-<!-- Hero: the claim, what MAT is, the waitlist — and one chat with MAT, playing on the right -->
+<!-- Hero: the claim, what MAT is, the two ways in — and one chat with MAT, playing on the right -->
 <section id="hero" data-ground="ink">
   <div class="g hero-in" id="heroIn">
     <h1 class="split rv">Ask once.<br>MAT decides.</h1>
     <div class="hero-l">
       <p class="lede rv">MAT is one chat for every AI you already pay for, running on your own computer. A question gets an answer. A job gets one model — or, when the work splits, a crew, checked at every step.</p>
-      <div class="hero-wl rv"><form class="wl" data-wl="hero" novalidate><label class="wl-f"><span class="vh">Email</span><input type="email" name="email" placeholder="you@company.com" autocomplete="email" required></label><button class="btn primary" type="submit"><span class="bl">Join the waitlist</span><span class="arw"><i>→</i><i>→</i></span></button><label class="wl-hp" aria-hidden="true">Leave this empty<input type="text" name="company" tabindex="-1" autocomplete="off"></label><p class="wl-done" role="status"><b>You're on the list.</b> We'll email you when your seat is ready.<span>Preview · this page doesn't send sign-ups yet.</span></p><p class="wl-msg" role="alert"></p></form></div>
-      <p class="small hero-meta rv">Desktop app · runs locally · free while in beta</p>
+      <div class="hero-get rv"><div class="get" data-get="hero"><a class="btn primary" href="https://github.com/RobertLeeHao/MAT/releases/latest/download/MAT-macOS.zip" data-dl><span class="bl">Download for Mac</span><span class="arw v"><i>↓</i><i>↓</i></span></a><a class="btn line" href="https://github.com/RobertLeeHao/MAT/discussions" target="_blank" rel="noopener"><span class="bl">Discuss on GitHub</span><span class="arw"><i>↗</i><i>↗</i></span></a></div></div>
+      <p class="small hero-meta rv">Free beta<span data-ver></span> · macOS 13 or later · <a class="u" href="#install" data-sheet>How to open it</a></p>
     </div>
     <div class="hero-chat rv" id="heroChat" role="img" aria-label="A chat with MAT, and beside it the crew MAT hires. You ask whether to use RAG or fine-tuning, and MAT answers right there: no crew. You ask for a launch email, and MAT hires one seat, Wren on GPT-6.1 Sol, then checks the draft: 52 seconds, $0.004. You ask for a look at twelve AI note-taking apps, and MAT lays out five stages and hires a crew of nine across four of your subscriptions — six scouts on Gemini and DeepSeek, two to compare on Qwen, one to write on GPT-6.1 Sol — then the crew works stage by stage, each one checked before the next starts: 14 minutes and $0.60, against $1.55 for one strong model.">
       <div class="hc-steps" aria-hidden="true"><div class="hc-sp" data-k="0"><i><u></u></i><b>01</b><span><span class="l">It answers</span><span class="s">Answers</span></span></div><div class="hc-sp" data-k="1"><i><u></u></i><b>02</b><span><span class="l">It does it</span><span class="s">One model</span></span></div><div class="hc-sp" data-k="2"><i><u></u></i><b>03</b><span><span class="l">It hires a crew</span><span class="s">Hires a crew</span></span></div><div class="hc-sp" data-k="3"><i><u></u></i><b>04</b><span><span class="l">The crew works</span><span class="s">Crew works</span></span></div></div>
@@ -1526,7 +1510,7 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
     <figure class="pv-fig rv" style="margin:0"><svg class="picto" data-picto="P" viewBox="0 0 560 256" role="img" aria-label="Your computer holds your chats, memory and files. Lines run straight from it to three model providers; each line carries one step's work out and the result back. Nothing sits in between."></svg><figcaption class="small pv-cap"><b>Where it goes</b>Straight from your computer to each model, one step at a time. The results come back to your computer.</figcaption></figure>
     <div class="pv-side">
       <ol class="pv-list">
-        <li class="rv"><p class="k">No middleman</p><h3>No account. No MAT server.</h3><p>There’s nothing to sign up for and nowhere for us to keep your work. The only thing we hold is your waitlist email.</p></li>
+        <li class="rv"><p class="k">No middleman</p><h3>No account. No MAT server.</h3><p>There’s nothing to sign up for and nowhere for us to keep your work. We don’t hold your email, either.</p></li>
         <li class="rv"><p class="k">Stays local</p><h3>It all stays on your computer.</h3><p>Chats, projects, the queue and what MAT learns are saved locally; finished work lands in Documents › MAT. Your keys sit in your system’s keychain.</p></li>
         <li class="rv"><p class="k">Need to know</p><h3>Each model sees only its step.</h3><p>A scout gets the pages it reads, not your history. The writer gets the findings, not your other chats.</p></li>
         <li class="rv"><p class="k">Locked</p><h3>Locked and encrypted, if you want.</h3><p>Turn it on in Settings › Security: Touch ID or your login password opens MAT, and your chats, memory and keys are encrypted with AES-256.</p></li>
@@ -1609,17 +1593,17 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
       <div class="qa"><p class="k">Q 03</p><h3>Where does my data live?</h3><div class="qa-a" id="qa-03"><p class="vd">Locally.</p><p>Your chats, projects and what MAT has learned are saved on your own computer, and finished work lands in Documents › MAT. There’s no MAT server in between, and each model sees only the work for its step — <a class="qa-go" href="#private">08 Privacy</a>.</p></div></div>
       <div class="qa"><p class="k">Q 04</p><h3>Is it always cheaper than one model?</h3><div class="qa-a" id="qa-04"><p class="vd">No.</p><p>On a small job, one model is cheaper and faster, and MAT says so and runs it that way. The bigger the job, the more a crew of cheaper models saves.</p></div></div>
       <div class="qa"><p class="k">Q 05</p><h3>Do I have to manage the crew?</h3><div class="qa-a" id="qa-05"><p class="vd">Not yet.</p><p>For now MAT staffs every crew for you: you talk to MAT, in one chat, and it asks only when a decision is yours. Next, you’ll be able to build crews of your own — the seats, their models and the checks — and share them (Coming soon · 03).</p></div></div>
-      <div class="qa"><p class="k">Q 06</p><h3>When can I use it?</h3><div class="qa-a" id="qa-06"><p class="vd">As seats open.</p><p>MAT is in a closed beta, free while it lasts. Join the waitlist and we'll send you an invite.</p></div></div>
+      <div class="qa"><p class="k">Q 06</p><h3>When can I use it?</h3><div class="qa-a" id="qa-06"><p class="vd">Now.</p><p>Download the beta for Mac (macOS 13 or later) — it’s free while in beta, and runs on the models you bring. Ideas, questions and bugs go to <a class="qa-go" href="https://github.com/RobertLeeHao/MAT/discussions" target="_blank" rel="noopener">GitHub Discussions</a>.</p></div></div>
     </div>
   </div>
 </section>
-<!-- 13 · Waitlist: the title, the field — and MAT itself, waiting -->
+<!-- 13 · Get the beta: download it, or talk to us on GitHub — and MAT itself, waiting -->
 <section id="cta" data-ground="amber">
   <div class="g cta-g" id="join">
-    <p class="lab"><b>13</b><span>Waitlist</span></p>
-    <h2 class="split rv">MAT is almost ready.</h2>
-    <div class="cta-wl rv"><form class="wl" data-wl="cta" novalidate><label class="wl-f"><span class="vh">Email</span><input type="email" name="email" placeholder="you@company.com" autocomplete="email" required></label><button class="btn primary" type="submit"><span class="bl">Join the waitlist</span><span class="arw"><i>→</i><i>→</i></span></button><label class="wl-hp" aria-hidden="true">Leave this empty<input type="text" name="company" tabindex="-1" autocomplete="off"></label><p class="wl-done" role="status"><b>You're on the list.</b> We'll email you when your seat is ready.<span>Preview · this page doesn't send sign-ups yet.</span></p><p class="wl-msg" role="alert"></p></form></div>
-    <p class="small cta-meta rv">Desktop app · runs locally · free while in beta</p>
+    <p class="lab"><b>13</b><span>Get the beta</span></p>
+    <h2 class="split rv">Try it. Tell us what breaks.</h2>
+    <div class="cta-get rv"><div class="get" data-get="cta"><a class="btn primary" href="https://github.com/RobertLeeHao/MAT/releases/latest/download/MAT-macOS.zip" data-dl><span class="bl">Download for Mac</span><span class="arw v"><i>↓</i><i>↓</i></span></a><a class="btn line" href="https://github.com/RobertLeeHao/MAT/discussions" target="_blank" rel="noopener"><span class="bl">Discuss on GitHub</span><span class="arw"><i>↗</i><i>↗</i></span></a></div></div>
+    <p class="small cta-meta rv">Free beta<span data-ver></span> · macOS 13 or later · <a class="u" href="#install" data-sheet>How to open it</a></p>
     <div class="cta-mat" aria-hidden="true"><canvas id="ctaRig"></canvas></div>
   </div>
 </section>
@@ -1627,21 +1611,38 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
 
 <footer data-ground="ink">
   <div class="g fmap">
-    <div><div class="fh">MAT</div><p class="small">One chat, and a crew on the models you already pay for — running locally.</p><div class="foot-wl"><form class="wl" data-wl="foot" novalidate><label class="wl-f"><span class="vh">Email</span><input type="email" name="email" placeholder="you@company.com" autocomplete="email" required></label><button class="btn primary" type="submit"><span class="bl">Join the waitlist</span><span class="arw"><i>→</i><i>→</i></span></button><label class="wl-hp" aria-hidden="true">Leave this empty<input type="text" name="company" tabindex="-1" autocomplete="off"></label><p class="wl-done" role="status"><b>You're on the list.</b> We'll email you when your seat is ready.<span>Preview · this page doesn't send sign-ups yet.</span></p><p class="wl-msg" role="alert"></p></form></div></div>
+    <div><div class="fh">MAT</div><p class="small">One chat, and a crew on the models you already pay for — running locally.</p><div class="foot-get"><div class="get" data-get="foot"><a class="btn primary" href="https://github.com/RobertLeeHao/MAT/releases/latest/download/MAT-macOS.zip" data-dl><span class="bl">Download for Mac</span><span class="arw v"><i>↓</i><i>↓</i></span></a><a class="btn line" href="https://github.com/RobertLeeHao/MAT/discussions" target="_blank" rel="noopener"><span class="bl">Discuss on GitHub</span><span class="arw"><i>↗</i><i>↗</i></span></a></div></div></div>
     <div><div class="fh"><b>01</b><span>Product</span></div><a href="#problem">Why MAT</a><a href="#race">What it saves</a><a href="#work">How it works</a><a href="#private">Your data</a><a href="#ranks">The ranking</a><a href="#soon">Coming soon</a></div>
-    <div><div class="fh"><b>02</b><span>Beta</span></div><a href="#join">Join the waitlist</a><a href="#faq">Questions</a><a href="#changelog" data-sheet>Changelog</a></div>
+    <div><div class="fh"><b>02</b><span>Beta</span></div><a href="https://github.com/RobertLeeHao/MAT/releases/latest/download/MAT-macOS.zip" data-dl>Download for Mac</a><a href="#install" data-sheet>How to open it</a><a href="https://github.com/RobertLeeHao/MAT/discussions" target="_blank" rel="noopener">Discussions</a><a href="#faq">Questions</a><a href="#changelog" data-sheet>Changelog</a></div>
     <div><div class="fh"><b>03</b><span>Company</span></div><a href="#about" data-sheet>About</a><a href="#privacy" data-sheet>Privacy</a><a href="#terms" data-sheet>Terms</a><a href="#contact" data-sheet>Contact</a></div>
   </div>
   <div class="g fbase"><span>© 2026 MAT</span><span>Desktop app · runs locally</span><span>Your memory stays on your computer</span></div>
 </footer>
-<!-- v3.3 · the footer's pages: one sheet over the page, a page per link (#changelog, #about, #privacy, #terms, #contact). Esc or × closes it. -->
+<!-- v3.3 · the footer's pages: one sheet over the page, a page per link (#install, #changelog, #about, #privacy, #terms, #contact). Esc or × closes it. -->
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shTitle" tabindex="-1" hidden>
-  <div class="sh-bar g"><a class="logo" href="#" data-close aria-label="Close and go back to the page">MAT</a><nav class="sh-nav" aria-label="Pages"><a href="#changelog" data-sheet>Changelog</a><a href="#about" data-sheet>About</a><a href="#privacy" data-sheet>Privacy</a><a href="#terms" data-sheet>Terms</a><a href="#contact" data-sheet>Contact</a></nav><button class="sh-x" type="button" data-close aria-label="Close">Close<i aria-hidden="true"></i></button></div>
+  <div class="sh-bar g"><a class="logo" href="#" data-close aria-label="Close and go back to the page">MAT</a><nav class="sh-nav" aria-label="Pages"><a href="#install" data-sheet>Get the beta</a><a href="#changelog" data-sheet>Changelog</a><a href="#about" data-sheet>About</a><a href="#privacy" data-sheet>Privacy</a><a href="#terms" data-sheet>Terms</a><a href="#contact" data-sheet>Contact</a></nav><button class="sh-x" type="button" data-close aria-label="Close">Close<i aria-hidden="true"></i></button></div>
   <div class="sh-scroll">
+  <article class="sh-pg g" data-pg="install">
+    <p class="lab"><b>B·00</b><span>Get the beta</span></p>
+    <h2>Download it. Open it once from Settings.</h2>
+    <p class="lede">The beta isn’t notarized by Apple yet, so the first time, macOS asks you to confirm that you want to open it. After that it opens like any app.</p>
+    <ol class="sh-steps">
+      <li><div><h3>Download and unzip.</h3><p><b>MAT-macOS.zip</b><span data-ver></span>, from GitHub. Double-click it, then drag <b>MAT</b> into Applications. macOS 13 or later, on Apple silicon or Intel.</p></div></li>
+      <li><div><h3>Open MAT once.</h3><p>macOS says it can’t check MAT for malicious software. Click <b>Done</b> — this is the expected first step for an app that isn’t notarized.</p></div></li>
+      <li><div><h3>Allow it in System Settings.</h3><p>Open <b>System Settings › Privacy &amp; Security</b>, scroll to Security and click <b>Open Anyway</b> next to MAT, then enter your password. The button is there for about an hour after you tried to open it.</p></div></li>
+      <li><div><h3>Connect your models.</h3><p>In MAT, <b>Settings › Providers › Add provider…</b>: a Claude or OpenAI key, a ChatGPT plan, DeepSeek, Gemini, or Ollama on your own computer. Your keys stay in your keychain.</p></div></li>
+    </ol>
+    <dl class="sh-dl">
+      <div><dt>Updates</dt><dd>New builds come out as GitHub releases. Download the new zip and replace MAT in Applications; your chats, memory and keys stay. The first time a new build reads your keys, macOS may ask once — click <b>Always Allow</b>.</dd></div>
+      <div><dt>Something broke</dt><dd>Tell us in <a class="u" href="https://github.com/RobertLeeHao/MAT/discussions" target="_blank" rel="noopener">Discussions</a>, or open a bug with your MAT version (Settings › About). Never paste a key.</dd></div>
+      <div><dt>Removing it</dt><dd>Settings › Data › Erase everything, then drag MAT to the Trash.</dd></div>
+    </dl>
+    <div class="sh-acts"><a class="btn primary" href="https://github.com/RobertLeeHao/MAT/releases/latest/download/MAT-macOS.zip" data-dl><span class="bl">Download for Mac</span><span class="arw v"><i>↓</i><i>↓</i></span></a><a class="btn line" href="https://github.com/RobertLeeHao/MAT/releases" target="_blank" rel="noopener"><span class="bl">All releases</span><span class="arw"><i>↗</i><i>↗</i></span></a></div>
+  </article>
   <article class="sh-pg g" data-pg="changelog">
     <p class="lab"><b>B·01</b><span>Changelog</span></p>
     <h2 id="shTitle">What changed in the beta.</h2>
-    <p class="lede">MAT is in a closed beta. Builds go to the people on it as they are ready; this is what each one changed.</p>
+    <p class="lede">MAT is in an open beta. Each build is a <a class="u" href="https://github.com/RobertLeeHao/MAT/releases" target="_blank" rel="noopener">release on GitHub</a>; this is what each one changed.</p>
     <ol class="sh-log">
       <li><time datetime="2026-10-07">Oct 7, 2026</time><div><h3>Chats side by side, a queue, projects.</h3><ul>
         <li>Chats run at the same time: two jobs in two chats no longer wait for each other.</li>
@@ -1668,20 +1669,6 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
       <div><h3>Where it runs</h3><p>On your own computer. Your chats, projects and what MAT learns stay there, and your subscriptions stay yours: MAT doesn’t resell a model, it uses the ones you connect.</p></div>
     </div>
   </article>
-  <article class="sh-pg g" data-pg="welcome">
-    <p class="lab"><b>W·01</b><span>Waitlist</span></p>
-    <h2>You’re on the list.</h2>
-    <p class="lede" id="wlLede">Confirming your email…</p>
-    <dl class="sh-dl" id="wlStand" hidden>
-      <div><dt>Your place</dt><dd><span class="wl-num" id="wlPos">—</span>Of <b id="wlTot">—</b> confirmed. Seats open in waves, from the top.</dd></div>
-      <div><dt>Move up</dt><dd>Everyone who joins and confirms through your link moves you up <b id="wlBonus">5</b> places. <span id="wlRefs"></span>
-        <div class="wl-row"><input id="wlLink" readonly aria-label="Your invite link"><button class="btn line" type="button" id="wlCopy"><span class="bl">Copy link</span></button></div></dd></div>
-      <div><dt>One question</dt><dd><label for="wlWant">What would you hand MAT first? It helps us pick who gets the first seats.</label>
-        <textarea class="wl-ta" id="wlWant" maxlength="500" rows="3" placeholder="Compare twelve vendors and tell me which one to pick, with sources."></textarea>
-        <div class="wl-row"><button class="btn primary" type="button" id="wlSave"><span class="bl">Save answer</span></button></div><span class="wl-note" id="wlSaved" role="status"></span></dd></div>
-      <div><dt>Your data</dt><dd>Your email, the link you came through and your answer — used for the invite and nothing else. <a class="u" id="wlLeave" href="#">Leave the waitlist</a></dd></div>
-    </dl>
-  </article>
   <article class="sh-pg g" data-pg="privacy">
     <p class="lab"><b>C·02</b><span>Privacy</span></p>
     <h2>What stays, what goes.</h2>
@@ -1690,7 +1677,7 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
       <div><dt>On your computer</dt><dd>Your chats, projects and their files, the queue, and MAT’s memory. Finished work is saved in Documents › MAT. Deleting a chat or a project never touches the memory; only Settings › Memory does.</dd></div>
       <div><dt>Your keys</dt><dd>Kept in your system’s keychain, used only to call the provider they belong to.</dd></div>
       <div><dt>What leaves</dt><dd>Each step’s work goes to the model on that seat — to the provider you connected, under your account and that provider’s terms. A seat sees the work for its step, not your whole history.</dd></div>
-      <div><dt>The waitlist</dt><dd>We keep your email, the link you came through, who invited you and your answer to our one question — to send your invite and beta news, and nothing else. It’s stored with Cloudflare and mailed through Resend; it’s never sold or shared. Every email has a link that deletes all of it.</dd></div>
+      <div><dt>GitHub</dt><dd>The beta downloads from GitHub, and Discussions and issues live there. What you post is public and follows GitHub’s terms; we see only what you post.</dd></div>
       <div><dt>This page</dt><dd>No cookies and no ad trackers. We count visits with Cloudflare Web Analytics, which doesn’t identify you.</dd></div>
     </dl>
   </article>
@@ -1699,7 +1686,7 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
     <h2>The beta, in plain words.</h2>
     <p class="lede">A summary while MAT is in beta. Full terms come with the first public build.</p>
     <dl class="sh-dl">
-      <div><dt>Free while in beta</dt><dd>MAT costs nothing during the beta. Seats open in waves, by invite.</dd></div>
+      <div><dt>Free while in beta</dt><dd>MAT costs nothing during the beta. Anyone can download it; new builds come as GitHub releases.</dd></div>
       <div><dt>Your models, your bill</dt><dd>MAT runs on the subscriptions and keys you connect, so their limits, prices and terms apply. MAT shows the estimated cost before a job runs and keeps to the spending cap you set.</dd></div>
       <div><dt>It’s a beta</dt><dd>Things will change and some will break. Check what matters before you rely on it — MAT attaches its sources so you can.</dd></div>
       <div><dt>Your work is yours</dt><dd>What you ask and what MAT delivers belong to you.</dd></div>
@@ -1708,8 +1695,8 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
   <article class="sh-pg g" data-pg="contact">
     <p class="lab"><b>C·04</b><span>Contact</span></p>
     <h2>Talk to us.</h2>
-    <p class="lede">Questions, a bug, an idea for a crew — open an issue on GitHub and we’ll answer there.</p>
-    <div class="sh-acts"><a class="btn primary" href="https://github.com/RobertLeeHao/MAT-website/issues" target="_blank" rel="noopener"><span class="bl">Open an issue on GitHub</span><span class="arw"><i>↗</i><i>↗</i></span></a><a class="btn line" href="#join" data-close><span class="bl">Join the waitlist</span></a></div>
+    <p class="lede">Questions, ideas and bugs: GitHub Discussions, where everyone can see the answer. A workflow you’d rather not post: hello@askmat.app.</p>
+    <div class="sh-acts"><a class="btn primary" href="https://github.com/RobertLeeHao/MAT/discussions" target="_blank" rel="noopener"><span class="bl">Discuss on GitHub</span><span class="arw"><i>↗</i><i>↗</i></span></a><a class="btn line" href="mailto:hello@askmat.app"><span class="bl">hello@askmat.app</span></a></div>
   </article>
   </div>
 </div>
@@ -1958,7 +1945,7 @@ const MOBQ=matchMedia('(max-width:860px), (max-width:1199px) and (orientation:po
 // nav; ?motion=quiet|bold|loud still forces a level for review, and a level a visitor once picked is forgotten.
 let LEVEL=RM?'quiet':'bold';
 { const q=/[?&]motion=(quiet|bold|loud)\b/.exec(location.search); if(q) LEVEL=q[1]; }
-try{ localStorage.removeItem('mat-motion'); }catch(e){}
+try{ ['mat-motion','mat-wl','mat-wl-t','mat-src','mat-ref'].forEach(k=>localStorage.removeItem(k)); }catch(e){}   // v3.7: the waitlist's keys too
 ROOT.dataset.motion=LEVEL;
 // phones (≤ 699 px): one calm column — nothing pinned, the hero's chat plays by itself, the questions fold
 const PHQ=matchMedia('(max-width:699px)'), PH=()=>PHQ.matches;
@@ -2328,41 +2315,12 @@ RKT.addEventListener('click',e=>{ const b=e.target.closest('.rk-tab'); if(!b) re
 RKT.addEventListener('keydown',e=>{ if(!/Arrow(Left|Right)/.test(e.key)) return; const ks=Object.keys(RANK), i=ks.indexOf(rkTab)+(e.key==='ArrowRight'?1:-1); rkTab=ks[(i+ks.length)%ks.length]; rkRender(); RKT.querySelector(`[data-t="${rkTab}"]`).focus(); });
 rkRender();
 
-// ═══ the waitlist: every form on the page shares one state ═══
-// v3.4 · live on MAT's own domain (MAT_SITE.api): the email goes to /api/join, a confirm link goes out by mail.
-// Anywhere else it stays a preview and sends nothing. localStorage keeps: mat-wl (sent / confirmed), mat-wl-t (your own link),
-// mat-src / mat-ref (the channel and the invite you came through) — conveniences for this browser only.
-const WL={api:(window.MAT_SITE||{}).api||''};
-const ls=(k,v)=>{ try{ if(v===undefined) return localStorage.getItem(k); if(v===null) localStorage.removeItem(k); else localStorage.setItem(k,v); }catch(e){ return null; } };
-{ // where this visit came from: ?ref=code (an invite), ?s= or utm_source (a channel), else the referring site
-  const q=new URLSearchParams(location.search), ref=(q.get('ref')||'').toLowerCase(), src=(q.get('s')||q.get('utm_source')||'').toLowerCase();
-  if(/^[a-z0-9]{6,12}$/.test(ref)) ls('mat-ref',ref);
-  if(src) ls('mat-src',src.slice(0,40)); else if(!ls('mat-src')&&document.referrer){ try{ const h=new URL(document.referrer).hostname.replace(/^www\./,''); if(h&&h!==location.hostname) ls('mat-src',h.slice(0,40)); }catch(e){} }
-}
-function wlDone(state){ $$('.wl').forEach(f=>{ f.classList.add('done'); f.classList.remove('err','busy');
-  const d=f.querySelector('.wl-done'); if(!WL.api||!d) return;
-  d.innerHTML=state==='confirmed'?'<b>You’re on the list.</b> We’ll email you when your seat is ready.<span><a href="#welcome" class="u" data-wl-me>See your place and invite link</a></span>'
-                                 :'<b>Check your inbox.</b> One click in the email we just sent and your place is saved.<span>Nothing there in a minute? Look in spam, or <a href="#" class="u" data-wl-again>send it again</a>.</span>'; }); }
-function wlErr(f,msg){ f.classList.remove('busy'); f.classList.add('err'); f.querySelector('.wl-msg').textContent=msg||''; }
-{ const st=ls('mat-wl'); if(st) wlDone(st==='1'?'check':st); }
-$$('.wl').forEach(f=>f.addEventListener('submit',async e=>{ e.preventDefault(); if(f.classList.contains('busy')) return;
-  const i=f.querySelector('input[type=email]'), email=i.value.trim(), ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  if(!ok){ wlErr(f,email?'That doesn’t look like an email address.':''); i.focus(); return; }
-  if(!WL.api){ ls('mat-wl','1'); wlDone(); if(typeof ctaJoy==='function') ctaJoy(); return; }   // preview copy of the page
-  f.classList.add('busy'); f.classList.remove('err');
-  try{
-    const r=await fetch(WL.api+'/join',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email,src:ls('mat-src')||'',ref:ls('mat-ref')||'',hp:f.querySelector('.wl-hp input').value})});
-    const j=await r.json().catch(()=>({}));
-    if(r.ok&&j.ok){ ls('mat-wl','check'); wlDone('check'); if(typeof ctaJoy==='function') ctaJoy(); return; }
-    wlErr(f,j.error==='rate'?'Too many sign-ups from here in the last hour. Try again later.':j.error==='email'?'That doesn’t look like an email address.':'Something went wrong on our side. Try again in a moment.');
-  }catch(err){ wlErr(f,'Couldn’t reach the list. Check your connection and try again.'); }
-}));
-// "send it again": the done line turns back into the form
-document.addEventListener('click',e=>{ const a=e.target.closest&&e.target.closest('[data-wl-again]'); if(!a) return; e.preventDefault();
-  ls('mat-wl',null); $$('.wl').forEach(f=>f.classList.remove('done')); const i=a.closest('.wl').querySelector('input[type=email]'); if(i) i.focus(); });
-// the nav's button points at the waitlist at the end of the page, and puts the cursor in it
-$$('a[href="#join"]').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>{ const i=$('#join .wl input'); if(i&&!$('#join .wl').classList.contains('done')) i.focus({preventScroll:true}); },900)));
+// ═══ v3.7 · two ways in: Download for Mac (the latest GitHub release of this repo) and Discuss on GitHub ═══
+// MAT_SITE.beta is written by MATDemo/release.sh. With no build out yet, the download buttons open the releases page instead
+// of a file that isn't there.
+{ const B=(window.MAT_SITE||{}).beta||{}, ver=B.version?` · v${B.version}${B.size?' · '+B.size:''}`:'';
+  $$('[data-ver]').forEach(e=>e.textContent=ver);
+  if(!B.version) $$('[data-dl]').forEach(a=>{ a.href='https://github.com/RobertLeeHao/MAT/releases'; a.target='_blank'; a.rel='noopener'; const l=a.querySelector('.bl')||a; l.textContent='Get the beta on GitHub'; const w=a.querySelector('.arw'); if(w){ w.classList.remove('v'); w.innerHTML='<i>↗</i><i>↗</i>'; } }); }
 
 
 // ═══ layout ═══
@@ -2666,7 +2624,7 @@ let lenis=null;
 function lenisSet(){ const want=LEVEL!=='quiet'&&!RM&&window.Lenis; if(want&&!lenis){ lenis=new Lenis({lerp:0.1,smoothWheel:true}); } else if(!want&&lenis){ lenis.destroy(); lenis=null; } }
 document.addEventListener('click',e=>{ const a=e.target.closest&&e.target.closest('a[href^="#"]'); if(!a||!lenis) return; const t=document.querySelector(a.getAttribute('href')); if(!t) return; e.preventDefault(); lenis.scrollTo(t,{offset:a.getAttribute('href')==='#hero'?0:-56,duration:1.2}); });
 
-// ═══ v3.3 · the footer's pages: #changelog, #about, #privacy, #terms, #contact open the sheet; Esc, × or MAT close it ═══
+// ═══ v3.3 · the footer's pages: #install, #changelog, #about, #privacy, #terms, #contact open the sheet; Esc, × or MAT close it ═══
 const SH={el:$('#sheet'),pgs:$$('#sheet .sh-pg'),back:null};
 function sheetOpen(id,push){ const pg=SH.pgs.find(p=>p.dataset.pg===id); if(!pg) return false;
   if(SH.el.hidden){ SH.back=document.activeElement; SH.el.hidden=false; ROOT.classList.add('sheet-on'); if(lenis) lenis.stop(); }
@@ -2679,7 +2637,7 @@ document.addEventListener('click',e=>{ const a=e.target.closest&&e.target.closes
   if(a.hasAttribute('data-sheet')){ e.preventDefault(); e.stopImmediatePropagation(); sheetOpen(a.getAttribute('href').slice(1),true); }
   else { const h=a.getAttribute('href'); sheetClose(true); if(!h||h==='#'){ e.preventDefault(); e.stopImmediatePropagation(); } } },true);
 addEventListener('keydown',e=>{ if(e.key==='Escape'&&!SH.el.hidden){ e.preventDefault(); sheetClose(true); } });
-addEventListener('popstate',()=>{ const id=location.hash.slice(1); if(id==='welcome'&&typeof wsRoute==='function'){ wsRoute(); return; } if(!sheetOpen(id,false)) sheetClose(false); });
+addEventListener('popstate',()=>{ const id=location.hash.slice(1); if(!sheetOpen(id,false)) sheetClose(false); });
 { const id=location.hash.slice(1); if(SH.pgs.some(p=>p.dataset.pg===id)) sheetOpen(id,false); }
 
 // ═══ v3.5 · the film ═══
@@ -2731,32 +2689,6 @@ addEventListener('popstate',()=>{ const id=location.hash.slice(1); if(id==='welc
   window.filmFrame=frame; ui(); frame();
 })();
 
-// ═══ v3.4 · the welcome sheet ═══
-const WS={lede:$('#wlLede'),dl:$('#wlStand'),pos:$('#wlPos'),tot:$('#wlTot'),bonus:$('#wlBonus'),refs:$('#wlRefs'),link:$('#wlLink'),copy:$('#wlCopy'),
-  want:$('#wlWant'),save:$('#wlSave'),saved:$('#wlSaved'),leave:$('#wlLeave')};
-function wsShow(j){ const n=x=>Number(x).toLocaleString('en-US');
-  WS.dl.hidden=false; WS.lede.textContent='Your email is confirmed. Here’s where you stand.';
-  WS.pos.textContent='#'+n(j.position); WS.tot.textContent=n(j.total); WS.bonus.textContent=j.bonus||5;
-  WS.refs.textContent=j.refs?`${j.refs} ${j.refs===1?'person has':'people have'} joined through it so far.`:'';
-  WS.link.value=location.origin+'/?ref='+j.code; if(j.want&&!WS.want.value) WS.want.value=j.want; }
-async function wsLoad(t,confirm){ if(!WL.api||!t){ WS.lede.textContent='Open the link in your email to see your place.'; WS.dl.hidden=true; return; }
-  WS.lede.textContent=confirm?'Confirming your email…':'Loading your place…';
-  try{ const r=await fetch(WL.api+(confirm?'/confirm':'/me?t='+encodeURIComponent(t)),confirm?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({t})}:{});
-    const j=await r.json();
-    if(!r.ok||!j.ok){ WS.dl.hidden=true; WS.lede.textContent='This link doesn’t match anyone on the list. It may be old — join again with the same email and we’ll send a fresh one.'; ls('mat-wl-t',null); return; }
-    if(j.state==='pending'){ WS.dl.hidden=true; WS.lede.textContent='Almost there: open the link in the email we sent to confirm.'; return; }
-    ls('mat-wl-t',t); ls('mat-wl','confirmed'); wlDone('confirmed'); WS.leave.href=WL.api+'/leave?t='+encodeURIComponent(t); wsShow(j);
-  }catch(e){ WS.lede.textContent='Couldn’t reach the list. Check your connection and reload.'; } }
-function wsRoute(){ const m=location.hash.match(/^#(confirm|welcome)(?:=([\w.-]{20,64}))?$/); if(!m) return false;
-  const t=m[2]||ls('mat-wl-t'); history.replaceState(null,'','#welcome');   // the token leaves the address bar
-  sheetOpen('welcome',false); wsLoad(t,m[1]==='confirm'&&!!m[2]); return true; }
-wsRoute(); addEventListener('hashchange',wsRoute);
-document.addEventListener('click',e=>{ const a=e.target.closest&&e.target.closest('[data-wl-me]'); if(!a) return; e.preventDefault(); history.pushState(null,'','#welcome'); wsRoute(); });
-WS.copy.addEventListener('click',async()=>{ const b=WS.copy.querySelector('.bl'); try{ await navigator.clipboard.writeText(WS.link.value); }catch(e){ WS.link.select(); document.execCommand&&document.execCommand('copy'); }
-  b.textContent='Copied'; setTimeout(()=>b.textContent='Copy link',1600); });
-WS.save.addEventListener('click',async()=>{ const t=ls('mat-wl-t'); if(!t) return; WS.saved.textContent='Saving…';
-  try{ const r=await fetch(WL.api+'/want',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({t,want:WS.want.value})});
-    WS.saved.textContent=r.ok?'Saved. Thank you — we read every one.':'Couldn’t save. Try again.'; }catch(e){ WS.saved.textContent='Couldn’t save. Try again.'; } });
 // ═══ v3.1 · Hero: one chat with MAT, three calls — it answers, it does it on one model, it staffs it with a crew.
 // The first call plays by itself as the page opens; then the hero holds for two screens (the run-out under it) and the scroll plays
 // the second and third. Everything is a function of one number, P (0–3): scroll back and it rewinds. Quiet: all three, still.

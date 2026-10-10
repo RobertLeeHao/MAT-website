@@ -1,146 +1,174 @@
-# MAT · 官网
+# MAT · Website
 
-**一个对话，用上你已经付费的所有 AI。** 小事 MAT 当场回答；一件活，MAT 判断是一个模型做完，还是排一支团队分头去做，每一步都复核，只在需要你拍板时打扰你。
+**Ask once. MAT decides.** MAT is one chat for every AI you already pay for, running on your own computer. A question gets an answer. A job gets one model — or, when the work splits, a crew, checked at every step.
 
-🌐 **官网：<https://askmat.app>**（域名开通前：<https://robertleehao.github.io/MAT-website/>）
+⬇️ **Free beta for Mac: [Download MAT-macOS.zip](https://github.com/RobertLeeHao/MAT/releases/latest/download/MAT-macOS.zip)** · macOS 13 or later · Apple silicon and Intel · [how to open it](#get-the-beta)
 
-这个仓库是 MAT 的官网：一个自包含的 [`index.html`](index.html)，加一个很小的 Cloudflare Worker（[`worker/`](worker)）负责等候名单。推送到 `main` 后 Cloudflare 自动部署；上线步骤见 [`worker/SETUP.md`](worker/SETUP.md)。MAT 的 macOS 应用源码在另一个仓库，暂不公开。
+💬 **Talk to us: [Discussions](https://github.com/RobertLeeHao/MAT/discussions)** — ideas, questions, and the first job you'd hand MAT. Something broke? [Open an issue](https://github.com/RobertLeeHao/MAT/issues/new/choose).
 
-> English summary: MAT is a macOS app that turns the AI subscriptions and API keys you already have into one chat. Every message is judged first: a question gets an answer right there; a job one model can finish runs on one model; a job that splits gets a crew — strong models plan and check, cheaper models do the steps in parallel, and a gate checks every stage before the next one starts. What worked is remembered locally, by kind of work, and belongs to you rather than to any model vendor. Minimised, MAT is a single line under the MacBook notch. Status: working prototype, closed beta not yet open. This repository holds the website only.
+🌐 Website: <https://robertleehao.github.io/MAT/> (soon <https://askmat.app>)
 
----
+This repository is MAT's website — one self-contained [`index.html`](index.html) — and where the beta is released and discussed. The app's source code lives in a separate, private repository; its builds are published here as [releases](https://github.com/RobertLeeHao/MAT/releases).
 
-## 1. MAT 是什么
+## Get the beta
 
-MAT 是一个 macOS 桌面应用。你只跟它说话，像用任何一个大模型聊天应用一样：左边是对话列表，中间是对话，下面是输入框。不同的是，MAT 背后接的不是一家模型，而是你手上所有的模型——Claude、GPT、Gemini、DeepSeek、Kimi、Qwen、智谱、Mistral、Grok、MiniMax、OpenRouter、Groq、Cerebras，以及跑在你自己电脑上的本地模型。
+1. Download [`MAT-macOS.zip`](https://github.com/RobertLeeHao/MAT/releases/latest/download/MAT-macOS.zip), double-click it, and drag **MAT** into Applications.
+2. Open MAT once. The beta isn't notarized by Apple yet, so macOS says it can't check it — click **Done**.
+3. Open **System Settings › Privacy & Security**, scroll to Security and click **Open Anyway** next to MAT, then enter your password. (The button is there for about an hour after you tried.)
+4. In MAT, **Settings › Providers › Add provider…** — connect the AIs you already pay for, or Ollama on your own computer.
 
-每条消息，MAT 先判断它是什么：
-
-| 你说的 | MAT 做的 | 你得到的 |
-|---|---|---|
-| 一个问题（"RAG 还是微调？"） | 当场回答 | 几秒钟，一个答案 |
-| 一件一个模型能做完的活（"写一封 200 字以内的发布邮件"） | 挑一个合适的模型写，复核后再给你 | 一份能直接用的稿子 |
-| 一件能拆开的活（"看看 12 个 AI 笔记应用谁在赢、怎么收费"） | 排一支团队：强模型规划和复核，便宜模型并行干活 | 一份带来源的报告，附上花了多少钱、多久，和"一个强模型从头做到尾"的对比 |
-
-"MAT"既是产品名，也是你在对话里唯一需要面对的对象。团队里的"员工"在右侧抽屉里干活，你想看才看。
-
-## 2. 它解决什么问题
-
-多数人已经同时为好几个 AI 付费，但真正用它们干活，工作量还在自己身上：
-
-- **你在当工作流。** 每一步选哪个模型、把上一个对话的上下文复制到下一个、记住谁说过什么，都是你在做。
-- **什么都带不走。** 每家模型只记得自己的对话；换工具或额度用完，上下文和你教过它的东西就没了。
-- **一个模型包办一切。** 强模型在简单步骤上又慢又贵，便宜模型在难的步骤上会出错。
-- **没人检查。** 一步出错会流进下一步，发现它、返工，都是你的事。
-
-MAT 的核心判断是：**大部分需要 AI 完成的工作，并不需要最聪明的模型。** 合理的工作流、完整精确的指令、每一步的复核，比单个模型的智商更决定质量。所以强模型只做需要判断的地方（规划、签字），其余步骤交给小而快的模型并行做——活越大，相对"全程用强模型"省得越多。
-
-它也诚实：**小活上拆团队反而更贵更慢**，所以不是所有活都拆，一个模型能做完的就一个模型。
-
-## 3. 它怎么工作
-
-```
-你 ──▶ MAT（判断）
-         ├─ 问题 ───────────────▶ 直接回答
-         ├─ 需要先问一句 ────────▶ 一个问题 + 2–3 个快捷选项
-         ├─ 一个模型能做完 ──────▶ 一个座位 → 复核 → 交付
-         └─ 能拆开 ─────────────▶ 2–5 个阶段，每阶段 1–3 个座位，每个座位按排行榜配模型
-                                    ▼
-                                 阶段 1 ──闸门──▶ 阶段 2 ──闸门──▶ … ──▶ MAT 签字 ──▶ 交付
-                                    │
-                                    └── 需要你拍板时：输入框原地变成琥珀色的提问，相关座位暂停
-                                                                       │
-                                               做成的活按「活的类型」记下做法 ──▶ 下次同类活直接用上
-```
-
-- **按排行榜配人**：九个类别（Agents、Search、Reasoning、Writing、Factuality、Image generation 用于配人；Coding、Instruction following、Vision 仅供参考），按 Arena 和 Artificial Analysis 的类别和打法计分。调研座位看 Search，写作看 Writing，复核看 Factuality。
-- **模型接力**：一个模型失败换下一个；额度用完自动跳过那一家，下线的模型自动找同档替代。
-- **每一步都复核**：每个阶段过闸门才继续；复核结论 MAT 签字也推翻不了。交付附来源，查不到就直说，不凭记忆答。
-- **花销可控**：开跑前预估时间和花销并和"一个强模型"对比；太贵就自动缩成一个模型；有单次上限。
-- **记忆归你**：做成的活按类型记下做法，存在你的电脑上，与任何一家模型无关。
-
-## 4. 和常规 AI 产品的不同
-
-| | MAT | 常规 AI 产品 |
-|---|---|---|
-| 对话 | 做过的活按类型留下做法，下次同类活直接用上 | 每个对话从零开始 |
-| 记忆 | 存在你的电脑上，换模型什么都不丢 | 厂商功能，带不走 |
-| 配置 | 说出需要什么，MAT 选座位、配模型、排流程 | 模板、提示词、流程自己维护 |
-| 沟通对象 | 只有 MAT | 更多 Agent、更多标签页 |
-| 成本 | 强模型只规划与复核，活越大越省 | 每一步都在高价模型上 |
-| 并行 | 一件活里多个座位同时做；多个对话同时跑 | 一次一条线性对话 |
-| 质检 | 每阶段复核门，交付附来源 | 质检是你的事 |
-| 打扰 | 只在需要你拍板时提问 | 守在窗口前等 |
-| 供应商 | 所有订阅一支团队，用完自动跳过 | 单一供应商，到额度就停 |
-
-它**不是**聊天客户端，**不是**手绘工作流的编辑器，也**不是**消失一小时的全自动 Agent。它是一个会判断的对话。
-
-## 5. 官网的结构
-
-首屏只有标语、一句话和等候名单。往下滑，一段一镜到底的演示视频（32 秒，到最小化为止，不含结尾的标语和 waitlist；`media/`）从下面升起，画框自己的边缘盖住首屏、长到屏幕宽度并自动播放；再往下，01 从下面盖上来，视频退后、变暗、暂停。以前首屏右侧随滚动播放的对话和团队（下面这段描述）仍在代码里，但已关掉（`HERO_FILM`）。原来的首屏是一个窗口：左边是和 MAT 的对话（回答 / 一个模型做 / 排团队），右边是 MAT 为这件活雇的团队——先排出阶段，再把座位一个个雇上（每个座位标着用的是哪家模型），然后团队按阶段开工，每段过闸门才进下一段。随滚动播放、可倒放。往下依次是：
-
-| # | 段落 | 讲什么 |
-|---|---|---|
-| 01 | The problem | 四个问题，每张卡标着 Problem 和它让你付出的代价：你在当工作流、什么都带不走、一个模型包办、没人检查 |
-| 02 | The answer | 一张随滚动重新连线的图：从"你夹在六个应用中间"到"一个对话、一份记忆、每步一道闸门" |
-| 03 | MAT decides | 三种判断：回答、一个模型做、排团队（第三种高亮：MAT 最强的地方） |
-| 04 | What it saves | 一个例子（能拆开并行的活）三种做法的时间与花销；并注明大多数活不会同时更省钱又更快 |
-| 05 | Why it works | 三个好团队的习惯：强模型规划和复核、座位并行、闸门防返工 |
-| 06 | How it works | 四步，右侧只给每一步对应的那块界面：镜头框住它、放大，其余部分暗下去（提需求时是输入框和最新消息，排团队时是抽屉里的画板和数字，提问时是取代输入框的问题，交付时是交付消息）。完整流程交给首屏的视频；`?motion=quiet` 时仍显示整个窗口 |
-| 07 | Models and memory | 各家订阅绑在一起当一个团队用：同一件活的座位坐在各自用的订阅上；余量、本地记忆 |
-| 08 | Privacy | 单独一段（v3.6）：没有账号、没有 MAT 的服务器；从你的电脑直接连你接入的模型，每个模型只看到它那一步；对话、记忆、交付文件、key 都在本机；可开锁屏和 AES-256 加密；诚实说明：每一步的内容会发给跑这一步的服务商，要完全不出电脑就接本地模型 |
-| 09 | The ranking | 九个类别的模型排行 |
-| 10 | Dock | 最小化后刘海下的一条线 |
-| 11 | Coming soon | 接下来要做的四件事：多端调用本地服务、聊天软件里的 bot、自定义团队并分享、为企业定制团队（活量大、内容固定，最能放大价格优势；链接到 hello@askmat.app） |
-| 12 | Questions | 问答 |
-| 13 | Waitlist | 等候名单 |
-
-- 动效只有一套：默认会动（几段由滚动驱动），系统开了"减弱动态效果"时整页静止。原先导航右侧的 Quiet / Bold / Loud 切换已经去掉——让访客挑动效强度不是正式网站该有的东西；评审时可在网址后加 `?motion=quiet`、`?motion=bold` 或 `?motion=loud` 强制某一档。按 **G**（或网址加 `?grid`）显示 12 栏网格。
-- 手机上（宽度 ≤ 699 px）是一栏安静的版本：什么都不钉住，不用滚好几屏去推动画；首屏的对话自己把三个例子播一遍（点对话上方的 01 / 02 / 03 可以重播那一段）；每段只留编号、标题、一句话和一块内容，04 的赛跑图、06 的应用窗口、10 的示意图、字母编号、交叉引用和数据表只在宽屏上出现；列表统一成一种样式；问答折叠；导航只有标志和一个"Join the waitlist"按钮（滑过首屏的输入框后出现），底部不再有常驻条。
-- 导航右上角的 "Join the waitlist" 一直在。
-- 页脚的 Changelog / About / Privacy / Terms / Contact 打开同一张覆盖页（网址带 `#changelog` 等，可直接分享；Esc 或 Close 关闭）。Privacy 和 Terms 是测试期的简要版，Contact 指向本仓库的 GitHub Issues。
-- 等候名单在 askmat.app 上是真的：填邮箱 → 收到确认邮件 → 点链接后看到自己的排位、专属邀请链接（每邀请一个人确认，前进 5 位）和一个问题"你最想先让 MAT 做什么"。在其它地址（GitHub Pages、预览）上它仍是预览，不发送任何东西。
-- 页面里的数字（时间、花销）是按各家公开价格算的示意，不是实测。
-
-## 6. 技术说明
-
-- 单个 HTML 文件，CSS 和 JS 都内联；唯一的外部依赖是 jsDelivr 上的 [Lenis](https://github.com/darkroomengineering/lenis)（平滑滚动，加载失败时页面照常工作）。
-- 各家标志：`<body>` 开头内联一份 SVG sprite（21 个 `<symbol id="lg-…">`），同一套 24 网格、同一视觉体积，颜色跟随文字（`fill: currentColor`）。02 的六个模型框、07 的各家订阅列和悬停卡片、08 排行的每一行都用它：订阅和产品用产品标志（Claude、ChatGPT → OpenAI、Gemini…），排行用厂商标志。来源 LobeHub Icons（MIT）、Simple Icons（CC0）、svglogos.dev（CC0）、Lucide（ISC），归一化方法见 MAT 项目文档 `MAT-logos.md`。标志的商标权归各家：Microsoft（Copilot）要书面许可，Google、Meta、MiniMax 要先批准——正式公开前取得许可，或删掉对应的 `<symbol>` 和 `MODELS` / `MKLG` 里的 id，那一处只显示文字。
-- 没有构建步骤、没有 cookie。统计用 Cloudflare Web Analytics（不用 cookie、不识别个人），token 填在 `index.html` 的 `MAT_SITE.beacon`。`localStorage` 只记这台浏览器上的便利信息：等候名单状态（`mat-wl`）、自己的查看链接（`mat-wl-t`）、来源渠道和邀请码（`mat-src` / `mat-ref`）（以前存过的动效强度，打开页面时会被清掉）。
-- 等候名单：`worker/index.js`（接口）+ `worker/schema.sql`（D1 表）+ `wrangler.jsonc`（配置）。双重确认、排队发信（不超过 Resend 免费版每天 100 封）、按渠道统计、CSV 导出、一键退出并删除数据。`.assetsignore` 保证只有页面和图片作为静态文件发出去，代码、README、密钥都不会。
-- 分享卡片和图标：`og.png`（2400×1260）、`favicon.svg` / `favicon-32.png` / `apple-touch-icon.png`；社交素材在 `social/`（GitHub 社交预览、X 头图和头像、build log 帖子模板）。设计源文件在 Figma：MAT 文件 › Brand & Website › "Social · share card, GitHub, X (2026-10-09)"。
-- 本地预览：直接用浏览器打开 `index.html`。
-- 发布：`sh publish.sh`。提交并推送到 GitHub；Cloudflare 连上仓库后自动部署 askmat.app。`.github/workflows/pages.yml` 仍把 `index.html` 发布到旧的 GitHub Pages 地址（那里的表单只是预览）。
-
-## 7. 现状
-
-MAT 是可以日常运行的原型，还没有发布，也没开始公测。应用源码暂不公开。
-
-## 8. 未来方向
-
-**近期**
-- 根据你已有的订阅推荐"加哪一家能顶上哪些座位"。
-- 用 ChatGPT / Claude 套餐账号直接登录；同一家可以加两个账号（工作 / 个人）。
-- 排行榜每周自动重抓、重算，座位换人前先给你看。
-
-**中期**
-- **你的电脑就是服务器。** 手机、平板、另一台电脑，任何浏览器都能交活、回答它的问题、取结果。
-- **在聊天软件里用 MAT。** Slack、Telegram、WhatsApp、飞书：一条消息交出一件活，提问和结果回到同一个线程。
-- **记忆更聪明。** 用评价、返工记录和每次判断持续校准，路由越用越贴合你。
-
-**长期**
-- **团队社区。** 分享你搭好的团队（座位、模型、复核规则），也可以从别人分享的团队开始。
-- **开放格式。** 做法和记忆可以完整导出带走。
-- **按步骤做隐私路由。** 敏感步骤只交给本地模型。
-
-## 9. 设计原则
-
-- **只和 MAT 说话。** 工作流再复杂，也不会变成沟通的复杂度。
-- **颜色只表达一件事。** 蓝 = 进行中，琥珀 = 需要你，绿 = 通过 / 做完，红 = 出错。
-- **诚实的数字。** 每件活都和"一个强模型"对比；更贵就直说，小活就用一个模型。
-- **不拉走你。** 需要你时，问题出现在那个对话的输入框位置，不切走你正在看的对话。
-- **瑞士风格的版面。** 12 栏网格，标题很大、正文很小，左对齐，平面色，插图只用来解释。
+Updating: replace MAT in Applications with the new build; your chats, memory and keys stay. Please never paste an API key into an issue or a discussion.
 
 ---
 
-© 2026 Robert Lee. 保留所有权利。
+## 1. What MAT is
+
+MAT is a desktop app. You only ever talk to it, the way you would in any AI chat app: chats on the left, the conversation in the middle, the input at the bottom. The difference is what sits behind it — not one model, but every model you have: Claude, ChatGPT, Gemini, DeepSeek, Kimi, Qwen, Z.ai, Mistral, Grok, MiniMax, OpenRouter, Groq, Cerebras, any OpenAI-compatible server, and local models on your own computer.
+
+MAT reads every message first and makes one of three calls:
+
+| You ask | MAT decides | You get |
+|---|---|---|
+| A question — "RAG or fine-tuning for our support bot?" | Answers it, right here in the chat | An answer · seconds · no job |
+| Something one model can finish — "Draft the launch email for the October release. Under 200 words." | Writes it on one model and checks it before you see it | A draft, ready to send · 52 s · $0.004 · one model |
+| Work that splits — "Look at the AI note-taking apps: who's winning, why, and what they charge." | Twelve apps at once: six scouts, two to compare and one to write, each on the model that suits its step, with MAT planning and checking every stage | A report with 12 sources · 14 min · $0.60, against $1.55 on one strong model · 9 seats · 5 models · 5 checks |
+
+When a message could go either way, MAT asks one question first — and only when the answer changes how the work gets done.
+
+"MAT" is both the product and the only one you talk to. The crew works in a drawer beside the chat; look when you want to.
+
+## 2. The problem it solves
+
+You already pay for several AIs. Getting real work out of them is still your job — and it breaks in four places:
+
+- **You run the workflow.** You pick a model for every step, paste the context from one chat into the next and keep track of who said what. *Costs you your time.*
+- **Nothing carries over.** Each model remembers only its own chats. Switch tools or hit a limit, and the context — and what you taught it — is gone. *Costs you the context, at every switch.*
+- **One model does everything.** A strong model is slow and expensive on the easy steps. A cheap one gets the hard steps wrong. *Costs you money, or quality.*
+- **Nobody checks the work.** A mistake in one step flows into the next. Finding it, and redoing what was built on it, is up to you. *Costs you rework.*
+
+MAT's bet: **process beats raw IQ.** Most AI work doesn't need the smartest model. A sound workflow, complete instructions and a check after every step decide quality more than any single model does. So strong models work only where judgement matters — the plan and the sign-off — and small, fast models do the steps in between, side by side.
+
+And it's honest about the limits: **not every job gets both.** A short job is cheapest on one model, and work that can't split doesn't get faster. MAT gives its estimate before it starts and runs the job the cheaper way.
+
+## 3. How it works
+
+```
+You ──▶ MAT (decides)
+          ├─ a question ──────────────▶ answers it in the chat
+          ├─ could go either way ─────▶ one question, with 2–3 quick replies
+          ├─ one model can finish it ─▶ one seat → check → deliver
+          └─ the work splits ─────────▶ 2–5 stages, 1–3 seats each, every seat staffed from the ranking
+                                          ▼
+                                       stage 1 ──gate──▶ stage 2 ──gate──▶ … ──▶ MAT signs off ──▶ delivered
+                                          │
+                                          └── a decision that's yours: MAT's question takes the place of the
+                                              input, and the seats that depend on it wait until you choose
+                                                                          │
+                                     a job delivered clean is written down by kind of work ──▶ the next job of that kind starts from it
+```
+
+- **The right model for every seat.** MAT keeps an official ranking of 37 models in nine categories, named and scored the way Arena and Artificial Analysis do it. Six of them staff seats — Agents, Search, Reasoning, Writing, Factuality, Image generation; Coding, Instruction following and Vision are for reference. Research seats are picked by Search, writers by Writing, checkers by Factuality.
+- **A gate after every step.** Each stage passes MAT's check before the next one starts, so nothing downstream is built on a mistake. A failed check can't be overruled by MAT's sign-off. Results come with sources; when MAT can't find one, it says so instead of answering from memory.
+- **Relay between models.** If a model fails, the next one takes the seat; a provider whose allowance has run out is skipped; a retired model is replaced with one of the same tier.
+- **Spending under control.** Before a job runs, MAT estimates its time and cost next to one strong model's. If the crew would cost too much, MAT shrinks it to one model. You set a cap per job.
+- **Memory that's yours.** When a job is delivered clean, MAT writes down what worked — by kind of work, not by chat and not by person — on your computer. The next job of that kind starts from it, on whichever model. Deleting a chat never deletes it; only Settings › Memory does.
+- **Out of the way until you're needed.** Minimised, MAT is one still line at the top of the screen — under the notch on a Mac — a segment per chat: blue while it thinks or works, amber when it needs you, red if it stopped, green when it's done and you haven't looked.
+
+## 4. How MAT differs
+
+| | MAT | A typical AI product |
+|---|---|---|
+| Chats | Each kind of job leaves a way of doing it; the next one starts from there | Every chat starts from zero |
+| Memory | On your computer; switch models and nothing is lost | A vendor feature you can't take with you |
+| Setup | Say what you need; MAT picks the seats, the models and the process | Templates, prompts and flows you maintain yourself |
+| Who you talk to | MAT, in one chat | More agents, more tabs |
+| Cost | Strong models only plan and check; the bigger the job, the more it saves | Every step on the expensive model |
+| Parallel work | Several seats on one job at once; several chats at once | One linear conversation at a time |
+| Quality | A gate at every stage; results come with sources | Checking is your job |
+| Interruptions | Only when a decision is yours | You sit and watch the window |
+| Providers | All your subscriptions on one crew; one runs out, MAT moves on | One vendor; when you hit the limit, you stop |
+
+MAT is **not** a chat client, **not** an editor for hand-drawn workflows, and **not** an autonomous agent that disappears for an hour. It's a chat that decides.
+
+## 5. Privacy
+
+MAT has **no account and no server of its own.** It runs on your computer and calls the models you connect directly, with your own keys.
+
+- **Stays local.** Chats, projects, the queue and what MAT learns are saved on your computer; finished work lands in Documents › MAT. Your keys sit in your system's keychain.
+- **Need to know.** Each model sees only its step: a scout gets the pages it reads, not your history; the writer gets the findings, not your other chats.
+- **Locked and encrypted, if you want.** Turn it on in Settings › Security: Touch ID or your login password opens MAT, and your chats, memory and keys are encrypted with AES-256.
+- **Honest note.** Each step's text goes to the provider whose model runs it, under that provider's terms. For work that mustn't leave your computer, connect a local model and MAT can run the whole job on your own machine, web searches aside.
+
+We don't hold anything about you: no account, no email list. Downloads and discussions happen on GitHub, under GitHub's terms.
+
+## 6. The website
+
+The first screen is just the claim, one sentence and the two ways in: **Download for Mac** and **Discuss on GitHub**. Scroll, and a one-take demo film rises from below (32 seconds, ending as MAT shrinks back under the notch; files in `media/`): the frame's own edge covers the first screen, grows to the full width of the window and starts playing. Scroll on and 01 slides up over it while the film steps back, dims and pauses.
+
+| # | Section | What it says |
+|---|---|---|
+| 00 | See it work | The demo film, one take |
+| 01 | The problem | Many models, no team — four problems, each with what it costs you |
+| 02 | The answer | One chat, every model, one memory: a diagram that rewires as you scroll, from "you, between six apps" to one chat, one memory and a gate after every step |
+| 03 | MAT decides | It answers, does it, or staffs it — the three calls, with the crew marked as where MAT is strongest |
+| 04 | What it saves | One example, a competitor analysis of 12 apps done three ways: 61% less spent than one strong model, 8 minutes sooner, 12 of 12 claims holding up (cheap models only: 9) — and why not every job gets both |
+| 05 | Why it works | Process beats raw IQ: strong models plan and check, seats run side by side, gates stop rework |
+| 06 | How it works | Start to finish in one chat, in four steps; the window beside them frames only the part each step is about |
+| 07 | Models and memory | Every AI you pay for, working as one crew: one job's seats sitting on the subscriptions they run on, what each has left this cycle, and MAT's local memory |
+| 08 | Privacy | Your work never passes through us |
+| 09 | The ranking | Every model, ranked for every kind of work |
+| 10 | Dock | Out of the way until you're needed |
+| 11 | Coming soon | The next four things (below) |
+| 12 | Questions | Six questions, answered |
+| 13 | Get the beta | Try it. Tell us what breaks. — the same two buttons |
+
+- **Motion.** There is one motion design for everyone: the page moves, with a few scroll-driven scenes, and stands still when the system's Reduce Motion setting is on. For review, `?motion=quiet`, `?motion=bold` or `?motion=loud` forces a level. Press **G** (or add `?grid`) to see the 12-column grid every element sits on.
+- **Phones and tablets.** Below 861 px, and on any portrait screen up to 1199 px, the page is one column: the film sits in the flow at the grid's width instead of pinning and growing. On phones (≤ 699 px) it's one calm column — nothing pinned, the questions fold, and tapping the film plays it full screen.
+- **Footer pages.** Get the beta (how to open it), Changelog, About, Privacy, Terms and Contact open as one sheet over the page, each with its own shareable link (`#install`, `#changelog`, `#privacy`, …); Esc or Close shuts it. Privacy and Terms are short beta versions; Contact points to Discussions, and to hello@askmat.app for anything private.
+- **Download button.** It always points at `releases/latest/download/MAT-macOS.zip`. The version and size under it come from `MAT_SITE.beta` in `index.html`, which `release.sh` in the app repository writes when it publishes a build; with no build out yet, the button opens the releases page instead.
+- **Numbers.** The times and costs on the page are illustrative, worked out from each provider's public list prices (September 2026), until measured runs replace them. MAT shows the real comparison on every job.
+
+## 7. Technical notes
+
+- **One file.** CSS and JS are inline. The only external dependency is [Lenis](https://github.com/darkroomengineering/lenis) from jsDelivr, for smooth scrolling; the page works without it.
+- **Brand marks.** An inline SVG sprite at the top of `<body>` holds 21 `<symbol id="lg-…">` marks on one 24 grid at the same optical size, drawn in the text's colour (`fill: currentColor`). Subscriptions and products use product marks (Claude, ChatGPT → OpenAI, Gemini…); the ranking uses maker marks. Sources: LobeHub Icons (MIT), Simple Icons (CC0), svglogos.dev (CC0), Lucide (ISC). The trademarks belong to their owners: Microsoft (Copilot) requires written permission, and Google, Meta and MiniMax require approval first — get it before a public launch, or remove the `<symbol>` and its id in `MODELS` / `MKLG`, and that spot shows text only.
+- **No build step, no cookies.** Analytics is Cloudflare Web Analytics (no cookies, doesn't identify anyone); its token goes in `MAT_SITE.beacon` in `index.html`, and without one the script isn't loaded. Nothing is stored in the browser (the keys an older version left behind are cleared on load).
+- **Hosting.** Static files only: GitHub Pages now, Cloudflare (`wrangler.jsonc`, assets only — no Worker code, no database, no secrets) once askmat.app is live. `.assetsignore` makes sure only the page and its public images are served. The waitlist Worker from v3.4 is kept, unused, in `archive/waitlist-worker/`. Setup: [`SETUP.md`](SETUP.md).
+- **GitHub.** `.github/ISSUE_TEMPLATE/` has two forms (a bug in the beta, a crew for your company) and sends ideas and questions to Discussions; `.github/DISCUSSION_TEMPLATE/` has the forms for Ideas and Use cases.
+- **Share card and icons.** `og.png` (2400 × 1260), `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`; social assets (GitHub social preview, X header and avatar, a build-log post template) in `social/`.
+- **Preview locally.** Open `index.html` in a browser.
+- **Publish.** `sh publish.sh` commits and pushes to GitHub; once the repository is connected to Cloudflare, every push redeploys askmat.app. `.github/workflows/pages.yml` publishes the page, its images and `media/` to the GitHub Pages address.
+
+## 8. Status
+
+MAT is in an open beta, free while it lasts: anyone can [download it](https://github.com/RobertLeeHao/MAT/releases/latest). The app's source code is not public; builds are released here.
+
+## 9. What's next
+
+**Coming soon**
+
+1. **Your computer is the server. Every device can call it.** MAT runs a small server on the computer it lives on. Your phone, a tablet or another computer — any system, any browser — hands it work, answers its questions and picks up the results.
+2. **MAT as a bot in your chat apps.** Add MAT to Slack, Telegram, WhatsApp or Lark. Hand over a job in a message; the question and the result come back in the same thread.
+3. **Build your own crew. Then share it.** Set the seats, the model on each and the checks for work you do often, and keep it as your crew. Share it, or start from one someone else built — it runs on your own models.
+4. **Crews built for your company.** Company work is bigger and repeats: the same reports, reviews and research every week. We'll build a crew for one of your workflows — strong models where judgement matters, cheap ones for the volume — so the savings grow with every run, on your own machines and keys. [hello@askmat.app](mailto:hello@askmat.app)
+
+**Also on the list**
+
+- Recommend which subscription to add, from the seats it would fill for the work you do.
+- Sign in with your ChatGPT or Claude plan directly; add the same provider twice, for a work and a personal account.
+- Rebuild the ranking automatically every week, and show you before a seat changes model.
+- Memory that keeps calibrating, from your ratings, from rework and from every call MAT makes.
+- An open format: export your ways of working and your memory, and take them with you.
+- Privacy routing per step: sensitive steps go only to local models.
+
+## 10. Design principles
+
+- **You only talk to MAT.** However complex the workflow, it never becomes complexity in the conversation.
+- **Each colour means one thing.** Blue: running. Amber: needs you. Green: passed or done. Red: something went wrong.
+- **Honest numbers.** Every job is compared with one strong model; when the crew costs more, MAT says so, and small jobs get one model.
+- **It doesn't pull you away.** When MAT needs you, the question appears where that chat's input was; it never switches the chat you're reading.
+- **Swiss layout.** A 12-column grid, very large titles over small text, left-aligned, flat colour; illustrations only where they explain.
+
+---
+
+© 2026 Robert Lee. All rights reserved.

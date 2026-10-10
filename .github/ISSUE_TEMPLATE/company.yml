@@ -1,0 +1,44 @@
+name: A crew for your company
+description: Tell us about a workflow your team runs again and again. We're building custom crews for a few companies.
+title: "[Company] "
+labels: ["company"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is **public**. Describe the workflow in general terms — no client names, numbers or documents. For anything private, write to hello@askmat.app instead.
+  - type: textarea
+    id: workflow
+    attributes:
+      label: The workflow
+      description: What goes in, what comes out, who checks it today.
+      placeholder: "Every Monday we read ~40 competitor updates and write a two-page brief for sales."
+    validations:
+      required: true
+  - type: dropdown
+    id: often
+    attributes:
+      label: How often it runs
+      options:
+        - Many times a day
+        - Daily
+        - Weekly
+        - Monthly
+        - Ad hoc, but in volume
+    validations:
+      required: true
+  - type: textarea
+    id: today
+    attributes:
+      label: How you do it now
+      description: By hand, with one AI model, with a tool — and what it costs in time or money, roughly.
+  - type: textarea
+    id: limits
+    attributes:
+      label: Limits we should know
+      description: Models you can or can't use, data that must stay on your machines, security reviews.
+  - type: input
+    id: contact
+    attributes:
+      label: How to reach you (optional)
+      description: Leave it empty and we'll reply here.
