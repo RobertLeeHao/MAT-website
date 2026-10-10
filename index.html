@@ -524,9 +524,25 @@ footer{background:#111112;color:#F4EFE6;padding-top:var(--s9)}
 .foot-wl .wl{gap:var(--s2)} .foot-wl .wl input,.foot-wl .btn{height:calc(40*var(--px))}
 .nav .cta .btn{transition:opacity .25s var(--out3)}
 /* v3.3 · the nav button is always there, top right (Apple, Linear, Raycast keep theirs from the first screen) */
-#problem,#answer,#soon,#faq{padding-bottom:var(--s10)}
+#problem,#answer,#soon,#faq,#private{padding-bottom:var(--s10)}
 #ranks{padding-bottom:0}
 .k{font-family:var(--mono);font-size:var(--small);font-weight:600;color:var(--paper)}
+/* v3.6 · 08 · privacy, a section of its own: the picture of where the work goes in 1–7, what stays and what leaves in 9–12 */
+#private{padding-bottom:var(--s10)}
+.pv{margin-top:var(--s8);align-items:start}
+.pv-fig{grid-column:1/8;border-top:var(--hair);padding-top:var(--s5);position:sticky;top:calc(var(--navh) + var(--s7))}
+.pv-cap{margin-top:var(--s5);display:flex;gap:var(--s4);text-box:trim-both cap alphabetic}
+.pv-cap b{font-family:var(--mono);font-weight:600;color:var(--paper);flex:none}
+.pv-side{grid-column:9/13}
+.pv-list{margin:0;padding:0;list-style:none;border-top:var(--hair)}
+.pv-list li{padding:var(--s5) 0 var(--s6);border-bottom:var(--hair)}
+.pv-list .k{color:var(--green)}
+.pv-list h3{margin-top:var(--s5);font-size:calc(17*var(--px))}
+.pv-list p:not(.k){margin-top:var(--s3);color:var(--mute);max-width:40ch}
+.pv-honest{margin-top:var(--s6);font-size:var(--body);line-height:1.5;color:var(--mute);max-width:40ch;text-box:trim-both cap alphabetic}
+.pv-honest b{color:var(--paper);font-weight:600}
+.qa-go{color:var(--paper);text-decoration:underline;text-decoration-thickness:.5px;text-underline-offset:3px}
+@media (max-width:860px), (max-width:1199px) and (orientation:portrait){ .pv-fig,.pv-side{grid-column:1/-1} .pv-fig{position:static} .pv-side{margin-top:var(--s7)} .pv-list p:not(.k),.pv-honest{max-width:none} }
 /* 06 · memory: the sentence in 1–5, the files in 7–12 */
 .mem{margin-top:var(--s9)}
 .mem-txt{grid-column:1/6;border-top:var(--hair);padding-top:var(--s4)}
@@ -659,13 +675,13 @@ html:not([data-motion="quiet"]) .answers li:not(.on) .ans{opacity:.32}
 .rd-line{grid-column:1/-1;grid-row:1;height:1px;background:var(--hc);position:relative;align-self:start}
 .rd-line i{position:absolute;inset:0;background:var(--paper);transform-origin:0 50%;transform:scaleX(var(--u,1))}
 .rd{grid-row:1;padding-top:var(--s5);display:flex;flex-direction:column}
-.rd:nth-of-type(2){grid-column:1/5} .rd:nth-of-type(3){grid-column:5/9} .rd:nth-of-type(4){grid-column:9/13}
+.rd:nth-of-type(2){grid-column:1/4} .rd:nth-of-type(3){grid-column:4/7} .rd:nth-of-type(4){grid-column:7/10} .rd:nth-of-type(5){grid-column:10/13}
 .rd-k{display:flex;align-items:center;gap:var(--s3);font:600 calc(11*var(--px))/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--paper);text-box:trim-both cap alphabetic;position:relative}
 .rd{position:relative}
 .rd:before{content:"";position:absolute;left:0;top:-4px;width:calc(8*var(--px));height:calc(8*var(--px));background:var(--paper)}
 .rd:not(.now):before{background:var(--sheet);box-shadow:inset 0 0 0 1px var(--paper)}
 .rd .picto{margin-top:var(--s6)}
-.rd h3{margin-top:var(--s6)}
+.rd h3{margin-top:var(--s6);text-wrap:balance}
 .rd.now h3{margin-top:var(--s6)}
 .rd p:not(.rd-k){margin-top:var(--s4);color:var(--mute);max-width:40ch}
 .rd-go{margin-top:var(--s5);font-size:var(--small);font-weight:600;color:var(--paper);text-box:trim-both cap alphabetic}
@@ -829,6 +845,10 @@ html:not([data-motion="quiet"]) .dz-r.in .ic .gt{opacity:1}
 .steps.measure li,.steps.measure li p{transition:none!important}
 .work-right{grid-column:4/-1}
 .winbox{position:relative;width:100%;height:100%;overflow:hidden}
+/* v3.6 · the film shows the whole run, so 06 shows only the part of the window each step is about: the camera frames it and the
+   rest of the window drops back under the section's own ground (a spotlight, like a guided tour). Quiet keeps the whole window. */
+.wspot{position:absolute;left:0;top:0;z-index:3;pointer-events:none;box-shadow:0 0 0 200vmax color-mix(in srgb,var(--sheet) 80%,transparent),inset 0 0 0 .5px rgba(244,239,230,.5);opacity:0;transition:opacity .3s var(--out3)}
+.wspot.on{opacity:1}
 /*NOSCALE*/
 .win{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden;background:#141416;box-shadow:inset 0 0 0 .5px rgba(244,239,230,.3);color:#F4EFE6;font-family:var(--text);font-size:13px;line-height:19px;will-change:transform}
 .win.w{width:960px;height:600px;--cw:500px;--dw:460px} .win.m{width:760px;height:640px;--cw:380px;--dw:380px} .win.n{width:380px;height:640px;--cw:380px;--dw:380px}
@@ -1297,7 +1317,7 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
 
 <header class="nav g" id="nav">
   <a class="logo" href="#hero" aria-label="MAT home"><canvas id="logoRig" aria-hidden="true"></canvas>MAT</a>
-  <nav class="links" aria-label="Sections"><a href="#problem">Why MAT</a><a href="#race">What it saves</a><a href="#work">How it works</a><a href="#ranks">Models</a><a href="#faq">Questions</a></nav>
+  <nav class="links" aria-label="Sections"><a href="#problem">Why MAT</a><a href="#race">What it saves</a><a href="#work">How it works</a><a href="#ranks">Models</a><a href="#private">Privacy</a><a href="#faq">Questions</a></nav>
   <div class="cta"><a class="btn primary md" href="#join" id="navJoin"><span class="bl">Join the waitlist</span></a></div>
 </header>
 <div class="gridov g" id="gridov" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -1475,7 +1495,7 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
         <li><div class="n">03</div><h3>It asks only when it must.</h3><p>Every stage passes MAT’s check before the next one starts. When a decision is yours, MAT’s question takes the place of the input, and the crew waits until you choose.</p></li>
         <li><div class="n">04</div><h3>You get the result.</h3><p>MAT signs off the last stage and hands you the work, with its sources, the time it took and what it cost.</p></li>
       </ol>
-      <div class="work-right"><div class="winbox" id="winBox"><div class="win" id="win" role="img" aria-label="MAT's window: the chat on the left, the drawer the crew works in on the right. You ask for a look at twelve AI note-taking apps; MAT plans a crew — six scouts, two to compare, one to write — and checks every stage. It stops once to ask whether Notion AI counts; you answer, and the work goes on. Done in 14 minutes for $0.60, against 22 minutes and $1.55 for one strong model; MAT files what worked for the next job like it."></div></div></div>
+      <div class="work-right"><div class="winbox" id="winBox"><i class="wspot" id="wSpot" aria-hidden="true"></i><div class="win" id="win" role="img" aria-label="MAT's window, one part at a time: the chat's input, the drawer the crew works in, MAT's question, the result. You ask for a look at twelve AI note-taking apps; MAT plans a crew — six scouts, two to compare, one to write — and checks every stage. It stops once to ask whether Notion AI counts; you answer, and the work goes on. Done in 14 minutes for $0.60, against 22 minutes and $1.55 for one strong model; MAT files what worked for the next job like it."></div></div></div>
     </div>
   </div></div>
 </section>
@@ -1495,10 +1515,30 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
     <div class="files mth rv"><span><b>Competitor pricing from the source</b><em>Looking it up · <i>used 3×</i></em></span><span><b>Launch emails under 200 words</b><em>Writing it · <i>used 5×</i></em></span><span><b>Churn by cohort, month by month</b><em>Working the data · <i>used 2×</i></em></span><span><b>RAG or fine-tune, for a support bot</b><em>Thinking it through · never used</em></span></div>
   </div>
 </section>
+<!-- 08 · Privacy (v3.6): its own section — no account, no server of ours; each model sees only its step; locked and encrypted -->
+<section id="private" data-ground="green">
+  <div class="g hd side">
+    <p class="lab"><b>08</b><span>Privacy</span><em>Answers B</em></p>
+    <h2 class="split rv">Your work never passes through us.</h2>
+    <p class="lede rv">MAT has no account and no server of its own. It runs on your computer and calls the models you connect directly, with your own keys.</p>
+  </div>
+  <div class="g pv">
+    <figure class="pv-fig rv" style="margin:0"><svg class="picto" data-picto="P" viewBox="0 0 560 256" role="img" aria-label="Your computer holds your chats, memory and files. Lines run straight from it to three model providers; each line carries one step's work out and the result back. Nothing sits in between."></svg><figcaption class="small pv-cap"><b>Where it goes</b>Straight from your computer to each model, one step at a time. The results come back to your computer.</figcaption></figure>
+    <div class="pv-side">
+      <ol class="pv-list">
+        <li class="rv"><p class="k">No middleman</p><h3>No account. No MAT server.</h3><p>There’s nothing to sign up for and nowhere for us to keep your work. The only thing we hold is your waitlist email.</p></li>
+        <li class="rv"><p class="k">Stays local</p><h3>It all stays on your computer.</h3><p>Chats, projects, the queue and what MAT learns are saved locally; finished work lands in Documents › MAT. Your keys sit in your system’s keychain.</p></li>
+        <li class="rv"><p class="k">Need to know</p><h3>Each model sees only its step.</h3><p>A scout gets the pages it reads, not your history. The writer gets the findings, not your other chats.</p></li>
+        <li class="rv"><p class="k">Locked</p><h3>Locked and encrypted, if you want.</h3><p>Turn it on in Settings › Security: Touch ID or your login password opens MAT, and your chats, memory and keys are encrypted with AES-256.</p></li>
+      </ol>
+      <p class="pv-honest rv"><b>Honest note.</b> Each step’s text goes to the provider whose model runs it, under that provider’s terms. For work that mustn’t leave your computer, connect a local model and MAT can run the whole job on your own machine, web searches aside.</p>
+    </div>
+  </div>
+</section>
 <!-- 09 · The official ranking -->
 <section id="ranks" data-ground="sol">
   <div class="g hd figs">
-    <p class="lab"><b>08</b><span>The ranking</span><em>Answers C</em></p>
+    <p class="lab"><b>09</b><span>The ranking</span><em>Answers C</em></p>
     <h2 class="split rv">Every model, ranked for every kind of work.</h2>
     <p class="lede rv">MAT keeps an official ranking in nine categories, named and scored the way Arena and Artificial Analysis do it, rebuilt every week. MAT staffs every seat from the first six.</p>
     <dl class="rk-figs rv"><div><dt>37</dt><dd>models ranked</dd></div><div><dt>9</dt><dd>categories</dd></div><div><dt>7 days</dt><dd>between rebuilds</dd></div></dl>
@@ -1515,7 +1555,7 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
 <section id="dock" data-ground="green">
   <div class="scene" id="dockScene" style="--sh:260vh"><div class="pin" id="dockPin">
     <div class="g hd">
-      <p class="lab"><b>09</b><span>Dock</span><em>Answers A</em></p>
+      <p class="lab"><b>10</b><span>Dock</span><em>Answers A</em></p>
       <h2 class="split rv">Out of the way until you're needed.</h2>
     </div>
     <div class="g body dock-g" id="dockRow">
@@ -1545,7 +1585,7 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
 <!-- 11 · Coming soon: a line from now to next -->
 <section id="soon" data-ground="blue">
   <div class="g hd">
-    <p class="lab"><b>10</b><span>Coming soon</span></p>
+    <p class="lab"><b>11</b><span>Coming soon</span></p>
     <h2 class="split rv">Next on the list.</h2>
   </div>
   <div class="g road" id="road">
@@ -1553,19 +1593,20 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
     <div class="rd"><p class="rd-k">Coming soon · 01</p><svg class="picto" data-picto="S" viewBox="0 0 320 200" aria-hidden="true"></svg><h3>Your computer is the server. Every device can call it.</h3><p>MAT runs a small server on the computer it lives on. Your phone, a tablet or another computer — any system, any browser — hands it work, answers its questions and picks up the results.</p></div>
     <div class="rd"><p class="rd-k">Coming soon · 02</p><svg class="picto" data-picto="M" viewBox="0 0 320 200" aria-hidden="true"></svg><h3>MAT as a bot in your chat apps.</h3><p>Add MAT to Slack, Telegram, WhatsApp or Lark. Hand over a job in a message; the question and the result come back in the same thread.</p></div>
     <div class="rd"><p class="rd-k">Coming soon · 03</p><svg class="picto" data-picto="T" viewBox="0 0 320 200" aria-hidden="true"></svg><h3>Build your own crew. Then share it.</h3><p>Set the seats, the model on each and the checks for work you do often, and keep it as your crew. Share it, or start from one someone else built — it runs on your own models.</p></div>
+    <div class="rd"><p class="rd-k">Coming soon · 04</p><svg class="picto" data-picto="E" viewBox="0 0 320 200" aria-hidden="true"></svg><h3>Crews built for your company.</h3><p>Company work is bigger and repeats: the same reports, reviews and research every week. We’ll build a crew for one of your workflows — strong models where judgement matters, cheap ones for the volume — so the savings grow with every run, on your own machines and keys.</p><a class="rd-go" href="mailto:hello@askmat.app?subject=MAT%20for%20my%20company">Tell us about your workflow →</a></div>
   </div>
 </section>
 <!-- 12 · Questions: set in three newspaper columns -->
 <section id="faq" data-ground="ink">
   <div class="g hd">
-    <p class="lab"><b>11</b><span>Questions</span></p>
+    <p class="lab"><b>12</b><span>Questions</span></p>
     <h2 class="split rv">Questions, answered.</h2>
   </div>
   <div class="g faq-g">
     <div class="faq-cols">
       <div class="qa"><p class="k">Q 01</p><h3>Is MAT another AI model?</h3><div class="qa-a" id="qa-01"><p class="vd">No.</p><p>MAT runs on the models you already have — Claude, ChatGPT, Gemini and others, plus models running on your own computer. It decides which one does each step, and checks the work.</p></div></div>
       <div class="qa"><p class="k">Q 02</p><h3>Which subscriptions can I connect?</h3><div class="qa-a" id="qa-02"><p class="vd">The ones you have.</p><p>Your Claude and ChatGPT plans, API keys from the major providers, any OpenAI-compatible server, and local models on your computer. The same provider can be added twice, for a work and a personal account.</p></div></div>
-      <div class="qa"><p class="k">Q 03</p><h3>Where does my data live?</h3><div class="qa-a" id="qa-03"><p class="vd">Locally.</p><p>Your chats, projects and what MAT has learned are saved on your own computer, and finished work lands in Documents › MAT. Each model sees only the work for its step.</p></div></div>
+      <div class="qa"><p class="k">Q 03</p><h3>Where does my data live?</h3><div class="qa-a" id="qa-03"><p class="vd">Locally.</p><p>Your chats, projects and what MAT has learned are saved on your own computer, and finished work lands in Documents › MAT. There’s no MAT server in between, and each model sees only the work for its step — <a class="qa-go" href="#private">08 Privacy</a>.</p></div></div>
       <div class="qa"><p class="k">Q 04</p><h3>Is it always cheaper than one model?</h3><div class="qa-a" id="qa-04"><p class="vd">No.</p><p>On a small job, one model is cheaper and faster, and MAT says so and runs it that way. The bigger the job, the more a crew of cheaper models saves.</p></div></div>
       <div class="qa"><p class="k">Q 05</p><h3>Do I have to manage the crew?</h3><div class="qa-a" id="qa-05"><p class="vd">Not yet.</p><p>For now MAT staffs every crew for you: you talk to MAT, in one chat, and it asks only when a decision is yours. Next, you’ll be able to build crews of your own — the seats, their models and the checks — and share them (Coming soon · 03).</p></div></div>
       <div class="qa"><p class="k">Q 06</p><h3>When can I use it?</h3><div class="qa-a" id="qa-06"><p class="vd">As seats open.</p><p>MAT is in a closed beta, free while it lasts. Join the waitlist and we'll send you an invite.</p></div></div>
@@ -1575,7 +1616,7 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
 <!-- 13 · Waitlist: the title, the field — and MAT itself, waiting -->
 <section id="cta" data-ground="amber">
   <div class="g cta-g" id="join">
-    <p class="lab"><b>12</b><span>Waitlist</span></p>
+    <p class="lab"><b>13</b><span>Waitlist</span></p>
     <h2 class="split rv">MAT is almost ready.</h2>
     <div class="cta-wl rv"><form class="wl" data-wl="cta" novalidate><label class="wl-f"><span class="vh">Email</span><input type="email" name="email" placeholder="you@company.com" autocomplete="email" required></label><button class="btn primary" type="submit"><span class="bl">Join the waitlist</span><span class="arw"><i>→</i><i>→</i></span></button><label class="wl-hp" aria-hidden="true">Leave this empty<input type="text" name="company" tabindex="-1" autocomplete="off"></label><p class="wl-done" role="status"><b>You're on the list.</b> We'll email you when your seat is ready.<span>Preview · this page doesn't send sign-ups yet.</span></p><p class="wl-msg" role="alert"></p></form></div>
     <p class="small cta-meta rv">Desktop app · runs locally · free while in beta</p>
@@ -1587,7 +1628,7 @@ html[data-motion="quiet"] .mcol .seats{opacity:1!important}
 <footer data-ground="ink">
   <div class="g fmap">
     <div><div class="fh">MAT</div><p class="small">One chat, and a crew on the models you already pay for — running locally.</p><div class="foot-wl"><form class="wl" data-wl="foot" novalidate><label class="wl-f"><span class="vh">Email</span><input type="email" name="email" placeholder="you@company.com" autocomplete="email" required></label><button class="btn primary" type="submit"><span class="bl">Join the waitlist</span><span class="arw"><i>→</i><i>→</i></span></button><label class="wl-hp" aria-hidden="true">Leave this empty<input type="text" name="company" tabindex="-1" autocomplete="off"></label><p class="wl-done" role="status"><b>You're on the list.</b> We'll email you when your seat is ready.<span>Preview · this page doesn't send sign-ups yet.</span></p><p class="wl-msg" role="alert"></p></form></div></div>
-    <div><div class="fh"><b>01</b><span>Product</span></div><a href="#problem">Why MAT</a><a href="#race">What it saves</a><a href="#work">How it works</a><a href="#ranks">The ranking</a><a href="#soon">Coming soon</a></div>
+    <div><div class="fh"><b>01</b><span>Product</span></div><a href="#problem">Why MAT</a><a href="#race">What it saves</a><a href="#work">How it works</a><a href="#private">Your data</a><a href="#ranks">The ranking</a><a href="#soon">Coming soon</a></div>
     <div><div class="fh"><b>02</b><span>Beta</span></div><a href="#join">Join the waitlist</a><a href="#faq">Questions</a><a href="#changelog" data-sheet>Changelog</a></div>
     <div><div class="fh"><b>03</b><span>Company</span></div><a href="#about" data-sheet>About</a><a href="#privacy" data-sheet>Privacy</a><a href="#terms" data-sheet>Terms</a><a href="#contact" data-sheet>Contact</a></div>
   </div>
@@ -2219,7 +2260,30 @@ function renderWin(p){ const E=WIN.E; if(!E||Math.abs(p-WIN.p)<1e-4) return; WIN
   E.bar.classList.toggle('need',asking); E.bar.classList.toggle('done',done);
   if(showNow){ E.nowL.style.width=(100*f).toFixed(1)+'%'; E.nowC.textContent=bc; }
   // the steps on the left follow the window
-  const sk=p<0.20?0:p<0.50?1:p<0.80?2:3; $$('#steps li').forEach((s,i)=>s.classList.toggle('on',LEVEL==='quiet'||PH()?true:i===sk)); }
+  const sk=p<0.20?0:p<0.50?1:p<0.80?2:3; $$('#steps li').forEach((s,i)=>s.classList.toggle('on',LEVEL==='quiet'||PH()?true:i===sk)); wCam(p); }
+// v3.6 · the camera: one area of the window per step, measured live from the window itself (so it follows the chat docking, the
+// drawer sliding in and the log moving), framed and magnified in the cell. It moves in the 0.04 around each step's boundary.
+// 01 ask: the chat's input and the newest messages · 02 staffed: the drawer's board and numbers · 03 asks: MAT's question in place
+// of the input · 04 result: the delivered message, its file and what it cost.
+const WSTEP=[0.235,0.50,0.81]; // the camera's boundaries: 02 waits until the drawer is docked
+function wOff(el){ let x=0,y=0,n=el; while(n&&n!==WIN.el){ x+=n.offsetLeft; y+=n.offsetTop; n=n.offsetParent; } return [x,y]; }
+function wArea(i){ const E=WIN.E, W=WIN.el.offsetWidth, H=WIN.el.offsetHeight, narrow=WIN.mode==='n';
+  // the chat's width where it is going, not where its 0.55 s transition happens to be (the camera is measured once per scroll step)
+  const chat=!narrow&&WIN.dk?parseFloat(WIN.el.style.getPropertyValue('--cw'))||W:W;
+  if(i===1){ const dx=narrow?0:chat, [,ny]=wOff(E.num); return [dx,0,narrow?W:W-dx,Math.min(H,ny+E.num.offsetHeight+8)]; }
+  if(i===2){ const [,ay]=wOff(E.ask), y=Math.max(0,ay-112); return [0,y,chat,H-y]; }
+  if(i===3){ const [,my]=wOff(E.msgs[4]), y=Math.max(0,Math.min(H-320,my-20)); return [0,y,chat,H-y]; }
+  // 01: from the newest message (or MAT thinking) down to the input
+  let last=-1; [...E.msgs,E.think].forEach(m=>{ if(m.classList.contains('on')) last=Math.max(last,wOff(m)[1]); });
+  const top=last<0?H-240:Math.max(0,Math.min(last-20,H-240)); return [0,top,chat,H-top]; }
+function wCam(p){ const sp=$('#wSpot'); if(!sp) return;
+  if(LEVEL==='quiet'||PH()||getComputedStyle($('#workScene .pin')).position!=='sticky'){ sp.classList.remove('on'); WIN.el.style.transform=`scale(${WIN.k.toFixed(4)})`; return; }
+  let i=0; WSTEP.forEach((b,j)=>{ if(p>=b-0.02) i=j+1; }); const b=WSTEP[i-1], u=i?cosE(clamp((p-(b-0.02))/0.04)):1;
+  const A=wArea(i), P=i?wArea(i-1):A, r=A.map((v,j)=>lerp(P[j],v,u));
+  const BW=WIN.box.clientWidth, BH=WIN.box.clientHeight, pad=16*PXU(), z=Math.min((BW-2*pad)/r[2],(BH-2*pad)/r[3],1.6*PXU());
+  const tx=(BW-r[2]*z)/2-r[0]*z, ty=(BH-r[3]*z)/2-r[1]*z;
+  WIN.el.style.transform=`translate(${tx.toFixed(1)}px,${ty.toFixed(1)}px) scale(${z.toFixed(4)})`;
+  Object.assign(sp.style,{transform:`translate(${(tx+r[0]*z).toFixed(1)}px,${(ty+r[1]*z).toFixed(1)}px)`,width:(r[2]*z).toFixed(1)+'px',height:(r[3]*z).toFixed(1)+'px'}); sp.classList.add('on'); }
 winBuild();
 
 // ═══ 5 · Models (brand colours from the app's model table) ═══
@@ -2396,6 +2460,35 @@ const PICTO={
     return t=>{ const a=seg(t,0.06,0.26); add(a); me.seat[3].setAttribute('class',a>=1?'pl':'pdash');
       me.seat[1].setAttribute('class',t>=0.36?'pf':'pl');
       SL.forEach((_,i)=>{ const u=seg(t,0.5+i*0.1,0.72+i*0.1); go[i](u); cp[i].g.style.opacity=u>=1?1:0; cp[i].seat[1].setAttribute('class','pf'); }); }; },
+  // P · (v3.6, 08 Privacy) your computer holds the chats, memory and files; lines run straight to three providers — nothing in
+  // between. Each line carries one step out (a short bar, never the whole memory) and the result back, which lands with your files.
+  P(s){ const PY=[64,128,192];
+    E('rect',{x:0,y:32,width:208,height:192,class:'pl'},s); E('circle',{cx:32,cy:64,r:12,class:'pf'},s);
+    [120,96,72].forEach((w,j)=>E('rect',{x:56,y:58+8*j,width:w,height:4,class:'pf'},s));   // your chats
+    [152,128,104].forEach((w,j)=>E('rect',{x:24,y:116+8*j,width:w,height:4,class:'pfm'},s)); // what MAT has learned
+    const files=[136,112,88].map((w,j)=>({w,e:E('rect',{x:24,y:176+8*j,width:0,height:4,class:'pf'},s)})); // the finished work, as it comes back
+    const P=PY.map(y=>E('rect',{x:496,y:y-24,width:48,height:48,class:'pd'},s));
+    PY.forEach(y=>E('line',{x1:208,y1:y,x2:496,y2:y,class:'pdash'},s));
+    const tr=PY.map(y=>trail(E('line',{x1:208,y1:y,x2:496,y2:y,class:'pl'},s)));
+    const out=PY.map(()=>E('rect',{width:16,height:4,class:'pf'},s)), back=PY.map(()=>E('rect',{width:16,height:4,class:'pg'},s));
+    return t=>{ PY.forEach((y,i)=>{ const u=seg(t,i*0.06,0.22+i*0.06); tr[i](u); P[i].setAttribute('class',u>=1?'pl':'pd');
+        const o=seg(t,0.3+i*0.06,0.5+i*0.06); out[i].setAttribute('x',(208+(480-208)*o).toFixed(1)); out[i].setAttribute('y',y-2); out[i].style.opacity=o>0&&o<1?1:0;
+        const b=seg(t,0.56+i*0.08,0.78+i*0.08); back[i].setAttribute('x',(480-(480-208)*b).toFixed(1)); back[i].setAttribute('y',y-2); back[i].style.opacity=b>0&&b<1?1:0;
+        files[i].e.setAttribute('width',(files[i].w*seg(t,0.78+i*0.08,0.86+i*0.08)).toFixed(1)); }); }; },
+  // E · (v3.6, Coming soon · 04) the same job comes in again and again; one crew built for it — a strong model plans and checks,
+  // three cheap seats do the volume — turns each into a checked result. Under it, the bill: one strong model alone (outline) grows by
+  // a long step per run, the crew (filled) by a short one, so the gap widens with every run.
+  E(s){ const JY=[56,80,104,128];
+    const job=JY.map(y=>E('rect',{x:0,y,width:16,height:16,class:'pl'},s));
+    JY.forEach(y=>{ E('line',{x1:16,y1:y+8,x2:96,y2:100,class:'pd'},s); E('line',{x1:192,y1:100,x2:272,y2:y+8,class:'pd'},s); });
+    const inn=JY.map(y=>trail(E('line',{x1:16,y1:y+8,x2:96,y2:100,class:'pl'},s))), outl=JY.map(y=>trail(E('line',{x1:192,y1:100,x2:272,y2:y+8,class:'pgl'},s)));
+    E('rect',{x:96,y:52,width:96,height:96,class:'pl'},s); E('rect',{x:108,y:88,width:24,height:24,class:'pf'},s);
+    [66,94,122].forEach(y=>{ E('line',{x1:132,y1:100,x2:156,y2:y+6,class:'pl'},s); E('rect',{x:156,y,width:12,height:12,class:'pl'},s); });
+    const res=JY.map(y=>E('rect',{x:272,y,width:16,height:16,class:'pg'},s));
+    const A=E('rect',{x:0,y:172,width:0,height:4,class:'pd'},s), B=E('rect',{x:0,y:184,width:0,height:4,class:'pf'},s);
+    return t=>{ let done=0; JY.forEach((y,i)=>{ const a=0.06+i*0.22, u=seg(t,a,a+0.1), v=seg(t,a+0.1,a+0.2); inn[i](u); outl[i](v);
+        job[i].setAttribute('class',u>=1?'pd':'pl'); res[i].style.opacity=v>=1?1:0; done+=seg(t,a,a+0.2); });
+      A.setAttribute('width',(72*done).toFixed(1)); B.setAttribute('width',(26*done).toFixed(1)); }; },
   // M · a job comes in from a chat app; the result goes back to the same chat
   M(s){ const Y=[44,84,124];
     Y.forEach(y=>E('line',{x1:32,y1:y+16,x2:192,y2:100,class:'pd'},s));
